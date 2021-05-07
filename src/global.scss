@@ -1,0 +1,89 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-title {
+    font-weight: 300 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    ion-content {
+     --background: transparent;
+     background: #202020 !important;
+ }
+}
+
+* {
+	outline:none;
+}
+.gems-border {
+    background: url('assets/img/colourbar.png');
+    height: 10px;
+    background-size: cover;
+    position: relative;
+}
+.rainbow {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}
+.rainbow div {
+    width: 10%;
+    height: 10px
+}
+.rainbow div:nth-child(1) {
+    background: #004b85;
+}
+.rainbow div:nth-child(2) {
+    background: #0e76bc;
+}
+.rainbow div:nth-child(3) {
+    background: #13a538;
+}
+.rainbow div:nth-child(4) {
+    background: #006535;
+}
+.rainbow div:nth-child(5) {
+    background: #f8ad21;
+}
+.rainbow div:nth-child(6) {
+    background: #d47918;
+}
+.rainbow div:nth-child(7) {
+    background: #da1a24;
+}
+.rainbow div:nth-child(8) {
+    background: #b11917;
+}
+.rainbow div:nth-child(9) {
+    background: #1ab1a4;
+}
+.rainbow div:nth-child(10) {
+    background: #007b7e;
+}

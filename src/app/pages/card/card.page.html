@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Plan</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div class="gems-border">
+  <div class="rainbow">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<ion-content>
+  <div class="tp-wrapper">
+    <!-- <div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
+      <div class="tp-box__side tp-box__front">
+        <img src="assets/img/credit_card.png" alt="">
+      </div>
+      <div class="tp-box__side tp-box__back">
+        <img src="assets/img/credit_card_back.png" alt="">
+      </div>
+    </div> -->
+
+    <div class="membership">
+      <img src="assets/img/sapphire.jpg" alt="">
+    </div>
+
+
+  </div>
+  <div class="card-wrapper">
+    <!-- <div class="card">
+      <img src="assets/img/credit_card.png" alt="">
+    </div> -->
+
+    <div class="settings-list">
+        <ion-item button>
+          <ion-icon slot="start" name="card"></ion-icon>
+          Activate Card
+          <ion-toggle checked slot="end" color="primary"></ion-toggle>
+        </ion-item>
+        <ion-item detail button>
+          <ion-icon slot="start" name="download"></ion-icon>
+          Download Statement
+        </ion-item>
+        <ion-item detail button>
+          <ion-icon slot="start" name="call"></ion-icon>
+          Contact Support
+        </ion-item>
+        <ion-item lines="none" detail button>
+          <ion-icon slot="start" name="settings"></ion-icon>
+          Card Settings
+        </ion-item>
+    </div>
+    
+  </div>
+</ion-content>

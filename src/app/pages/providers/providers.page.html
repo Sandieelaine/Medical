@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Find A Provider</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div class="gems-border">
+
+</div>
+
+<ion-content>
+  <google-map
+  [height]="'100%'"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options">
+  <map-marker
+  #markerElem
+  *ngFor="let marker of markers"
+  [position]="marker.position"
+  [label]="marker.label"
+  [title]="marker.title"
+  [options]="marker.options"
+  (mapClick)="openInfo(markerElem, marker.label.text)"
+>
+</map-marker>
+
+<map-info-window>{{ infoContent }}</map-info-window>
+  </google-map>
+
+  <div *ngIf="markers" class="map-slides-wrapper">
+    <h2>Nearby Providers</h2>
+    <ion-slides [options]="slideOptions">
+      <ion-slide *ngFor="let marker of markers">
+        <div class="map-card">
+          <ion-item lines="none">
+            <ion-icon color="primary" slot="start" name="map"></ion-icon>
+            <ion-label>
+              <h3>{{marker.title}}</h3>
+              <p>{{marker.label.text}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-slide>
+
+    </ion-slides>
+  </div>
+  
+</ion-content>

@@ -1,0 +1,59 @@
+// Map Bottom Swiper Cards
+.map-slides-wrapper {
+    position: absolute;
+    bottom: 0;
+    padding: 0;
+    background: -webkit-linear-gradient(bottom, #eeeeee 80%, rgba(238, 238, 238, 0.1) 99%, rgba(255, 255, 255, 0) 100%);
+    padding-top: 19px;
+}
+h2 {
+    margin-top: 18px;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ion-color-primary);
+    margin-left: 15px;
+}
+h3 {
+    color: var(--ion-color-primary);
+    font-weight: 500 !important;
+    font-size: 17px !important;
+}
+
+// Map Card Wrapper
+.map-card {
+    flex-grow: 1;
+    background: #fff;
+    border-radius: 5px;
+    text-align: left;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.37) 2px 2px 3px;
+    margin-bottom: 20px;
+    ion-icon {
+        background: #eee;
+        padding: 9px;
+        border-radius: 3px;
+    }
+    h4 {
+        margin-top: 16px;
+        margin-bottom: 5px;
+        font-weight: 500;
+        line-height: 0;
+        font-size: 17px;
+    }
+    p {
+        font-size: 13px;
+        color: #444444;
+    }
+}
+
+.get-directions {
+    p {
+        font-weight: 500;
+        color: var(--ion-color-primary, #3880ff) !important;
+    }
+}
+
+.swiper-container {
+    margin-bottom: 55px !important;
+    padding-left: 15px;
+}

@@ -1,0 +1,223 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>360&deg; View</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon (click)="logout()" slot="end" color="warning" name="log-out-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <div class="topitem">
+      <ion-item lines="full">
+        <ion-thumbnail slot="start">
+          <img [src]="MemberImage" alt="">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{profile?.FullName | titlecase}}</h2>
+          <p>{{profile?.MemberNo | titlecase}}  |  {{profile?.Plan.BenefitPlanName | titlecase}}</p>
+        </ion-label>
+        <ion-icon (click)="logout()" slot="end" color="warning" name="log-out-outline"></ion-icon>
+      </ion-item>
+    </div>
+  </ion-toolbar>
+</ion-header> -->
+
+<!-- <div class="gems-border"></div> -->
+
+<ion-content>
+  <ion-grid class="ion-no-padding benefit-slide">
+    <ion-row *ngIf="dayToDayBenefits" class="details">
+      <ion-col size="3">
+        <img class="rounded-full border-gray-400 border-2 border-solid" [src]="MemberImage" alt="">
+      </ion-col>
+      <ion-col size="9">
+        <div class="rounded p-5">
+          <span class="text-white text-sm uppercase block">{{profile?.FullName | titlecase}}</span>
+          <span class="text-white text-4xl font-bold block" *ngIf="dayToDayBenefits">
+            {{dayToDayBenefits[0].MaxAmount.Amount | currency: 'R'}}</span>
+          <span class="text-white text-sm uppercase block">Balance</span>
+        </div>
+      </ion-col>
+      <hr class="bg-gray-300 w-full">
+
+      <ion-col col="6" >
+        <span class="text-white text-xs leading-none uppercase pt-4 block">My Plan</span>
+        <span class="text-white text-lg font-bold leading-none uppercase pt-4 pb-4">{{profile?.Plan?.BenefitPlanName}}</span>
+      </ion-col>
+
+      <ion-col col="6">
+        <span class="text-white text-xs leading-none uppercase pt-4 block">Member No.</span>
+        <span class="text-white text-lg font-bold leading-none uppercase pt-4">{{profile?.MemberNo}}</span>
+      </ion-col>
+      <div class="h-4"></div>
+    </ion-row>
+
+
+    <!-- <ion-row class="boxes" *ngIf="dayToDayBenefits">
+      <ion-col>
+        <ion-slides [options]="slideOpt">
+          <ion-slide>
+            <ion-icon name="home"></ion-icon>
+            <p>USED</p>
+            <h2 *ngIf="dayToDayBenefits">{{dayToDayBenefits[0].FreeAmount.Amount | currency: 'R'}}</h2>
+          </ion-slide>
+          <ion-slide>
+            <ion-icon name="home"></ion-icon>
+            <p>USED</p>
+            <h2 *ngIf="dayToDayBenefits">{{dayToDayBenefits[0].UsedAmount.Amount | currency: 'R'}}</h2>
+          </ion-slide>
+          <ion-slide>
+            <ion-icon name="home"></ion-icon>
+            <p>USED</p>
+            <h2>R2,875</h2>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-16">
+      <ion-col>
+        <div class="flex" style="padding: 10px;">
+          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-wide">Allocated</span>
+            <span
+              class="font-bold text-3xl tracking-tighter dark:text-white">{{dayToDayBenefits[0].FreeAmount.Amount | currency: 'R'}}</span>
+          </div>
+          <div style="width: 20px;"></div>
+          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
+            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-wide">Used</span>
+            <span
+              class="font-bold text-3xl tracking-tighter dark:text-white">{{dayToDayBenefits[0].UsedAmount.Amount | currency: 'R'}}</span>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+
+    <!-- <ion-row *ngIf="activity" class="heady">
+      <ion-col class="ion-no-padding activity-title" col-6>
+        <span class="activity-title">Activity</span>
+      </ion-col>
+      <ion-col class="ion-no-padding ion-text-end" col-6>
+        View All
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="activity">
+      <ion-col class="ion-no-padding">
+        <div class="acticity-wrap">
+          <ion-item *ngFor="let item of activity" lines="inset" detail button>
+            <ion-label>
+              <h2 class="activity-header">{{item.Header}}</h2>
+              <p  class="activity-date">{{item.DOA | date: 'mediumDate'}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0" style="margin: 10px;">
+      <div class="w-full flex justify-center h-16 items-center">
+        <div class="w-1/2">
+          <span class="text-gray-900 dark:text-gray-200 ml-3 font-semibold">Dependants</span>
+        </div>
+        <div class="w-1/2 flex justify-end mr-2">
+          <div class="dependant inline-block p-0 m-0" *ngFor="let dependant of profile?.Dependants">
+            <img class="border-4 border-solid border-white dark:border-gray-900 rounded-full w-14 h-14"
+              src="https://api.gems.gov.za/api/v1/MemberImage/{{dependant.BeneficiaryID}}?counter=0" alt="">
+          </div>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row class="ion-padding">
+      <ion-col>
+        <div class="flex justify-between">
+          <span class="text-md font-semibold dark:text-gray-200">Documents</span>
+          <span class="text-xs text-yellow-500">View All</span>
+        </div>
+
+        <div class="mt-4">
+          <ion-item class="shadow-md mb-2" button detail lines="none">
+            <ion-icon slot="start" name="download-outline"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">Member Certificate</span>
+              <span class="text-xs text-gray-600">2021</span>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="shadow-md mb-2" button detail lines="none">
+            <ion-icon slot="start" name="download-outline"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">Tax Certificate</span>
+              <span class="text-xs text-gray-600">2021</span>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="activity" class="ion-padding">
+      <ion-col>
+        <div class="flex justify-between">
+          <span class="text-md font-semibold dark:text-gray-200">Activity</span>
+          <span class="text-xs text-yellow-500">View All</span>
+        </div>
+        
+
+        <div class="mt-4">
+          <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2" button detail lines="none">
+            <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">{{item.Header}}</span>
+              <span class="text-xs text-gray-600">{{item.DOA | date: 'mediumDate'}}</span>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
+        <img src="assets/img/ad.jpg" alt="">
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+
+
+
+
+
+  <div style="height: 20px;"></div>
+</ion-content>

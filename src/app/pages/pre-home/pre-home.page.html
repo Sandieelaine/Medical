@@ -1,0 +1,32 @@
+<ion-content>
+  <div class="wrapper">
+    <div class="top">
+      <img src="assets/img/information.png" alt="">
+      <p>What would you like to do?</p>
+    </div>
+    <div class="bottom">
+      <ion-card>
+        <ion-item lines="none" button detail>
+          <ion-icon name="book-outline" slot="start">
+          </ion-icon>
+          <ion-label>
+            Submit A Claim
+          </ion-label>
+        </ion-item>
+      </ion-card>
+
+      <ion-card>
+        <ion-item lines="none" button detail>
+          <ion-icon name="book-outline" slot="start">
+          </ion-icon>
+          <ion-label>
+            View My Balance
+          </ion-label>
+        </ion-item>
+      </ion-card>
+
+      <ion-button style="margin: 0 20px;" shape="round" type="submit" color="primary" expand="full" (click)="navigateToHome()">Skip</ion-button>
+      
+    </div>
+  </div>
+</ion-content>

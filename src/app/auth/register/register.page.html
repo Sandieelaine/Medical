@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div id="strip">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div
+  style="position: absolute; width: 100%; top: 64px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
+</div>
+
+<ion-content class="ion-padding">
+  <form (submit)="onRegister(registerForm)" #registerForm="ngForm">
+    <ion-item>
+      <ion-input name="username" ngModel placeholder="Enter Username" type="text" #usernameInput="ngModel" required
+        username></ion-input>
+    </ion-item>
+
+    <span class="error-msg" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
+      a valid username</span>
+    <div style="height: 5px"></div>
+
+    <ion-item>
+      <ion-input name="password" ngModel placeholder="GEMS Member Number/ID Number" type="password"
+        #passwordInput="ngModel" required></ion-input>
+    </ion-item>
+
+
+    <span class="error-msg" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
+      enter a valid password</span>
+
+    <ion-button id="signIn" [disabled]="registerForm.invalid" shape="round" type="submit" color="primary" expand="full">
+      Continue</ion-button>
+  </form>
+
+
+
+</ion-content>

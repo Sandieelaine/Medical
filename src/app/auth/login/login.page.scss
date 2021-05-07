@@ -1,0 +1,73 @@
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #eeeeee;
+    // background: url('../../../assets/img/bg.png');
+    // background-position: center;
+    // background-size: cover;
+  }
+  
+  .top {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    background: url('../../../assets/img/login/bg_landscape.png');
+    background-position: center;
+    background-size: cover;
+    max-height: calc(60vh + 20px);
+  }
+  
+  .rainbow {
+    position: absolute;
+    top: 0;
+  }
+  
+  .logo {
+    padding: 40px 0;
+  }
+  
+  .bottom {
+    flex: 1;
+    background: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-top: -20px;
+    z-index: 1;
+  }
+  
+  ion-item {
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: 2px solid #eeeeee;
+  }
+  ion-input {
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+  }
+  
+  #content {
+    width: 89vw;
+    margin: 1rem auto;
+  }
+  
+  #signIn {
+    height: 60px;
+    margin: 1rem auto;
+  }
+  
+  #signFooterLinks {
+    display: flex;
+    justify-content:space-between;
+    font-size: 13px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  

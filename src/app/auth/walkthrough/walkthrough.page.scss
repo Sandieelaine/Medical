@@ -1,0 +1,88 @@
+.wrapper {
+    background: #fff;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  h2 {
+    font-size: 1.675em;
+    color: #000;
+    font-family: Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+  }
+  
+  p {
+    color: #707070;
+    line-height: 25px;
+    font-size: 0.8750em;
+    padding-left: 1rem;
+    padding-right: 1rem
+  }
+  
+  ion-slide {
+    height: 100vh;
+    display: flex !important;
+    flex-direction: column;
+  }
+  
+  .top {
+    width: 100%;
+    flex: 1;
+    max-height: calc(60vh);
+    background: #eeeeee;
+    padding: 2rem 0;
+    clip-path: circle(100% at 50% 0);
+    img {
+      margin: 0 auto;
+    }
+  }
+  
+  .top img {
+    max-height: 49vh;
+  }
+  
+  .bottom {
+    flex: 1;
+    padding-top: 1rem;
+  }
+  
+  ion-button {
+    height: 50px;
+    width: 85vw;
+  }
+  
+  .skip-step {
+    color: #707070;
+    font-size: medium;
+    display: block;
+    cursor: pointer;
+    margin-top: 1.5rem;
+  }
+  
+  .skip-step:focus {
+    outline: none;
+  }
+  
+  
+  @media screen and (max-width:320px) {
+    h2 {
+      font-size: 1.475em;
+    }
+  
+    .top {
+      padding: 1rem 0 1rem;
+    }
+  
+    ion-button {
+      height: 45px;
+      width: 89vw;
+    }
+  
+    .skip-step {
+      margin-top: .8rem;
+    }
+  }
+  

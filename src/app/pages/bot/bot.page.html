@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item>
+      <ion-label>
+        <h2>GEMS Virtual Assistant</h2>
+        <p>I'm here for you</p>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-title>
+      Virtual Assistant
+    </ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="intro">
+    <h2>Hi there Norman! I'm the GEMS virtual assistant, here to assist you. Ask me questions like or tap one of these</h2>
+    <p>Access My Claims</p>
+    <p>Order A New Card</p>
+  </div> -->
+
+    <div class="message-wrapper">
+        <div>
+          <img class="profile-pic left" src="assets/img/logo.png" />
+          <!--  wave-->
+          <div class="chat-bubble left slide-left">
+    
+            <div class="message" autolinker>Hello Norman!!!</div>
+    
+            <!--
+              <div class="message-detail">
+              <span class="bold">Vote Africa Agent</span>
+            </div>
+            -->
+    
+          </div>
+        </div>
+        <div>
+          <img class="profile-pic right" src="https://www.freeweekly.com/wp-content/uploads/2015/11/Joe-DanielsCOVER.jpg" />
+          <!--  wave-->
+          <div class="chat-bubble right slide-right">
+    
+            <div class="message-right" autolinker>Hi, can I have the status to my latest claim</div>
+    
+            <!--
+              <div class="message-detail">
+              <span class="bold">Norman Dube</span>
+            </div>
+            -->
+    
+          </div>
+        </div>
+    </div>
+
+
+    <div class="message-wrapper">
+      <div>
+        <img class="profile-pic left" src="assets/img/logo.png" />
+        <!--  wave-->
+        <div class="chat-bubble left slide-left">
+  
+          <div class="message" autolinker>Your latest claim was made on 20 July 2020 and is currently still pending. You should receive a notification when status changes</div>
+  
+          <!--
+            <div class="message-detail">
+            <span class="bold">Vote Africa Agent</span>
+          </div>
+          -->
+  
+        </div>
+      </div>
+      <!-- <div>
+        <img class="profile-pic right" src="https://www.freeweekly.com/wp-content/uploads/2015/11/Joe-DanielsCOVER.jpg" />
+
+        <div class="chat-bubble right slide-right">
+  
+          <div class="message-right" autolinker>Thank you</div>
+  
+        </div>
+      </div> -->
+  </div>
+
+    <div *ngIf="isLoading" class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div style="height: 90px"></div>
+
+  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item>
+      <ion-input #input type="text" placeholder="Your message here.." (keyup.enter)="ngOnInit()"></ion-input>
+
+      <ion-button icon-only item-right clear>
+        <ion-icon name="mic"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,67 @@
+
+<div id="strip">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div style="position: absolute; width: 100%; top: 0; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px"></div>
+
+<ion-content>
+  <div class="login-wrapper">
+    <div class="top">
+      <div class="logo">
+        <img src="assets/img/gemslogo.png" width="221" height="95">
+      </div>
+    </div>
+
+
+    <div class="bottom">
+      <div id="content">
+
+        <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+          <ion-item>
+            <ion-input name="username" ngModel placeholder="Enter Username" type="text" #usernameInput="ngModel"
+              required username></ion-input>
+            <ion-button slot="start" fill="clear">
+              <ion-icon color="dark" name="clipboard"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <span class="error-msg" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
+            a valid username</span>
+          <div style="height: 5px"></div>
+
+          <ion-item>
+            <ion-input name="password" ngModel placeholder="Enter Password" type="password" #passwordInput="ngModel"
+              required></ion-input>
+            <ion-button fill="clear" slot="start">
+              <ion-icon color="dark" name="clipboard"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+
+          <span class="error-msg" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
+            enter a valid password</span>
+
+          <ion-button id="signIn" [disabled]="loginForm.invalid" shape="round" type="submit" color="primary" expand="full">Sign In</ion-button>
+        </form>
+
+        <div id="signFooterLinks">
+          <span routerLink="/forgot-password">Forgot Password</span>
+          <span>|</span>
+          <span routerLink="/register">Register</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>

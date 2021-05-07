@@ -1,0 +1,78 @@
+<div id="strip">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div style="position: absolute; width: 100%; top: 0; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px"></div>
+
+<ion-content>
+
+  <div class="wrapper">
+
+    <ion-slides pager [options]="slideOpts">
+
+      <ion-slide>
+        <div class="top">
+          <img src="assets/img/login/claims_screen.png">
+
+        </div>
+        <div class="bottom">
+          <h2>Claims Management<br> Simplified</h2>
+          <ion-text color="dark">
+            <p>Lorem Ipsum is simply dummy text</p>
+          </ion-text>
+
+          <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
+          <span class="skip-step" routerLink="/onboard">Skip this step</span>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="top">
+          <img src="assets/img/login/360_view_screen.png">
+
+        </div>
+        <div class="bottom">
+          <h2>360 View<br></h2>
+          <ion-text color="dark">
+            <p>Lorem Ipsum is simply dummy text of the printing
+              and typesetting industry. </p>
+          </ion-text>
+
+          <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
+
+          <span class="skip-step" routerLink="/onboard">Skip this step</span>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="top">
+          <img src="assets/img/login/benefits_screen.png">
+
+        </div>
+        <div class="bottom">
+          <h2>Benefit Management<br></h2>
+          <ion-text color="dark">
+            <p>Lorem Ipsum is simply dummy text of the printing
+              and typesetting industry. </p>
+          </ion-text>
+
+          <ion-button color="primary" fill="solid" shape="round" routerLink="/onboard">Continue</ion-button>
+        </div>
+      </ion-slide>
+
+
+
+    </ion-slides>
+
+  </div>
+
+
+</ion-content>
