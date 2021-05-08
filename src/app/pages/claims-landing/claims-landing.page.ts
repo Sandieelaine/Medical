@@ -21,7 +21,7 @@ export class ClaimsLandingPage implements OnInit {
   }
 
   getClaimsByDate() {
-    this.api.getClaimsByDate('2020-6-1', '2021-2-2')
+    this.api.getClaimsByDate(this.dateFrom, this.dateTill)
     .subscribe(claims => {
       console.log(claims);
     }, err => {
@@ -41,8 +41,8 @@ export class ClaimsLandingPage implements OnInit {
       date: new Date(this.dateFrom),
       mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
-      maxDate: new Date(),
-      minDate: moment().subtract(3, 'months').toDate()
+      // maxDate: new Date(),
+      // minDate: moment().subtract(3, 'months').toDate()
     }).then(
       date => {
         console.log('Got date: ', date);
@@ -72,7 +72,7 @@ export class ClaimsLandingPage implements OnInit {
     console.log(this.dateStatus);
     console.log
     this.datePicker.show({
-      date: new Date(this.dateFrom),
+      date: new Date(this.dateTill),
       mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
       maxDate: new Date(),
@@ -90,6 +90,8 @@ export class ClaimsLandingPage implements OnInit {
         this.dateTill = `${year}-${month}-${day}`;
         if(moment(date).isAfter(moment(new Date(this.dateFrom)))) {
           console.log('Date is after and okay')
+          this.getClaimsByDate();
+          
         } else if(moment(date).isBefore(moment(new Date(this.dateFrom)))) {
           console.log('Date not allowed');
           alert('Please select a date after your selected date from');

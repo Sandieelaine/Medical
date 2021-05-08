@@ -25,6 +25,9 @@
 </div>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <div class="px-2 py-1" *ngFor="let benefit of benefits; let i = index;" (click)="toggleSection(i)">
     <ion-item lines="full" button>

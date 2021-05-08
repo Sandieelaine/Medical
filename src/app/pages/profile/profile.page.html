@@ -24,26 +24,14 @@
     </div>
   </div>
 </ion-header>
-<!-- <ion-header>
-  <ion-toolbar color="primary">
-    <div class="topitem">
-      <ion-item lines="full">
-        <ion-thumbnail slot="start">
-          <img [src]="MemberImage" alt="">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{profile?.FullName | titlecase}}</h2>
-          <p>{{profile?.MemberNo | titlecase}}  |  {{profile?.Plan.BenefitPlanName | titlecase}}</p>
-        </ion-label>
-        <ion-icon (click)="logout()" slot="end" color="warning" name="log-out-outline"></ion-icon>
-      </ion-item>
-    </div>
-  </ion-toolbar>
-</ion-header> -->
-
-<!-- <div class="gems-border"></div> -->
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
   <ion-grid class="ion-no-padding benefit-slide">
     <ion-row *ngIf="dayToDayBenefits" class="details">
       <ion-col size="3">

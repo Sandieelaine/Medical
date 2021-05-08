@@ -20,6 +20,7 @@ export class WalkthroughPage implements OnInit {
 
   goToSlide(a?: number) {
     console.log('Helklo');
+    //this.slides.slideTo(a);
     this.slides.slideNext();
   }
 

@@ -29,6 +29,17 @@ export class BenefitsPage implements OnInit {
     })
   }
 
+  doRefresh(e?) {
+    this.auth.user.subscribe(res => {
+      if (res ) {
+        this.loadBenefits();
+        e.target.complete();
+      } else {
+        this.router.navigateByUrl('/tabs/tabs/home');
+      }
+    })
+  }
+
   loadBenefits() {
     this.showLoader();
     this.api.getBenefits().subscribe(benefits => {
@@ -64,8 +75,9 @@ export class BenefitsPage implements OnInit {
     console.log(e);
     console.log(this.benefits);
     let value = e.detail.value;
+    console.log(value);
     this.benefits = this.benefits.filter(currentBenefit => {
-      if (currentBenefit.Description && value !== '') {
+      if (currentBenefit.Description && value !== ' ') {
         return (currentBenefit.Description.toLowerCase().indexOf(value.toLowerCase()) > -1);
       } else {
         this.benefits = [...this.benefitsBackup];

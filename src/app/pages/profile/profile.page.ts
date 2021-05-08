@@ -46,6 +46,20 @@ export class ProfilePage implements OnInit {
     
   }
 
+  doRefresh(e) {
+    this.auth.user.subscribe(res => {
+      if (res ) {
+        this.getFullProfile();
+        this.loadBenefits();
+        this.getActivity();
+        this.loadDocuments();
+        e.target.complete();
+      } else {
+        this.router.navigateByUrl('/tabs/tabs/home');
+      }
+    })
+  }
+
 
   getFullProfile() {
     this.auth.getMemberFullProfile().subscribe(profile => {
