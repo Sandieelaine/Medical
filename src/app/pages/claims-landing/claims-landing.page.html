@@ -28,6 +28,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-grid>
     <ion-row class="ion-no-padding">
       <ion-col>
@@ -78,21 +82,23 @@
         </ion-toolbar>
 
         <div class="mt-2">
-          <ion-item class="shadow-md mb-2" button detail lines="none">
-            <ion-icon slot="start" name="download-outline"></ion-icon>
-            <ion-label>
-              <span class="block font-semibold text-md">Member Certificate</span>
-              <span class="text-xs text-gray-600">2021</span>
-            </ion-label>
-          </ion-item>
-
-          <ion-item class="shadow-md mb-2" button detail lines="none">
-            <ion-icon slot="start" name="download-outline"></ion-icon>
-            <ion-label>
-              <span class="block font-semibold text-md">Tax Certificate</span>
-              <span class="text-xs text-gray-600">2021</span>
-            </ion-label>
-          </ion-item>
+          <div class="py-1" *ngFor="let claim of claims; let i = index;" (click)="toggleSection(i)">
+            <ion-item detail="false" lines="full" button>
+              <ion-avatar [ngClass]="{'bg-green-700': claim?.summary.rejected === 0, 'bg-red-700': claim?.summary.rejected === 1}" class="p-2 rounded text-white" name="" slot="start">
+                <img src="assets/img/home/claims_fill.svg" alt="">
+              </ion-avatar>
+              <ion-note slot="end"><span class="text-xs text-yellow-500 font-bold">R {{claim.feesCharged.Amount}}</span></ion-note>
+              <!-- <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!claim.open"></ion-icon>
+              <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="claim.open"></ion-icon> -->
+              <ion-label class="font-semibold">
+                <span class="block">{{claim?.PatientName | titlecase}}</span>
+                <span class="text-xs font-thin">{{claim?.Provider | titlecase}}</span>
+              </ion-label>
+            </ion-item>
+            <div *ngIf="claim.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': claim.open, 'hidden': !claim.open}">
+              <span> <span class="font-semibold">R{{claim.referenceNumber}}</span>available</span>
+            </div>
+          </div>
         </div>
         <div>
         </div>

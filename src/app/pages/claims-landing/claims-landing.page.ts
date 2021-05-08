@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
+import { ClaimsByDate } from 'src/app/models/claim.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-claims-landing',
@@ -12,8 +14,10 @@ export class ClaimsLandingPage implements OnInit {
   dateStatus = "from";
   dateFrom = "2020-8-5";
   dateTill = "2021-2-2";
+  claims:any;
+  automaticClose = true;
 
-  constructor(private api: AuthenticationService, private datePicker: DatePicker) {
+  constructor(private api: AuthenticationService, private datePicker: DatePicker, private router: Router) {
   }
 
   ngOnInit() {
@@ -24,8 +28,20 @@ export class ClaimsLandingPage implements OnInit {
     this.api.getClaimsByDate(this.dateFrom, this.dateTill)
     .subscribe(claims => {
       console.log(claims);
+      this.claims = JSON.parse(claims.data);
     }, err => {
       console.log(err);
+    })
+  }
+
+  doRefresh(e?) {
+    this.api.user.subscribe(res => {
+      if (res ) {
+        this.getClaimsByDate();
+        e.target.complete();
+      } else {
+        this.router.navigateByUrl('/tabs/tabs/home');
+      }
     })
   }
 
@@ -101,6 +117,16 @@ export class ClaimsLandingPage implements OnInit {
       },
       err => console.log('Error occurred while getting date: ', err)
     );
+  }
+
+
+  toggleSection(index) {
+    this.claims[index].open = !this.claims[index].open;
+
+    if (this.automaticClose && this.claims[index].open) {
+      this.claims.filter((theItem, itemIndex) => itemIndex != index)
+      .map(item => item.open = false);
+    }
   }
 
 }

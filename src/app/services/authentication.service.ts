@@ -72,6 +72,10 @@ export class AuthenticationService {
     });
   }
 
+  getUser() {
+    return this.userData.asObservable();
+  }
+
   loadStoredTokenData() {
     let platformObs = from(this.platform.ready());
     console.log(platformObs)

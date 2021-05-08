@@ -13,7 +13,7 @@ export class BenefitsPage implements OnInit {
   benefitsBackup;
   loader;
   items:any[] = [{name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}];
-  automaticClose = false;
+  automaticClose = true;
 
   constructor(private api: AuthenticationService, private loadingCtrl: LoadingController, private router: Router, private auth: AuthenticationService) {
     

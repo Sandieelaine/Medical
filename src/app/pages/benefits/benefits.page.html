@@ -6,7 +6,7 @@
     <ion-title>Benefits</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [disabled]="!benefits || benefits.length < 1" (ionChange)="filterBenefits($event)"></ion-searchbar>
+    <ion-searchbar (ionChange)="filterBenefits($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <div class="gems-border">
@@ -36,7 +36,7 @@
       <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="benefit.open"></ion-icon>
       <ion-label class="font-semibold">{{benefit?.Description | titlecase}}</ion-label>
     </ion-item>
-    <div class="bg-white dark:bg-black p-4" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
+    <div *ngIf="benefit.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
       <span> <span class="font-semibold">R{{benefit.FreeAmount.Amount}}</span> of <span class="font-semibold">R{{benefit.MaxAmount.Amount}}</span> available</span>
       <ion-progress-bar [value]="+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount"></ion-progress-bar>
       <!-- <p>{{+benefit.MaxAmount.Amount/+benefit.FreeAmount.Amount}}</p>

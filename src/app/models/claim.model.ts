@@ -1,3 +1,47 @@
+// Response from Claims By Date
+export interface ClaimsByDate {
+  referenceNumber: string;
+  Status?: any;
+  dateAssessed: string;
+  serviveProvider: ServiveProvider;
+  feesCharged: FeesCharged;
+  schemeRate?: any;
+  Provider: string;
+  benefitAmount: FeesCharged;
+  memberPortion: FeesCharged;
+  beneficiaryNumber?: any;
+  isRejectedClaimBeingViewed: boolean;
+  PatientName: string;
+  message?: any;
+  summary: Summary;
+  claimItems: ClaimItem[];
+  rejectmessage: string;
+}
+
+interface ClaimItem {
+  beneficiaryNumber: string;
+  identityNumber: string;
+  schemeOption: string;
+  realClaimIndicator: number;
+}
+
+interface Summary {
+  lines: number;
+  settled: number;
+  rejected: number;
+}
+
+interface FeesCharged {
+  Currency: string;
+  Amount: number;
+}
+
+interface ServiveProvider {
+  pcnsPracticeNumber: string;
+  providerName: string;
+}
+
+// Response from all Claims History 
 export interface ClaimsHistory {
     open?: any;
     isChangePlanAvailable: boolean;
