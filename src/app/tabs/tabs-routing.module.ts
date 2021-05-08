@@ -36,6 +36,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/claims/claims.module').then(m => m.ClaimsPageModule)
       },
       {
+        path: 'claims-landing',
+        loadChildren: () => import('../pages/claims-landing/claims-landing.module').then(m => m.ClaimsLandingPageModule)
+      },
+      {
         path: 'benefits',
         loadChildren: () => import('../pages/benefits/benefits.module').then(m => m.BenefitsPageModule)
       },

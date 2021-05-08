@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Claims</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon color="warning" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-no-padding">
+      <ion-col>
+        <div class="flex uppercase font-semibold">
+          <!-- <div class="w-1/3 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 5px;"></div>
+            <span class="dark:text-white font-semibold text-xs tracking-wide">Claim
+              <span class="block">History</span>
+            </span>
+          </div>
+          <div style="width:7px"></div> -->
+          <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 5px;"></div>
+            <span class="dark:text-white font-semibold text-xs tracking-wide">Claim
+              <span class="block">Statements</span>
+            </span>
+          </div>
+          <div style="width:20px"></div>
+          <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 5px;"></div>
+            <span class="dark:text-white font-semibold text-xs tracking-wide">Submit
+              <span class="block">A Claim</span>
+            </span>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-no-padding">
+      <ion-col>
+        <div class="flex justify-between items-center mt-2 mb-3">
+          <span class="text-lg font-semibold dark:text-gray-200">Claims History</span>
+          <span class="text-xs font-semibold text-yellow-500">View All</span>
+        </div>
+        <ion-toolbar class="rounded-lg" color="primary">
+            <ion-segment [(ngModel)]="dateStatus" mode="ios">
+              <ion-segment-button (click)="updateDateFrom()" color="primary" value="from">
+                <ion-label><span class="block text-xs">Date From</span><span class="font-bold">{{dateFrom}}</span></ion-label>
+              </ion-segment-button>
+              <ion-segment-button (click)="updateDateTill()" color="primary" value="till">
+                <ion-label><span class="block text-xs">Date Till</span><span class="font-bold">{{dateTill}}</span></ion-label>
+              </ion-segment-button>
+            </ion-segment>
+        </ion-toolbar>
+
+        <div class="mt-2">
+          <ion-item class="shadow-md mb-2" button detail lines="none">
+            <ion-icon slot="start" name="download-outline"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">Member Certificate</span>
+              <span class="text-xs text-gray-600">2021</span>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="shadow-md mb-2" button detail lines="none">
+            <ion-icon slot="start" name="download-outline"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">Tax Certificate</span>
+              <span class="text-xs text-gray-600">2021</span>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

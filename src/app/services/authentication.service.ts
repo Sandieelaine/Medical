@@ -255,6 +255,19 @@ export class AuthenticationService {
     );
   }
 
+  getClaimsByDate(dateFrom, dateTill) {
+    if (!this.selectedMember) { return }
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claims?dateFrom=${dateFrom}&dateTill=${dateTill}`,
+    {},
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
 
   getBenefits() {
     if (!this.selectedMember) { return }
