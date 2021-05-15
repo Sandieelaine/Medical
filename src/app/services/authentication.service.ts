@@ -9,12 +9,14 @@ import { BehaviorSubject, from, Observable } from 'rxjs';
 import { tap, timeout, retry, switchMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HTTP } from '@ionic-native/http/ngx';
+import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   url = 'https://api.gems.gov.za';
+  // url: 'http://qa.member.gems.local';
   selectedMember: Member;
   token: string;
   authenticationState = new BehaviorSubject(false);
@@ -30,6 +32,7 @@ export class AuthenticationService {
     public toastController: ToastController) {
     this.loadStoredTokenData();
     this.storage.get('member').then(res => {
+      if(res === null) {return };
       console.log(JSON.parse(res.data));
       const parsedData = JSON.parse(res.data);
       this.selectedMember = parsedData;
@@ -61,6 +64,56 @@ export class AuthenticationService {
       timeout(10000),
       retry(3)
     );
+  }
+
+  getRefferalOptions():Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/Auth/ReferralOptions`, {}, {});
+    return from(req);
+  }
+
+  resetPassword(UserName, GEMSMemberNumber):Observable<any>{
+    const body = {
+      UserName: UserName,
+      GEMSMemberNumber: GEMSMemberNumber
+    }
+    let req = this.httpNative.post(`${this.url}/api/v1/account/CheckUsernameExists`,
+    body,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+  
+
+  retrieveUsername(MemberIDNumber){
+    const body = {
+      MemberIDNumber: MemberIDNumber
+    }
+    let req = this.httpNative.post(`${this.url}/api/v1/account/CheckUsernameExists`,
+    body,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+  
+  
+  register(registrationData: RegisterMember):Observable<any> {
+    let req = this.httpNative.post(`${this.url}/api/otp/sen`,
+    registrationData,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+
+  submitOTP(otp: RegisterMemberResponse):Observable<any> {
+    let req = this.httpNative.post(`${this.url}/api/otp/validate`,
+    otp,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
   }
 
   reloadToken() {
@@ -285,6 +338,11 @@ export class AuthenticationService {
       timeout(10000)
     );
   }
+
+
+
+
+
 
   async presentToast(message, duration = 3000) {
     const toast = await this.toastController.create({

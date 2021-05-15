@@ -19,33 +19,82 @@
   <div></div>
 </div>
 <div
-  style="position: absolute; width: 100%; top: 64px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
+  style="position: absolute; width: 100%; top: 55px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
 </div>
 
 <ion-content class="ion-padding">
-  <form (submit)="onRegister(registerForm)" #registerForm="ngForm">
-    <ion-item>
-      <ion-input name="username" ngModel placeholder="Enter Username" type="text" #usernameInput="ngModel" required
-        username></ion-input>
-    </ion-item>
+  <div *ngIf="screenMode === 0">
+    <form [formGroup]="registrationForm" (ngSubmit)='register()' class="mt-2">
+      <ion-item>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input autocomplete="off" type="text" name="UserName" formControlName="UserName"></ion-input>
+      </ion-item>
 
-    <span class="error-msg" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
-      a valid username</span>
-    <div style="height: 5px"></div>
+      <ion-item>
+        <ion-label position="stacked">ID Number</ion-label>
+        <ion-input type="text" name="MemberIDNumber" formControlName="MemberIDNumber"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input name="password" ngModel placeholder="GEMS Member Number/ID Number" type="password"
-        #passwordInput="ngModel" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" position="stacked" name="Password" formControlName="Password"
+          autocomplete="new-password"></ion-input>
+        <!-- <ion-button fill="clear" slot="start">
+          <ion-icon color="dark" name="clipboard"></ion-icon>
+        </ion-button> -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Cellphone Number</ion-label>
+        <ion-input type="tel" name="CellphoneNumber" formControlName="CellphoneNumber"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Member Number</ion-label>
+        <ion-input type="text" name="GEMSMemberNumber" formControlName="GEMSMemberNumber"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Where did you hear about GEMS?</ion-label>
+        <ion-select formControlName="Referrals" [(ngModel)]="registrationForm.value.Referrals" value="brown"
+          okText="Okay" cancelText="Dismiss">
+          <ion-select-option *ngFor="let refferalOption of refferalOptions" [value]="refferalOption">
+            {{refferalOption.Description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
+        [disabled]="registrationForm.invalid">Register</ion-button>
+    </form>
+  </div>
+
+  <div class="rounded-xl md:w-2/3" *ngIf="screenMode === 1 && registrationResponse">
+    <div *ngIf="registrationResponse" class="w-full text-center bg-green-200 p-5 rounded mt-1">
+      <span class="block text-sm">We have just sent you an OTP(One Time Pin) to {{registrationResponse.Cellnumber}}
+        Please enter the 6 digit number in the field below.
+        (Depending on your carrier it may take up to 1 minute).</span>
+    </div>
+    <form [formGroup]="otpForm" (ngSubmit)='submitOTP()' class="mt-6">
 
 
-    <span class="error-msg" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
-      enter a valid password</span>
+      <div class="w-full md:w-full lg:w-full block">
+        <ion-item>
+          <ion-label position="stacked">OTP Pin</ion-label>
+          <ion-input type="text" name="OTPPin" formControlName="OTPPin"></ion-input>
+        </ion-item>
+        <!-- <mat-form-field appearance="outline">
+          <input matInput autocomplete="off" type="text" name="OTPPin" formControlName="OTPPin"
+            class="">
+          <mat-icon matSuffix>perm_identity</mat-icon>
+          <mat-error *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</mat-error>
+          <mat-error *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits long</mat-error>
+          <mat-error *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits long</mat-error>
+        </mat-form-field> -->
+      </div>
 
-    <ion-button id="signIn" [disabled]="registerForm.invalid" shape="round" type="submit" color="primary" expand="full">
-      Continue</ion-button>
-  </form>
+      <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit" [disabled]="otpForm.invalid">
+        Submit OTP</ion-button>
+    </form>
 
-
+  </div>
 
 </ion-content>
