@@ -1,6 +1,6 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, PickerController, Platform } from '@ionic/angular';
+import { PickerController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -13,17 +13,16 @@ import { File } from '@ionic-native/file/ngx';
 })
 export class ClaimsPage implements OnInit {
   claims;
-  loader;
   claimState = 'statements';
   history;
   statements;
   submit;
   claimsHistory:any[] = [{name: 'Claim'}, {name: 'Claim'}, {name: 'Claim'}, {name: 'Claim'}];
   automaticClose;
+  isLoading = false;
 
   constructor(
     private api: AuthenticationService,
-    private loadingCtrl: LoadingController,
     private router: Router,
     public pickerCtrl: PickerController,
     private fileOpener: FileOpener,
@@ -45,27 +44,25 @@ export class ClaimsPage implements OnInit {
 
 
   loadClaimsHistory() {
-    this.showLoader();
     this.api.getClaimsHistory().subscribe(history => {
       this.claimsHistory = JSON.parse(history.data);
       console.log(this.claimsHistory);
-      this.loader.dismiss();
     }, error => {
       console.log(error)
-      this.loader.dismiss();
     });
   }
 
 
   loadClaimsStatements() {
-    this.showLoader();
+    this.isLoading = true;
     this.api.getClaims().subscribe(claims => {
       this.claims = JSON.parse(claims.data);
       console.log(this.claims);
-      this.loader.dismiss();
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }, error => {
       console.log(error)
-      this.loader.dismiss();
     });
   }
 
@@ -129,12 +126,6 @@ export class ClaimsPage implements OnInit {
     })
   }
 
-  async showLoader() {
-    this.loader = await this.loadingCtrl.create({
-      spinner: 'circles'
-    })
-    this.loader.present();
-  }
 
   segmentChanged(e) {
     console.dir(e);
@@ -180,6 +171,18 @@ export class ClaimsPage implements OnInit {
       }]
     });
     await picker.present();
+  }
+
+  doRefresh(e?) {
+    this.isLoading = true;
+    this.api.user.subscribe(res => {
+      if (res ) {
+        this.loadClaimsStatements();
+        e.target.complete();
+      } else {
+        this.router.navigateByUrl('/tabs/tabs/home');
+      }
+    })
   }
 
 }

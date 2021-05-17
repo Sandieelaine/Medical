@@ -31,7 +31,8 @@ export class LoginPage implements OnInit {
     this.showLoader();
     console.log(form.value.username);
     this.auth.login(form.value.username, form.value.password).subscribe(user => {
-      console.log(typeof(user.data), 'user');
+      console.log(user.data, 'user');
+      this.auth.selectedMember = user.data;
       this.storage.set('member', user).then(res => {
         this.router.navigateByUrl('/pre-home');
         this.loader.dismiss();

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 
 import { Plugins } from '@capacitor/core';
+import { PickerController } from '@ionic/angular';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -12,7 +13,7 @@ const { Geolocation } = Plugins;
 })
 export class ContactPage implements OnInit {
 
-  constructor(private launchNavigator: LaunchNavigator) { }
+  constructor(private launchNavigator: LaunchNavigator, private pickerCtrl: PickerController) { }
 
   ngOnInit() {
   }
@@ -41,6 +42,39 @@ export class ContactPage implements OnInit {
   async getCurrentPosition() {
     const coordinates = await Geolocation.getCurrentPosition();
     alert(coordinates.coords.latitude);
+  }
+
+  async openPicker() {
+    const picker = await this.pickerCtrl.create({
+      buttons: [{
+        text: 'Done',
+        handler: res => {
+          console.log(res);
+          window.open(`mailto:${res.status.value}`);
+        }
+      }],
+      columns: [{
+        name: 'status',
+        options: [
+          {
+            text: 'General Enquiries',
+            value: 'enquiries@gems.gov.za'
+          },
+          {
+          text: 'Chronic Authorizations',
+          value: 'enquiries@gems.gov.za'
+        },
+        {
+          text: 'Chronic Medicine Supply',
+          value: 'enquiries@gems.gov.za'
+        },
+        {
+          text: 'Compliments',
+          value: 'enquiries@gems.gov.za'
+        }]
+      }]
+    });
+    await picker.present();
   }
 
 }

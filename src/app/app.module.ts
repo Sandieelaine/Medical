@@ -20,6 +20,7 @@ import { faCamera, faFileContract, faBaby, faCoins, faEye, faHandHoldingUsd, faS
 faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 library.add(faBaby, faCamera);
 
@@ -47,7 +48,8 @@ library.add(faBaby, faCamera);
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,
     File,
-    FileOpener
+    FileOpener,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent]
 })

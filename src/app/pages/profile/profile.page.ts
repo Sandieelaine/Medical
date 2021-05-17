@@ -33,6 +33,7 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.zone.runOutsideAngular(async () => {
     this.auth.user.subscribe(res => {
       if (res ) {
         this.getFullProfile();
@@ -43,10 +44,12 @@ export class ProfilePage implements OnInit {
         this.router.navigateByUrl('/tabs/tabs/home');
       }
     })
+  });
     
   }
 
   doRefresh(e) {
+    this.zone.run(async () => {
     this.auth.user.subscribe(res => {
       if (res ) {
         this.getFullProfile();
@@ -58,6 +61,7 @@ export class ProfilePage implements OnInit {
         this.router.navigateByUrl('/tabs/tabs/home');
       }
     })
+  });
   }
 
 

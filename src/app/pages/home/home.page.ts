@@ -25,6 +25,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.trackView('/', 'Home Page');
     this.showAlert();
     this.storage.get('member').then(res => {
       console.log(JSON.parse(res.data));

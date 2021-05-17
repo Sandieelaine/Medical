@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>Claims</ion-title>
+    <ion-title>Claims History</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon color="warning" name="log-out-outline"></ion-icon>
@@ -36,29 +36,28 @@
     <ion-row class="ion-no-padding">
       <ion-col>
         <div class="flex capitalize font-bold">
-          <!-- <div class="w-1/3 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
-            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="height: 5px;"></div>
-            <span class="dark:text-white font-semibold text-xs tracking-wide">Claim
-              <span class="block">History</span>
+          <div routerLink="/tabs/tabs/claims"
+            class="w-1/2 shadow-lg flex flex-row bg-white dark:bg-black rounded-lg items-center py-2 px-2">
+            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="width: 5px;"></div>
+            <span class="dark:text-white font-semibold text-sm tracking-wide leading-tight uppercase">Claim Statements
             </span>
           </div>
-          <div style="width:7px"></div> -->
-          <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
-            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="height: 5px;"></div>
-            <span class="dark:text-white font-semibold text-xs tracking-wide">Claim
-              <span class="block">Statements</span>
+          <div style="width: 5px;"></div>
+          <div routerLink="/tabs/tabs/claims"
+            class="w-1/2 shadow-lg flex flex-row bg-white dark:bg-black rounded-lg items-center py-2 px-2">
+            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="width: 5px;"></div>
+            <span class="dark:text-white font-semibold text-sm tracking-wide leading-tight">Claim Statements
             </span>
           </div>
-          <div style="width:20px"></div>
-          <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
+          <!-- <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
             <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
             <div style="height: 5px;"></div>
             <span class="dark:text-white font-semibold text-xs tracking-wide">Submit
               <span class="block">A Claim</span>
             </span>
-          </div>
+          </div> -->
         </div>
 
       </ion-col>
@@ -66,11 +65,11 @@
 
     <ion-row class="ion-no-padding">
       <ion-col>
-        <div class="flex justify-between items-center mt-2 mb-3">
+        <!-- <div class="flex justify-between items-center mt-2 mb-3">
           <span class="text-lg font-semibold dark:text-gray-200">Claims History</span>
           <span class="text-xs font-semibold text-yellow-500">View All</span>
-        </div>
-        <ion-toolbar class="rounded-lg" color="primary">
+        </div> -->
+        <!-- <ion-toolbar class="rounded-lg" color="primary">
             <ion-segment [(ngModel)]="dateStatus" mode="ios">
               <ion-segment-button (click)="updateDateFrom()" color="primary" value="from">
                 <ion-label><span class="block text-xs">Date From</span><span class="font-bold">{{dateFrom}}</span></ion-label>
@@ -79,15 +78,61 @@
                 <ion-label><span class="block text-xs">Date Till</span><span class="font-bold">{{dateTill}}</span></ion-label>
               </ion-segment-button>
             </ion-segment>
-        </ion-toolbar>
+        </ion-toolbar> -->
+
+        <div>
+          <ion-item>
+            <ion-label class="font-bold" position="floating">Filter By Status</ion-label>
+            <ion-select value="all" okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="all">All Statuses</ion-select-option>
+              <ion-select-option value="settled">Settled</ion-select-option>
+              <ion-select-option value="rejected">Rejected</ion-select-option>
+              <ion-select-option value="pending">Pending</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="p-0 shadow-lg flex">
+          <div class="w-1/2">
+            <ion-item>
+              <ion-label class="font-bold" position="floating">Date From</ion-label>
+              <ion-datetime displayFormat="MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>
+            </ion-item>
+          </div>
+          <div class="w-1/2">
+            <ion-item>
+              <ion-label class="font-bold" position="floating">Date To</ion-label>
+              <ion-datetime displayFormat="MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>
+            </ion-item></div>
+        </div>
+
+
+        <div class="mt-2" *ngIf="isLoading">
+          <ion-item class="my-1 rounded" lines="full" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </div>
 
         <div class="mt-2">
           <div class="py-1" *ngFor="let claim of claims; let i = index;" (click)="toggleSection(i)">
             <ion-item detail="false" lines="full" button>
-              <ion-avatar [ngClass]="{'bg-emerald_value': claim?.summary.rejected === 0, 'bg-ruby': claim?.summary.rejected === 1}" class="p-2 rounded text-white" name="" slot="start">
+              <ion-avatar
+                [ngClass]="{'bg-emerald_value': claim?.summary.rejected === 0, 'bg-ruby': claim?.summary.rejected === 1}"
+                class="p-2 rounded text-white" name="" slot="start">
                 <img src="assets/img/home/claims_fill.svg" alt="">
               </ion-avatar>
-              <ion-note slot="end"><span class="text-xs text-yellow-500 font-bold">R {{claim.feesCharged.Amount}}</span></ion-note>
+              <ion-note slot="end"><span class="text-xs text-yellow-500 font-bold">R {{claim.feesCharged.Amount}}</span>
+              </ion-note>
               <!-- <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!claim.open"></ion-icon>
               <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="claim.open"></ion-icon> -->
               <ion-label class="font-semibold">
@@ -96,7 +141,8 @@
                 <!-- <span class="text-xs font-thin block ">{{claim?.dateAssessed | titlecase | date: 'fullDate'}}</span> -->
               </ion-label>
             </ion-item>
-            <div *ngIf="claim.open" class="bg-white dark:bg-black p-4 flex" [ngClass]="{'block': claim.open, 'hidden': !claim.open}">
+            <div *ngIf="claim.open" class="bg-white dark:bg-black p-4 flex"
+              [ngClass]="{'block': claim.open, 'hidden': !claim.open}">
               <div class="w-1/2">
                 <span class="text-xs block">Ref No.</span>
                 <span class="text-sm font-semibold">{{claim.referenceNumber}}</span>

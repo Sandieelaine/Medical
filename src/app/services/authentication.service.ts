@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { HTTP } from '@ionic-native/http/ngx';
 import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
 
+declare var gtag;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,6 +38,9 @@ export class AuthenticationService {
       console.log(JSON.parse(res.data));
       const parsedData = JSON.parse(res.data);
       this.selectedMember = parsedData;
+      if (this.selectedMember !== undefined || this.selectedMember !== null) {
+        this.router.navigateByUrl('tabs/tabs/home');
+      }
     })
   }
 
@@ -339,11 +344,6 @@ export class AuthenticationService {
     );
   }
 
-
-
-
-
-
   async presentToast(message, duration = 3000) {
     const toast = await this.toastController.create({
       message,
@@ -351,5 +351,13 @@ export class AuthenticationService {
     });
     toast.present();
   }
+
+  startTrackerWithId(id) {
+    gtag('config', id);
+  }
+
+  trackView(pageUrl: string, screenName: string) {}
+
+  trackEvent(category, action, label?, value?) {}
 
 }

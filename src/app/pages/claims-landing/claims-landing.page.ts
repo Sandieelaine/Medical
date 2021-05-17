@@ -16,6 +16,7 @@ export class ClaimsLandingPage implements OnInit {
   dateTill = "2021-2-2";
   claims:any;
   automaticClose = true;
+  isLoading = false;
 
   constructor(private api: AuthenticationService, private datePicker: DatePicker, private router: Router) {
   }
@@ -25,16 +26,19 @@ export class ClaimsLandingPage implements OnInit {
   }
 
   getClaimsByDate() {
+    this.isLoading = true;
     this.api.getClaimsByDate(this.dateFrom, this.dateTill)
     .subscribe(claims => {
       console.log(claims);
       this.claims = JSON.parse(claims.data);
+      this.isLoading = false;
     }, err => {
       console.log(err);
     })
   }
 
   doRefresh(e?) {
+    this.isLoading = true;
     this.api.user.subscribe(res => {
       if (res ) {
         this.getClaimsByDate();

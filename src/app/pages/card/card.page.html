@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
@@ -19,18 +19,46 @@
     <div></div>
     <div></div>
   </div>
-</div>
+</div> -->
 
 <ion-content>
-  <div class="tp-wrapper">
-    <!-- <div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
-      <div class="tp-box__side tp-box__front">
-        <img src="assets/img/credit_card.png" alt="">
+  <!-- <div class="bg-gray-100 w-screen p-5" style="height: 100vh">
+    <div class="w-full h-full rounded-lg overflow-hidden flex flex-col items-center shadow-lg">
+      <img class="h-full rounded-lg" src="assets/img/sapphire.jpg" alt="">
+    </div>
+    
+  </div> -->
+
+  <div class="bg-gray-300 w-screen" style="height: 100vh">
+    <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center">
+      <div class="card shadow-lg rounded-md" (click)="cardClicked()" [@cardFlip]="state">
+        <div class="face back">
+          <img class="h-full" src="assets/img/sapphire.jpg" />
+        </div>
+        <div class="face front">
+          <img class="h-full opacity-0" src="assets/img/sapphire.jpg" />
+          <div class="absolute top-0 h-full bg-white overflow-hidden p-2 rounded-md">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, tenetur. Eius, neque nisi atque ea perferendis rem consequatur maiores molestias inventore distinctio odit.
+
+          </div>
+        </div>
       </div>
-      <div class="tp-box__side tp-box__back">
-        <img src="assets/img/credit_card_back.png" alt="">
-      </div>
-    </div> -->
+    </div>
+
+  </div>
+
+
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="closePage()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+
+  <!-- <div class="tp-wrapper">
+
 
     <div class="membership">
       <img src="assets/img/sapphire.jpg" alt="">
@@ -39,9 +67,7 @@
 
   </div>
   <div class="card-wrapper">
-    <!-- <div class="card">
-      <img src="assets/img/credit_card.png" alt="">
-    </div> -->
+
 
     <div class="settings-list">
         <ion-item button>
@@ -63,5 +89,5 @@
         </ion-item>
     </div>
     
-  </div>
+  </div> -->
 </ion-content>

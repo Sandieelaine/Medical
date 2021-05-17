@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tabs/claims-landing"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="statusPicker()">
@@ -9,56 +9,41 @@
       </ion-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>Claims</ion-title>
+    <ion-title>Claims Statements</ion-title>
   </ion-toolbar>
-  <ion-toolbar color="primary">
-    <ion-segment [(ngModel)]="claimState" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="history">
-        <ion-label>History</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="statements">
-        <ion-label>Statements</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="submit">
-        <ion-label>Submit</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
-  <div *ngIf="claimState === 'history'" class="history">
-    <div class="px-2 py-1" *ngFor="let claimhistory of claimsHistory; let i = index;" (click)="toggleSection(i)">
-      <ion-item lines="full" button>
-        <ion-icon class="bg-blue-900 p-2 rounded text-white" name="receipt" slot="start"></ion-icon>
-        <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!claimhistory.open"></ion-icon>
-        <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="claimhistory.open"></ion-icon>
-        <ion-label class="font-semibold">{{'claimhistory?.Description' | titlecase}}</ion-label>
-      </ion-item>
-      <div class="bg-white dark:bg-black p-4" [ngClass]="{'block': claimhistory.open, 'hidden': !claimhistory.open}">
-        <span>Content available</span>
-      </div>
-    </div>
-  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <div *ngIf="claimState === 'statements'" class="statements"
-  >
-    <div class="px-2 py-1" *ngFor="let claim of claims; let i = index;" (click)="downloadClaimStatement(claim.Reference)">
+  <div *ngIf="isLoading">
+    <div class="px-2 py-1" *ngFor="let claim of [1, 2, 3, 4, 5, 6, 7, 8]">
       <ion-item lines="full" button>
-        <ion-icon class="bg-blue-900 p-2 rounded text-white" name="receipt" slot="start"></ion-icon>
+        <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" name="receipt" slot="start"></ion-icon>
         <ion-icon slot="end" name="download-outline"></ion-icon>
         <ion-label class="font-semibold">
-          <span class="block text-lg">{{claim.Date | date: 'longDate'}}</span>
-          <span class="text-sm text-gray-700">{{claim.Reference}}</span>
+          <h3 class="block text-lg"><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p class="text-sm text-gray-700"><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
         </ion-label>
       </ion-item>
     </div>
   </div>
 
-  <div *ngIf="claimState === 'submit'" class="submit">
-    Submit<br>
-  </div>
+  <div>
+    <div class="px-2 py-1" *ngFor="let claim of claims; let i = index;" (click)="downloadClaimStatement(claim.Reference)">
+      <ion-item lines="full" button>
+        <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" name="receipt" slot="start"></ion-icon>
+        <ion-icon slot="end" name="download-outline"></ion-icon>
+        <ion-label class="font-semibold">
+          <span class="block">{{claim.Date | date: 'longDate'}}</span>
+          <span class="text-sm font-normal text-gray-600">{{claim.Reference}}</span>
+        </ion-label>
 
-  <p>{{claimState}}</p>
+      </ion-item>
+    </div>
+  </div>
 
 </ion-content>
