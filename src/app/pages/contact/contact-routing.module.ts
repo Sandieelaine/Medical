@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ContactPage
-  }
+  },
+  {
+    path: 'walk-in-centres',
+    loadChildren: () => import('../centres/centres.module').then(m => m.CentresPageModule)
+  },
 ];
 
 @NgModule({

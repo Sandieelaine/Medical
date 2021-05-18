@@ -101,6 +101,10 @@ const routes: Routes = [
   {
     path: 'claims-landing',
     loadChildren: () => import('./pages/claims-landing/claims-landing.module').then( m => m.ClaimsLandingPageModule)
+  },
+  {
+    path: 'centres',
+    loadChildren: () => import('./pages/centres/centres.module').then( m => m.CentresPageModule)
   }
 ];
 @NgModule({

@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
           }
         ]
       });
-      await tourAlert.present();
+      // await tourAlert.present();
     //}
   }
 

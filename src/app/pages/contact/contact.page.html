@@ -23,25 +23,71 @@
 </ion-header>
 <!-- <div class="gems-border"></div> -->
 
-<ion-content class="ion-padding">
-  <div class="p-4">
-    <span class="uppercase text-xs font-bold">ENQUIRIES</span>
+<ion-content>
+  <div style="padding: 10px;">
+    <div class="py-1">
+      <span class="uppercase text-xs font-bold">ENQUIRIES</span>
+    </div>
+    <div class="shadow rounded-lg overflow-hidden">
+      <ion-item (click)="call()">
+        <ion-icon class="text-beryl" name="call" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">Call Centre</span>
+          <p>0860 00 4367</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" (click)="openPicker()">
+        <ion-icon class="text-beryl" name="mail" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">Email Options</span>
+          <p>Tap to open</p>
+        </ion-label>
+      </ion-item>
+    </div>
+  
+    <div class="py-1">
+      <span class="uppercase text-xs font-bold">CALL CENTRE</span>
+    </div>
+    <div class="shadow rounded-lg overflow-hidden">
+      <ion-item>
+        <ion-icon class="text-tanzanite_one" name="business" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">08h00 - 17h00</span>
+          <span class="text-xs uppercase text-gray-600">Monday - Friday</span>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon class="text-tanzanite_one" name="business" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">08h00 - 12h00</span>
+          <span class="text-xs uppercase text-gray-600">Saturday</span>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div class="shadow rounded-lg overflow-hidden mt-2">
+      <ion-item lines="none">
+        <ion-icon class="text-emerald_value" name="megaphone" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">Complaints/Compliments</span>
+          <span class="text-xs uppercase text-gray-600">Tap to open</span>
+        </ion-label>
+      </ion-item>
+    </div>
+
+
+    <div class="shadow rounded-lg overflow-hidden mt-2">
+      <ion-item routerLink="walk-in-centres" lines="none">
+        <ion-icon class="text-ruby" name="location" slot="end"></ion-icon>
+        <ion-label>
+          <span class="font-bold block">Provincial Walk-In Centres</span>
+          <span class="text-xs uppercase text-gray-600">Tap to open</span>
+        </ion-label>
+      </ion-item>
+    </div>
   </div>
-  <ion-card>
-    <ion-item (click)="call()">
-      <ion-icon name="call" slot="end"></ion-icon>
-      <ion-label>
-        <h2>Call Centre</h2>
-        <p>0860 00 4367</p>
-      </ion-label>
-    </ion-item>
-    <ion-item (click)="openPicker()">
-      <ion-icon name="mail" slot="end"></ion-icon>
-      <ion-label>
-        <h2>Email Options</h2>
-        <p>Tap to open</p>
-      </ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-button expand="block" (click)="getCurrentPosition()">Get Current Position</ion-button>
+
+  
+  
+  <!-- <ion-button expand="block" (click)="getCurrentPosition()">Get Current Position</ion-button> -->
 </ion-content>

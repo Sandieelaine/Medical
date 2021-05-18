@@ -1,6 +1,5 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,8 +13,9 @@ export class BenefitsPage implements OnInit {
   loader;
   items:any[] = [{name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}];
   automaticClose = true;
+  isLoading = false;
 
-  constructor(private api: AuthenticationService, private loadingCtrl: LoadingController, private router: Router, private auth: AuthenticationService) {
+  constructor(private api: AuthenticationService, private router: Router, private auth: AuthenticationService) {
     
   }
 
@@ -41,24 +41,19 @@ export class BenefitsPage implements OnInit {
   }
 
   loadBenefits() {
-    this.showLoader();
+    this.isLoading = true;
     this.api.getBenefits().subscribe(benefits => {
       this.benefitsBackup = JSON.parse(benefits.data);
       this.benefits = [...this.benefitsBackup];
       this.benefits[0].open = true;
       console.log(this.benefits);
-      this.loader.dismiss();
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }, error => {
       console.log(error);
-      this.loader.dismiss();
+      this.isLoading = false;
     });
-  }
-
-  async showLoader() {
-    this.loader = await this.loadingCtrl.create({
-      spinner: 'circles'
-    })
-    this.loader.present();
   }
 
   toggleSection(index) {

@@ -29,6 +29,19 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <div *ngIf="isLoading">
+    <div class="px-2 py-1" *ngFor="let claim of [1, 2, 3, 4, 5, 6, 7, 8]">
+      <ion-item lines="full" button>
+        <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" name="receipt" slot="start"></ion-icon>
+        <ion-icon slot="end" name="download-outline"></ion-icon>
+        <ion-label class="font-semibold">
+          <h3 class="block text-lg"><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p class="text-sm text-gray-700"><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+
   <div class="px-2 py-1" *ngFor="let benefit of benefits; let i = index;" (click)="toggleSection(i)">
     <ion-item lines="full" button>
       <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" name="receipt" slot="start"></ion-icon>

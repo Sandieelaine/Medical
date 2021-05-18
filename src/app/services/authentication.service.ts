@@ -360,4 +360,19 @@ export class AuthenticationService {
 
   trackEvent(category, action, label?, value?) {}
 
+  getAllWalkInCentres() {
+    if (!this.selectedMember) { return }
+    let req = this.httpNative.get(`${this.url}/api/v1/WalkInCentres/`,
+    {},
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  
+
 }
