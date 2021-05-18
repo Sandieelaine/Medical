@@ -24,4 +24,21 @@
 
 <ion-content>
   <div #map id="map"></div>
+
+  <div *ngIf="centres && centres.length > 0" class="map-slides-wrapper">
+    <ion-slides [options]="slideOptions">
+      <ion-slide *ngFor="let centre of centres">
+        <div class="map-card">
+          <ion-item lines="none">
+            <ion-icon color="primary" slot="start" name="map"></ion-icon>
+            <ion-label>
+              <h3>{{centre?.AddressLine1}}</h3>
+              <p>{{centre?.Province.Description}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-slide>
+
+    </ion-slides>
+  </div>
 </ion-content>

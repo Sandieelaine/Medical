@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
       console.log(user.data, 'user');
       this.auth.selectedMember = user.data;
       this.storage.set('member', user).then(res => {
+        // window.location.reload();
         this.router.navigateByUrl('/pre-home');
         this.loader.dismiss();
       });
