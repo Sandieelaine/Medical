@@ -109,6 +109,14 @@ const routes: Routes = [
   {
     path: 'submit-claim',
     loadChildren: () => import('./pages/submit-claim/submit-claim.module').then( m => m.SubmitClaimPageModule)
+  },
+  {
+    path: 'request-card',
+    loadChildren: () => import('./pages/request-card/request-card.module').then( m => m.RequestCardPageModule)
+  },
+  {
+    path: 'activity',
+    loadChildren: () => import('./pages/activity/activity.module').then( m => m.ActivityPageModule)
   }
 ];
 @NgModule({

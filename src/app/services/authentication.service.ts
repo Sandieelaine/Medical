@@ -76,6 +76,11 @@ export class AuthenticationService {
     return from(req);
   }
 
+  getOptionsForDropdowns():Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/formOptions/memberApplication/beneficiaryOptions`, {}, {});
+    return from(req);
+  }
+
   resetPassword(UserName, GEMSMemberNumber):Observable<any>{
     const body = {
       UserName: UserName,
@@ -330,6 +335,20 @@ export class AuthenticationService {
     );
   }
 
+  submitClaim(DocName, DocURLUpload) {
+    if (!this.selectedMember) { return }
+    const body = {
+      DocName,
+      DocURLUpload
+    };
+    let req = this.httpNative.post(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claims/submit/`,
+    body,
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    });
+    return from(req);
+  }
+
 
   getBenefits() {
     if (!this.selectedMember) { return }
@@ -372,6 +391,21 @@ export class AuthenticationService {
       // timeout(10000000)
     );
   }
+
+  requestNewCard(postalAddress) {
+    if (!this.selectedMember) { return }
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/requestNewCard/`,
+    postalAddress,
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+  
 
   
 

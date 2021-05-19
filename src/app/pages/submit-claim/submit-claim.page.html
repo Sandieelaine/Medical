@@ -1,7 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>submit-claim</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/claims-landing"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Submit A Claim</ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="ion-padding">
@@ -30,13 +35,15 @@
 
   <ion-item>
     <ion-label position="stacked">Membership Number</ion-label>
-    <ion-input disabled type="text" [(ngModel)]="memberNo"></ion-input>
+    <ion-input disabled type="text" class="text-black" [(ngModel)]="memberNo"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Upload File</ion-label>
-    <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
+    <input class="my-2" type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
   </ion-item>
+
+  <ion-button [disabled]="baseURL === 'https://api.gems.gov.za'" (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button>
 
 
 </ion-content>

@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
   dayToDayBenefits;
   MemberImage;
   selectedMember;
-  profile: FullMember;
+  profile: FullMember = null;
   benefit;
   documents;
   slideOpt = {
@@ -32,20 +32,36 @@ export class ProfilePage implements OnInit {
     
   }
 
-  ngOnInit() {
-    this.zone.runOutsideAngular(async () => {
-    this.auth.user.subscribe(res => {
-      if (res ) {
-        this.getFullProfile();
-        this.loadBenefits();
-        this.getActivity();
-        this.loadDocuments();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
-  });
+  ionViewWillEnter() {
+    // window.location.reload();
     
+  }
+
+  ionViewDidEnter() {
+    this.getFullProfile();
+    this.loadBenefits();
+    this.getActivity();
+    this.loadDocuments();
+  }
+
+  ngOnInit() {
+    // this.setUpData();
+  }
+
+  async setUpData() {
+      let check = await this.auth.user.subscribe(res => {
+        if (res ) {
+          console.log(res);
+          if (res !== null || res !== undefined) {
+            this.getFullProfile();
+            this.loadBenefits();
+            this.getActivity();
+            this.loadDocuments();
+          }
+        } else {
+          this.router.navigateByUrl('/tabs/tabs/home');
+        }
+      })
   }
 
   doRefresh(e) {

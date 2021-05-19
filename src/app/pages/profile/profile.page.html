@@ -130,7 +130,7 @@
     </ion-row> -->
 
     <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0" style="margin: 10px;">
-      <div class="w-full flex justify-center h-16 items-center">
+      <div *ngIf="profile.isPrincipleMember" class="w-full flex justify-center h-16 items-center">
         <div class="w-1/2">
           <span class="text-gray-900 dark:text-gray-200 ml-3 font-semibold">Dependants</span>
         </div>
@@ -163,16 +163,30 @@
       </ion-col>
     </ion-row> -->
 
+    <ion-row *ngIf="profile" class="ion-padding">
+      <ion-col *ngIf="profile.isPrincipleMember">
+        <div>
+          <ion-item class="shadow-md rounded-lg" routerLink="/tabs/tabs/request-card" button detail lines="none">
+            <ion-icon color="primary" slot="start" name="card"></ion-icon>
+            <ion-label>
+              <span class="block font-semibold text-md">Request New Card</span>
+              <span class="text-xs text-gray-600">Tap To Open</span>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div>
+        </div>
+      </ion-col>
+    </ion-row>
 
     <ion-row *ngIf="activity" class="ion-padding" style="margin: 5px;">
       <ion-col>
         <div class="flex justify-between">
           <span class="text-md font-semibold dark:text-gray-200">Activity</span>
-          <span class="text-xs text-yellow-500">View All</span>
+          <span routerLink="/tabs/tabs/activity" class="text-xs text-yellow-500">View All</span>
         </div>
         
-
-        <div class="mt-4">
+        <div class="mt-1">
           <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" button detail lines="none">
             <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
             <ion-label>
@@ -185,6 +199,9 @@
         </div>
       </ion-col>
     </ion-row>
+
+
+    
 
     <!-- <ion-row>
       <ion-col>
