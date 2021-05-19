@@ -105,6 +105,10 @@ const routes: Routes = [
   {
     path: 'centres',
     loadChildren: () => import('./pages/centres/centres.module').then( m => m.CentresPageModule)
+  },
+  {
+    path: 'submit-claim',
+    loadChildren: () => import('./pages/submit-claim/submit-claim.module').then( m => m.SubmitClaimPageModule)
   }
 ];
 @NgModule({

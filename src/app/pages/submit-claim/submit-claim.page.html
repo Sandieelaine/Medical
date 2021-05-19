@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>submit-claim</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="text-white dark:text-gray-500 p-4 text-sm bg-emerald_value text-center rounded">
+    The claim will be submitted for the following member:
+  </div>
+  <ion-item>
+    <ion-label position="stacked">Title</ion-label>
+    <ion-input disabled type="text" [(ngModel)]="title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">First Name</ion-label>
+    <ion-input disabled type="text" [(ngModel)]="firstName"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Last Name</ion-label>
+    <ion-input disabled type="text" [(ngModel)]="lastName"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Date Of Birth</ion-label>
+    <ion-input disabled type="text" [(ngModel)]="DOB"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Membership Number</ion-label>
+    <ion-input disabled type="text" [(ngModel)]="memberNo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Upload File</ion-label>
+    <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
+  </ion-item>
+
+
+</ion-content>
