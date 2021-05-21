@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="pre-login"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>Tanzanite One</ion-title>
+    <ion-title>{{content?.title}}</ion-title>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -22,9 +22,32 @@
   </div>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="content" class="ion-padding">
 
-  <img src="assets/img/tanzanite1.png" style="width: 100%" alt="">
+  <div *ngIf="content.title ==='About GEMS'">
+    <span class="text-xs" [innerHTML]="content.content[0].optionContent"></span>
+  </div>
+
+  <div *ngIf="content.title ==='Our Options'">
+    <div class="shadow-lg rounded mb-1" *ngFor="let option of options; let i = index;" (click)="toggleSection(i)">
+      <ion-item lines="full">
+        <ion-avatar slot="start">
+          <img [src]="'assets/img/plans/' + option.img + '.png'">
+        </ion-avatar>
+        <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!option.open"></ion-icon>
+        <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="option.open"></ion-icon>
+        <ion-label class="font-semibold">{{option?.name | titlecase}}</ion-label>
+      </ion-item>
+      <div *ngIf="option.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': option.open, 'hidden': !option.open}">
+        <span class="text-xs" [innerHTML]="option.optionContent"> Hide and show</span>
+        <span (click)="learnMore(option.link)" class="text-white bg-gems-primary-blue py-1 px-2 text-xs mt-1 rounded-full">Learn More</span>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- <img src="assets/img/tanzanite1.png" style="width: 100%" alt="">
   <div class="gems-border" style="margin-top: -4px;">
     <div class="rainbow">
       <div></div>
@@ -50,7 +73,7 @@
 
       <ion-button style="margin-top: 15px" shape="round" color="primary" expand="block" routerLink="/pre-login">Join GEMS</ion-button>
     </div>
-  </div>
+  </div> -->
 
 
 </ion-content>

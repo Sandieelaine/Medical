@@ -5,11 +5,6 @@
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
     <ion-title>Claims History</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon color="warning" name="log-out-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -37,18 +32,18 @@
       <ion-col>
         <div class="flex capitalize font-bold">
           <div routerLink="/tabs/tabs/claims"
-            class="w-1/2 shadow-lg flex flex-row bg-white dark:bg-black rounded-lg items-center py-2 px-2">
+            class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-center py-4 px-2">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="width: 5px;"></div>
-            <span class="dark:text-white font-semibold text-sm tracking-wide leading-tight uppercase">Claim Statements
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white font-semibold text-xs tracking-wide leading-tight">Claim Statements
             </span>
           </div>
-          <div style="width: 5px;"></div>
+          <div style="width: 10px;"></div>
           <div routerLink="/tabs/tabs/submit-claim"
-            class="w-1/2 shadow-lg flex flex-row bg-white dark:bg-black rounded-lg items-center py-2 px-2">
+            class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-center py-4 px-2">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="width: 5px;"></div>
-            <span class="dark:text-white font-semibold text-sm tracking-wide leading-tight">Submit Claim
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white font-semibold text-xs tracking-wide leading-tight">Submit Claim
             </span>
           </div>
           <!-- <div class="w-1/2 shadow-lg flex flex-col bg-white dark:bg-black rounded-lg items-start py-6 px-5">
@@ -79,8 +74,8 @@
               </ion-segment-button>
             </ion-segment>
         </ion-toolbar> -->
-
         <div>
+        <div class="rounded-lg overflow-hidden">
           <ion-item>
             <ion-label class="font-bold" position="floating">Filter By Status</ion-label>
             <ion-select value="all" okText="Okay" cancelText="Dismiss">
@@ -103,8 +98,11 @@
             <ion-item>
               <ion-label class="font-bold" position="floating">Date To</ion-label>
               <ion-datetime displayFormat="MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>
-            </ion-item></div>
+            </ion-item>
+          </div>
         </div>
+
+      </div>
 
 
         <div class="mt-2" *ngIf="isLoading">

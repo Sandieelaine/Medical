@@ -12,6 +12,7 @@ import { File } from '@ionic-native/file/ngx';
 export class DocumentsPage implements OnInit {
   documents;
   loader;
+  isLoading = true;
 
   constructor(private auth: AuthenticationService, private loadingCtrl: LoadingController, private platform: Platform, private fileOpener: FileOpener, private file: File) { }
 
@@ -20,13 +21,13 @@ export class DocumentsPage implements OnInit {
   }
 
   loadDocuments() {
-    this.showLoader();
     this.auth.getAllDocuments().subscribe(docs => {
       this.documents = JSON.parse(docs.data);
       console.log(this.documents);
-      this.loader.dismiss();
+      this.isLoading = false;
     }, error => {
-      this.loader.dismiss();
+      console.log(error);
+      this.isLoading = false;
     });
   }
 
@@ -155,12 +156,6 @@ export class DocumentsPage implements OnInit {
     })
   }
 
-  async showLoader() {
-    this.loader = await this.loadingCtrl.create({
-      spinner: 'bubbles',
-      backdropDismiss: true
-    });
-    this.loader.present();
-  }
+
 
 }

@@ -24,6 +24,7 @@ export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
+  selectedPreLoginContent;
 
   constructor(
     private http: HttpClient,
@@ -403,6 +404,11 @@ export class AuthenticationService {
     return from(req).pipe(
       // timeout(10000)
     );
+  }
+
+
+  loadPreloginInformation() {
+    return this.http.get('assets/json/pre-login.json')
   }
 
   

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="pre-login"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>  Benefit Options</ion-title>
+    <ion-title>Learn About GEMS</ion-title>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -24,7 +24,16 @@
 
 
 <ion-content ion-padding>
-  <ion-card routerLink="/option">
+  <ion-card>
+    <ion-item *ngFor="let title of titles" lines="inset" detail (click)="goToNextPage(title)" routerLinkActive="router-link-active" >
+      <ion-icon color="primary" name="book" slot="start"></ion-icon>
+      <ion-label>
+        <span class="dark:text-gray-500 font-bold text-lg leading-loose">{{title.title}}</span>
+        <!-- <h2>Emerald Value</h2> -->
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <!-- <ion-card routerLink="/option">
     <ion-item lines="none" detail>
       <ion-avatar slot="start">
         <img src="assets/img/plans/beryl.png">
@@ -93,6 +102,6 @@
         <p>Entry-Level Benefit Option</p>
       </ion-label>
     </ion-item>
-  </ion-card>
+  </ion-card> -->
 
 </ion-content>

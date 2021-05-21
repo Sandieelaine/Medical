@@ -1,0 +1,49 @@
+[{
+        "title": "About GEMS",
+        "id": 1,
+        "content": [{
+            "optionContent": "<p class='font-bold'>The introduction of GEMS</p> <p>The beginning of GEMS was a historic moment when in 2002, Cabinet approved a framework policy on a restricted (closed) medical scheme for further development by an interdepartmental working group (departments of Public Service and Administration, National Treasury, Health, Education, Correctional Services and SAPS).</p><p><br></p> <p>The approved framework policy centered on the principles of equity, efficiency and differentiation:</p><p><br></p><p>Equity where employees have equal access to the most extensive set of equal basic benefits under equitable remuneration structures, subject to affordability. Efficiency regarding the costs and delivery of benefits. Differentiation, where employees choosing more extensive cover have equal access to higher benefits subject to their needsGovernment&apos;s commitment to an equitable and affordable medical scheme</p><p><br></p><p>Cabinet gave the development and implementation of GEMS intense consideration, relying on substantial research and data analyses. The implementation of GEMS is a positive step that positions government as an employer of choice that truly cares for the health and wellbeing of its employees</p><p><br></p><p class='font-bold'>Who is GEMS?</p><p>GEMS was registered on 1 January 2005 specifically to meet the healthcare needs of Government Employees. We offer five excellent healthcare benefit options: Tanzanite One, Beryl, Ruby, Emerald Value, Emerald and Onyx. Our goal is to help public service employees and their families to get the best possible healthcare at the most affordable rate.&nbsp;</p>"
+        }]
+    },
+    {
+        "title": "Our Options",
+        "id": 2,
+        "content": [{
+                "name": "Tanzanite One",
+                "optionContent": "<div><span class='font-bold text-sm'>Entry-level benefit option</span><p>Up to 100% employer subsidy</p><p>Comprehensive In-Hospital benefits by public and private Hospitalization the GEMS Network</p><span class='font-bold text-sm'>From R882p/m</span></div>",
+                "link": "https://www.gems.gov.za/Products/Tanzanite-One",
+                "img": "tanzanite-one"
+            },
+            {
+                "name": "Beryl",
+                "optionContent": "<div><span class='font-bold text-sm'>Entry-level benefit option</span><p>Up to 100% employer subsidy</p><p>Comprehensive In-Hospital benefits by public and private Hospitalization the GEMS Network.Out-of-Hospital benefits subject to Specialist Referral Rules</p><span class='font-bold text-sm'>From R 1231 pm</span></div>",
+                "link": "https://www.gems.gov.za/Products/Beryl",
+                "img": "beryl"
+            },
+            {
+                "name": "Ruby",
+                "optionContent": "<div><span class='font-bold text-sm'>Mid-level benefit option</span><p>Up to 100% employer subsidy</p><p>Personal Medical Savings Account and Block. Benefit from which some In- and Out-of-Hospital healthcare services are funded.</p><span class='font-bold text-sm'>From R 1915 pm</span></div>",
+                "link": "https://www.gems.gov.za/Products/Ruby",
+                "img": "ruby"
+            },
+            {
+                "name": "Emerald Value",
+                "optionContent": "<div><span class='font-bold text-sm'>High-level benefit option</span><p>Up to 100% employer subsidy</p><p>Comprehensive In-Hospital benefits by public and private Hospitalization the GEMS Network. Out-of-Hospital benefits subject to Specialist Referral Rules.</p><span class='font-bold text-sm'>From R1 859/m</span></div>",
+                "link": "https://www.gems.gov.za/Products/Emerald-Value",
+                "img": "emerald-value"
+            },
+            {
+                "name": "Emerald",
+                "optionContent": "<div><span class='font-bold text-sm'>High-level benefit option</span><p>Up to 100% employer subsidy</p><p>Comprehensive Out-of-Hospital benefits for healthcare services, which are typically rendered by healthcare providers that are not on the GEMS Network.</p><span class='font-bold text-sm'>From R2172p/m</span></div>",
+                "link": "https://www.gems.gov.za/Products/Emerald",
+                "img": "emerald"
+            },
+            {
+                "name": "Onyx",
+                "optionContent": "<div><span class='font-bold text-sm'>High-level benefit option</span><p>Up to 100% employer subsidy</p><p>Comprehensive In-Hospital benefits by public and private Hospitalization the GEMS Network. Out-of-Hospital benefits subject to Specialist Referral Rules.</p><span class='font-bold text-sm'>From R3733p/m</span></div>",
+                "link": "https://www.gems.gov.za/Products/Onyx",
+                "img": "onyx"
+            }
+        ]
+    }
+]
