@@ -117,6 +117,10 @@ const routes: Routes = [
   {
     path: 'activity',
     loadChildren: () => import('./pages/activity/activity.module').then( m => m.ActivityPageModule)
+  },
+  {
+    path: 'claims-home',
+    loadChildren: () => import('./pages/claims-home/claims-home.module').then( m => m.ClaimsHomePageModule)
   }
 ];
 @NgModule({

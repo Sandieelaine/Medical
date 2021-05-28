@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ClaimsLandingPage implements OnInit {
   dateStatus = "from";
-  dateFrom = "2020-8-5";
+  dateFrom = "2000-8-5";
   dateTill = "2021-2-2";
   claims:any;
   automaticClose = true;
@@ -29,7 +29,7 @@ export class ClaimsLandingPage implements OnInit {
     this.isLoading = true;
     this.api.getClaimsByDate(this.dateFrom, this.dateTill)
     .subscribe(claims => {
-      console.log(claims);
+      console.log(JSON.parse(claims.data));
       this.claims = JSON.parse(claims.data);
       this.isLoading = false;
     }, err => {

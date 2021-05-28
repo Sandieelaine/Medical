@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>My Claims</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <ion-toolbar color="primary">
+    <ion-searchbar placeholder="Search By Ref Code"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding benefit-slide">
+    <ion-row class="details">
+      <ion-col size="2">
+        <img class="rounded-full p-1 border-gray-400 border-2 border-solid w-14" [src]="MemberImage" alt="">
+      </ion-col>
+      <ion-col size="10">
+        <div class="rounded p-5">
+          <span class="text-white text-lg font-bold uppercase block">{{profile?.FullName | titlecase}}</span>
+          <span class="text-white text-xs uppercase block">Select A Dependant</span>
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row class="ion-no-padding -mt-16">
+      <ion-col>
+        <div class="flex" style="padding: 15px;">
+          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-wide">MY CLAIMS</span>
+            <span
+              class="font-extrabold text-2xl tracking-tighter dark:text-white">HISTORY</span>
+          </div>
+          <div style="width: 20px;"></div>
+          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-wide">MY CLAIMS</span>
+            <span
+              class="font-extrabold text-2xl tracking-tighter dark:text-white">STATEMENTS</span>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <div class="mx-4">
+          <div class="text-white rounded shadow p-4 w-full text-center" style="background: var(--ion-color-primary);">
+            Submit A Claim
+          </div>
+        </div>
+        
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0"
+      style="margin: 15px;">
+      <div class="w-full flex justify-center h-16 items-center">
+        <div class="w-1/2">
+          <span class="text-gray-900 dark:text-gray-200 ml-3 font-semibold">Dependants</span>
+        </div>
+        <div class="w-1/2 flex justify-end mr-2">
+          <div class="dependant inline-block p-0 m-0" *ngFor="let dependant of profile?.Dependants">
+            <img class="border-4 border-solid border-white dark:border-gray-900 rounded-full w-14 h-14"
+              src="https://api.gems.gov.za/api/v1/MemberImage/{{dependant.BeneficiaryID}}?counter=0" alt="">
+          </div>
+        </div>
+      </div>
+    </ion-row> -->
+
+    <ion-row class="ion-padding" style="margin: 5px;">
+      <ion-col>
+        <div class="flex justify-between">
+          <span class="text-md font-semibold dark:text-gray-200">Latest Claims (6 Months)</span>
+          <span class="text-xs text-yellow-500">View All</span>
+        </div>
+
+        <div class="mt-4" *ngIf="isLoading">
+          <ion-item class="my-1 rounded" lines="full" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </div>
+
+        <div class="mt-4 ">
+          <div class="py-1" *ngFor="let claim of claims; let i = index;" (click)="toggleSection(i)">
+            <ion-item detail="false" lines="none" class="rounded">
+              <ion-avatar
+                [ngClass]="{'bg-emerald_value': claim?.Status === 'SETTLED', 'bg-ruby': claim?.Status === 'REJECTED', 'bg-gems-primary-yellow': claim?.Status === null}"
+                class="p-2 rounded text-white" name="" slot="start">
+                <img src="assets/img/home/claims_fill.svg" alt="">
+              </ion-avatar>
+              <ion-note slot="end">
+                <span class="text-xs text-black font-bold block">R {{claim.feesCharged.Amount}}</span>
+                <span class="text-xs font-normal text-gray-700 block ">{{claim?.Status || 'PENDING' | titlecase}}</span>
+              </ion-note>
+              <!-- <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!claim.open"></ion-icon>
+              <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="claim.open"></ion-icon> -->
+              <ion-label class="font-semibold">
+                <span class="block">{{claim?.PatientName | titlecase}}</span>
+                <span class="text-xs text-gray-600 font-medium">{{claim?.Provider | titlecase}}</span>
+              </ion-label>
+            </ion-item>
+            <div *ngIf="claim.open" class="bg-white dark:bg-black p-4 flex"
+              [ngClass]="{'block': claim.open, 'hidden': !claim.open}">
+              <div class="w-1/2">
+                <span class="text-xs block">Ref No.</span>
+                <span class="text-sm font-semibold">{{claim.referenceNumber}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Benefit</span>
+                <span class="text-sm font-semibold">{{claim.benefitAmount.Amount | currency: 'R'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Member Portion</span>
+                <span class="text-sm font-semibold">{{claim.memberPortion.Amount | currency: 'R'}}</span>
+              
+              </div>
+
+              <div class="w-1/2">
+                <span class="text-xs block">Date</span>
+                <span class="text-sm font-semibold">{{claim?.dateAssessed | titlecase | date: 'fullDate'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Amount Charged</span>
+                <span class="text-sm font-semibold">{{claim?.feesCharged.Amount | currency: 'R'}}</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

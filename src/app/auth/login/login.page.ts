@@ -33,17 +33,20 @@ export class LoginPage implements OnInit {
     this.auth.login(form.value.username, form.value.password).subscribe(user => {
       console.log(user.data, 'user');
       this.auth.selectedMember = JSON.parse(user.data);
+      localStorage.removeItem('memberLocal');
+      localStorage.setItem('memberLocal', user.data);
       this.storage.set('member', user).then(res => {
         // window.location.reload();
         this.router.navigateByUrl('/pre-home');
         this.loader.dismiss();
       });
     }, error => {
+      alert(error);
       console.log(typeof(error.error), 'error');
-      const errorMessage = JSON.parse(error.error);
-      console.log(errorMessage.error_description);
+      // const errorMessage = JSON.parse(error.error);
+      // console.log(errorMessage.error_description);
       this.loader.dismiss();
-      this.showToast(errorMessage.error_description, 5000);
+      // this.showToast(errorMessage.error_description, 5000);
     });
   }
 

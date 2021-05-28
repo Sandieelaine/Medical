@@ -17,16 +17,24 @@ export class HomePage implements OnInit {
     slidesPerView: 2.1,
     spaceBetween: 8
   }
+  testData;
   constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router) {
     this.auth.getSelectedMember()
     .subscribe(res => {
       console.log('promised', res);
     })
+    // this.testData = window.localStorage.getItem('memberLocal');
+    // alert(this.testData);
   }
+
+  // ionViewDidLoad() {
+  //   this.testData = window.localStorage.getItem('memberLocal');
+  //   alert(this.testData);
+  // }
 
   ngOnInit() {
     this.auth.trackView('/', 'Home Page');
-    this.showAlert();
+    // this.showAlert();
     this.storage.get('member').then(res => {
       console.log(JSON.parse(res.data));
       const parsedData = JSON.parse(res.data);
@@ -61,7 +69,7 @@ export class HomePage implements OnInit {
           }
         ]
       });
-      // await tourAlert.present();
+      await tourAlert.present();
     //}
   }
 

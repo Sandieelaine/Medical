@@ -43,7 +43,7 @@
     <input class="my-2" type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
   </ion-item>
 
-  <ion-button [disabled]="baseURL === 'https://api.gems.gov.za'" (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button>
+  <ion-button (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button>
 
 
 </ion-content>

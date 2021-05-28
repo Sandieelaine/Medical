@@ -18,7 +18,9 @@ declare var gtag;
 })
 export class AuthenticationService {
   url = 'https://api.gems.gov.za';
-  // url: 'http://qa.member.gems.local';
+  // url = 'https://qa.api.gems.gov.za';
+  // url = 'http://qa.api.gems.gov.za';
+  // url = 'http://qa.member.gems.local';
   selectedMember: Member;
   token: string;
   authenticationState = new BehaviorSubject(false);
@@ -61,13 +63,15 @@ export class AuthenticationService {
         username,
         password
       };
+      
+      console.log(this.url);
     let req = this.httpNative.post(`${this.url}/token`,
     body,
     {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     return from(req).pipe(
-      timeout(10000),
+      // timeout(10000),
       retry(3)
     );
   }

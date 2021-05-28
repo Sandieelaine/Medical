@@ -52,7 +52,7 @@ export class SubmitClaimPage implements OnInit {
       .subscribe(res => {
         console.log(res);
       }, err => {
-
+        alert(err);
       })
     }
     
