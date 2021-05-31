@@ -47,6 +47,10 @@
     </ion-item>
   </ion-list>
 
+  <div *ngIf="documents && documents?.TaxCertificates.length === 0">
+    The member does not have any tax certificates
+  </div>
+
   <div *ngIf="isLoading">
     <ion-list>
       <ion-list-header>
@@ -71,6 +75,7 @@
       </ion-item>
     </ion-list>
   </div>
+
   
 
 </ion-content>

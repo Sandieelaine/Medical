@@ -21,6 +21,8 @@ faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the core NgIdleModule but includes keepalive providers for easy wireup
+import { MomentModule } from 'angular2-moment'; // optional, provides moment-style pipes for date formatting
 
 library.add(faBaby, faCamera);
 
@@ -40,7 +42,9 @@ library.add(faBaby, faCamera);
     HttpClientModule,
     ChartsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MomentModule,
+    NgIdleKeepaliveModule.forRoot()
   ],
   providers: [
     StatusBar,

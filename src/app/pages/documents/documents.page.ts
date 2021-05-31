@@ -3,6 +3,7 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { LoadingController, Platform } from '@ionic/angular';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-documents',
@@ -14,7 +15,7 @@ export class DocumentsPage implements OnInit {
   loader;
   isLoading = true;
 
-  constructor(private auth: AuthenticationService, private loadingCtrl: LoadingController, private platform: Platform, private fileOpener: FileOpener, private file: File) { }
+  constructor(private auth: AuthenticationService, private loadingCtrl: LoadingController, private platform: Platform, private fileOpener: FileOpener, private file: File, private helper: HelpersService) { }
 
   ngOnInit() {
     this.loadDocuments();
@@ -36,10 +37,11 @@ export class DocumentsPage implements OnInit {
   }
 
   downloadMemberCertificate(certificateID) {
+    alert('');
+    this.showLoader();
     this.auth.getMemberCertificate()
     .subscribe(res => {
       console.log(res);
-
       // Check first if running on Android
       if(this.platform.is("android")) {
         console.log('Running on android');
@@ -51,6 +53,8 @@ export class DocumentsPage implements OnInit {
             replace: true
           }
         ).then(res => {
+          this.loader.dismiss();
+          this.helper.presentToast('Document Downloaded to Downloads Folder', 2000);
           console.log(res)
           console.log(this.file.externalRootDirectory + "/Download" + `/${certificateID}.pdf`);
           this.fileOpener.open(
@@ -61,7 +65,9 @@ export class DocumentsPage implements OnInit {
             console.log(err);
           })
         }).catch(err => {
+          this.loader.dismiss();
           console.log(err);
+          alert('Document Download Failed. Please try again');
         })
       }
 
@@ -76,6 +82,8 @@ export class DocumentsPage implements OnInit {
             replace: true
           }
         ).then(res => {
+          this.loader.dismiss();
+          this.helper.presentToast('Document Downloaded to Downloads Folder', 2000);
           console.log(res)
           console.log(this.file.documentsDirectory + `/${certificateID}.pdf`);
           this.fileOpener.open(
@@ -87,11 +95,16 @@ export class DocumentsPage implements OnInit {
           })
         }).catch(err => {
           console.log(err);
+          this.loader.dismiss();
+          console.log(err);
+          alert('Document Download Failed. Please try again');
         })
       }
       
     }, err => {
       console.log(err);
+      this.loader.dismiss();
+      alert('Document Download Failed. Please try again');
     })
   }
 
@@ -148,12 +161,22 @@ export class DocumentsPage implements OnInit {
           })
         }).catch(err => {
           console.log(err);
+          alert('Document Download Failed. Please try again')
         })
       }
       
     }, err => {
       console.log(err);
     })
+  }
+
+  async showLoader() {
+    this.loader = await this.loadingCtrl.create({
+      spinner: 'lines',
+      message: 'Downloading Document',
+      cssClass: 'login-spinner'
+    });
+    this.loader.present();
   }
 
 
