@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Option Chnage</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="w-full">
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Beryl', 'nonEVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/beryl.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Beryl</span>
+      </div>
+    </div>
+    
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Ruby', 'nonEVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/ruby.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Ruby</span>
+      </div>
+    </div>
+
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Onyx', 'nonEVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/onyx.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Onyx</span>
+      </div>
+    </div>
+
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Emerald', 'nonEVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/emerald.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Emerald</span>
+      </div>
+    </div>
+
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Emerald Value', 'EVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/emerald-value.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Emerald Value</span>
+      </div>
+    </div>
+
+    <div class="inline-block w-1/2 p-2" (click)="changeOption('Tanzanite One', 'EVO')">
+      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+        <img class="w-24" src="assets/img/plans/tanzanite-one.png" alt="">
+        <div class="h-4"></div>
+        <span class="font-bold text-sm text-center uppercase tracking-widest">Tanzanite One</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>{{optionTitle}}</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="w-full p-4" *ngIf="!isEVOOption">
+    <!-- <div class="p-2 rounded text-center" style="background: #00b5a6;"> -->
+    <div class="p-4 rounded text-sm" style="background: #00b5a6;">
+      <span>
+        <li class="text-white">Your current option is <span class="font-bold">{{plan | titlecase}}</span>, you are now
+          about to change your
+          membership option for 2021 to <span class="font-bold">{{optionTitle}}</span>.</li>
+        <li class="text-white">Please note: if you are found to have used your personal medical savings account (PMSA)
+          on the Ruby option, such
+          use may result in you being indebted to the Scheme for any claims funded by the Scheme in excess of your PMSA
+          contributions.</li>
+        <li class="text-white">Please note: When changing from any other benefit option to EVO or Tanzanite One, you and
+          your dependants are
+          each required to nominate a GP.</li>
+
+
+      </span>
+      
+    </div>
+    <button [disabled]="true" class="bg-gems-primary-blue p-4 mt-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+      Change Benefit Option
+    </button>
+  </div>
+
+  <div *ngIf="isEVOOption" class="p-4">
+    <form [formGroup]="optionChangeForm" (ngSubmit)='changeToEVOOption()' class="mt-2">
+      <ion-item>
+        <ion-label position="stacked">First Name</ion-label>
+        <ion-input disabled autocomplete="off" type="text" name="mainMemberFirstName" formControlName="mainMemberFirstName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Last Name</ion-label>
+        <ion-input disabled type="text" name="mainMemberLastName" formControlName="mainMemberLastName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Member Number</ion-label>
+        <ion-input disabled type="number" position="stacked" name="memberNumber" formControlName="memberNumber"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Province</ion-label>
+        <ion-select formControlName="mainMemberProvince" value="brown"
+          okText="Okay" cancelText="Dismiss">
+          <ion-select-option *ngFor="let province of provinces" [value]="province">
+            {{province.Description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="cities.length > 0 && cities">
+        <ion-label position="stacked">City</ion-label>
+        <ion-select formControlName="mainMemberCity" value="brown"
+          okText="Okay" cancelText="Dismiss">
+          <ion-select-option *ngFor="let city of cities" [value]="city">
+            {{city.Description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Family Practitioner</ion-label>
+        <ion-select formControlName="mainMemberPractitioner" value="brown"
+          okText="Okay" cancelText="Dismiss">
+          <ion-select-option *ngFor="let refferalOption of [1, 2, 3, 4]" [value]="refferalOption">
+            {{refferalOption}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
+        <button [disabled]="optionChangeForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+          Change Benefit Option
+        </button>
+    </form>
+  </div>
+</ion-content>

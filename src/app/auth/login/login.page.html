@@ -29,28 +29,32 @@
           <ion-item>
             <ion-input name="username" ngModel placeholder="Enter Username" type="text" #usernameInput="ngModel"
               required username></ion-input>
-            <ion-button slot="start" fill="clear">
-              <ion-icon color="dark" name="clipboard"></ion-icon>
+            <ion-button slot="end" fill="clear">
+              <ion-icon color="primary" name="person-outline"></ion-icon>
             </ion-button>
           </ion-item>
 
-          <span class="error-msg" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
+          <span class="error-msg text-xs" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
             a valid username</span>
           <div style="height: 5px"></div>
 
           <ion-item>
             <ion-input name="password" ngModel placeholder="Enter Password" type="password" #passwordInput="ngModel"
               required></ion-input>
-            <ion-button fill="clear" slot="start">
-              <ion-icon color="dark" name="clipboard"></ion-icon>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="key-outline"></ion-icon>
             </ion-button>
           </ion-item>
 
 
-          <span class="error-msg" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
+          <span class="error-msg text-xs" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
             enter a valid password</span>
 
-          <ion-button id="signIn" [disabled]="loginForm.invalid" shape="round" type="submit" color="primary" expand="full">Sign In</ion-button>
+          <button [disabled]="loginForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+            Sign In
+          </button>
+
+          <!-- <ion-button id="signIn" [disabled]="loginForm.invalid" shape="round" type="submit" color="primary" expand="full">Sign In</ion-button> -->
         </form>
 
         <div id="signFooterLinks">

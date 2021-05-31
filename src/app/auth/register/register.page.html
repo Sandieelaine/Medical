@@ -62,8 +62,12 @@
             {{refferalOption.Description}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
-        [disabled]="registrationForm.invalid">Register</ion-button>
+      <!-- <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
+        [disabled]="registrationForm.invalid">Register</ion-button> -->
+
+        <button [disabled]="registrationForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+          Register
+        </button>
     </form>
   </div>
 
@@ -91,8 +95,12 @@
         </mat-form-field> -->
       </div>
 
-      <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit" [disabled]="otpForm.invalid">
-        Submit OTP</ion-button>
+      
+      <button [disabled]="otpForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit OTP
+      </button>
+      <!-- <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit" [disabled]="otpForm.invalid">
+        Submit OTP</ion-button> -->
     </form>
 
   </div>

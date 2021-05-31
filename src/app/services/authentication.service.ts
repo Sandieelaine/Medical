@@ -81,6 +81,17 @@ export class AuthenticationService {
     return from(req);
   }
 
+  getProvinces():Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/generalPractitioner/GetProvinces`, {}, {});
+    return from(req);
+  }
+
+  getCities(provinceID):Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/generalPractitioner/GetCities?provinceId=${provinceID}`, {}, {});
+    return from(req);
+  }
+  
+
   getOptionsForDropdowns():Observable<any> {
     let req = this.httpNative.get(`${this.url}/api/v1/formOptions/memberApplication/beneficiaryOptions`, {}, {});
     return from(req);
@@ -401,6 +412,32 @@ export class AuthenticationService {
     if (!this.selectedMember) { return }
     let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/requestNewCard/`,
     postalAddress,
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+  changeOption(option) {
+    if (!this.selectedMember) { return }
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/ChangeBenefitOption/${option}`,
+    {},
+    {
+      'Authorization': `Bearer ${this.selectedMember.access_token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+  changeToEVOOption(option) {
+    if (!this.selectedMember) { return }
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/ChangeBenefitOption/${option}`,
+    {},
     {
       'Authorization': `Bearer ${this.selectedMember.access_token}`
     }

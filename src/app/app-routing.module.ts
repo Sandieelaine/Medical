@@ -121,6 +121,10 @@ const routes: Routes = [
   {
     path: 'claims-home',
     loadChildren: () => import('./pages/claims-home/claims-home.module').then( m => m.ClaimsHomePageModule)
+  },
+  {
+    path: 'option-change',
+    loadChildren: () => import('./pages/option-change/option-change.module').then( m => m.OptionChangePageModule)
   }
 ];
 @NgModule({

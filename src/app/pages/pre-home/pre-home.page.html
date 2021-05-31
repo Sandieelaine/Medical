@@ -25,7 +25,13 @@
         </ion-item>
       </ion-card>
 
-      <ion-button style="margin: 0 20px;" shape="round" type="submit" color="primary" expand="full" (click)="navigateToHome()">Skip</ion-button>
+      <!-- <ion-button style="margin: 0 20px;" shape="round" type="submit" color="primary" expand="full" (click)="navigateToHome()">Skip</ion-button> -->
+      <div class="mx-4">
+        <button (click)="navigateToHome()" class="bg-gems-primary-blue py-3 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+          SKIP
+        </button>
+      </div>
+      
       
     </div>
   </div>
