@@ -24,9 +24,9 @@ export class SelectedOptionPage implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder) {
     this.optionChangeForm = this.fb.group({
-      mainMemberFirstName: ['', [Validators.required]],
-      mainMemberLastName: ['', Validators.required],
-      memberNumber: ['', [Validators.required]],
+      mainMemberFirstName: [{value: '', disabled: true}, [Validators.required]],
+      mainMemberLastName: [{value: '', disabled: true}, Validators.required],
+      memberNumber: [{value: '', disabled: true}, [Validators.required]],
       mainMemberProvince: ['', Validators.required],
       mainMemberCity: ['', Validators.required],
       mainMemberPractitioner: ['', [Validators.required]],
@@ -140,8 +140,8 @@ export class SelectedOptionPage implements OnInit {
 
   createDependant(FullName, BeneficiaryNumber): FormGroup {
     return this.fb.group({
-      FullName: FullName,
-      BeneficiaryNumber: BeneficiaryNumber,
+      FullName: [{value: FullName, disabled: true}, Validators.required],
+      BeneficiaryNumber: [{value: BeneficiaryNumber, disabled: true}, Validators.required],
       DependantsPractitioner: '',
       PracticeNumber: '',
       DependantProvince: '',
