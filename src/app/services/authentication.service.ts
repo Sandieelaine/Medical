@@ -90,6 +90,13 @@ export class AuthenticationService {
     let req = this.httpNative.get(`${this.url}/api/v1/generalPractitioner/GetCities?provinceId=${provinceID}`, {}, {});
     return from(req);
   }
+
+  getGeneralPractitioners(provinceID, cityID):Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/generalPractitioner/GetGeneralPractitioners?provinceId=${provinceID}&cityId=${cityID}`, {}, {});
+    return from(req);
+  }
+
+  
   
 
   getOptionsForDropdowns():Observable<any> {

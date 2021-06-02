@@ -37,7 +37,6 @@ export class DocumentsPage implements OnInit {
   }
 
   downloadMemberCertificate(certificateID) {
-    alert('');
     this.showLoader();
     this.auth.getMemberCertificate()
     .subscribe(res => {

@@ -49,22 +49,22 @@
 
   <div *ngIf="isEVOOption" class="p-4">
     <form [formGroup]="optionChangeForm" (ngSubmit)='changeToEVOOption()' class="mt-2">
-      <ion-item>
+      <ion-item lines="none">
         <ion-label position="stacked">First Name</ion-label>
         <ion-input disabled autocomplete="off" type="text" name="mainMemberFirstName" formControlName="mainMemberFirstName"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-label position="stacked">Last Name</ion-label>
         <ion-input disabled type="text" name="mainMemberLastName" formControlName="mainMemberLastName"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-label position="stacked">Member Number</ion-label>
         <ion-input disabled type="number" position="stacked" name="memberNumber" formControlName="memberNumber"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-label position="stacked">Province</ion-label>
         <ion-select formControlName="mainMemberProvince" value="brown"
           okText="Okay" cancelText="Dismiss">
@@ -73,7 +73,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="cities.length > 0 && cities">
+      <ion-item lines="none" *ngIf="cities.length > 0 && cities">
         <ion-label position="stacked">City</ion-label>
         <ion-select formControlName="mainMemberCity" value="brown"
           okText="Okay" cancelText="Dismiss">
@@ -82,17 +82,39 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none" *ngIf="gps.length > 0 && gps">
         <ion-label position="stacked">Family Practitioner</ion-label>
         <ion-select formControlName="mainMemberPractitioner" value="brown"
           okText="Okay" cancelText="Dismiss">
-          <ion-select-option *ngFor="let refferalOption of [1, 2, 3, 4]" [value]="refferalOption">
-            {{refferalOption}}</ion-select-option>
+          <ion-select-option *ngFor="let gp of gps" [value]="gp">
+            {{gp.Description}}</ion-select-option>
         </ion-select>
       </ion-item>
 
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap"><span>Would you like to select the same practitioner for dependants?</span></ion-label>
+        <!-- Checked Checkbox -->
+        <ion-checkbox formControlName="Doyouwanttoapplythispractitionertoall" name="Doyouwanttoapplythispractitionertoall" slot="end" checked="true"></ion-checkbox>
+      </ion-item>
 
-        <button [disabled]="optionChangeForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+      <div class="p-2" *ngIf="optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false">
+        Dependants Forms
+      </div>
+
+
+      <!-- <div
+    formArrayName="dependants"
+    *ngFor="let dependant of optionChangeForm.get('dependants')['controls']; let i = index;"
+  >
+    <div [formGroupName]="i">
+      <input formControlName="PracticeNumber" placeholder="Item name">
+      <input formControlName="DependantProvince" placeholder="Item description">
+      <input formControlName="DependantCity" placeholder="Item price">
+    </div>
+  </div> -->
+
+
+        <button [disabled]="optionChangeForm.invalid" class="bg-gems-primary-blue p-4 mt-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
           Change Benefit Option
         </button>
     </form>

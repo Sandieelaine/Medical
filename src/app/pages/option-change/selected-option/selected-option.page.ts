@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-selected-option',
@@ -19,6 +19,8 @@ export class SelectedOptionPage implements OnInit {
   optionChangeForm: FormGroup;
   provinces;
   cities = [];
+  gps = [];
+  dependants;
 
   constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder) {
     this.optionChangeForm = this.fb.group({
@@ -27,8 +29,11 @@ export class SelectedOptionPage implements OnInit {
       memberNumber: ['', [Validators.required]],
       mainMemberProvince: ['', Validators.required],
       mainMemberCity: ['', Validators.required],
-      mainMemberPractitioner: ['', [Validators.required]]
+      mainMemberPractitioner: ['', [Validators.required]],
+      Doyouwanttoapplythispractitionertoall: ['', [Validators.required]],
+      // Dependants: this.fb.array([])
     });
+    this.optionChangeForm.patchValue({Doyouwanttoapplythispractitionertoall: true});
     
   }
 
@@ -48,6 +53,7 @@ export class SelectedOptionPage implements OnInit {
       console.log(option, status);
     });
     this.onChanges();
+    this.onCityChange();
   }
 
   loadProfile() {
@@ -55,6 +61,13 @@ export class SelectedOptionPage implements OnInit {
     .subscribe(profile => {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
+      if (this.profile.Dependants && this.profile.Dependants.length > 0) {
+        this.optionChangeForm.addControl('Dependants', this.fb.array([]));
+        for (var dependant of this.profile.Dependants) {
+          console.log(dependant.FirstName);
+          this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
+        }
+      }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
       this.optionChangeForm.patchValue({mainMemberFirstName: this.profile.FirstName});
       this.optionChangeForm.patchValue({mainMemberLastName: this.profile.LastName});
@@ -81,6 +94,14 @@ export class SelectedOptionPage implements OnInit {
     })
   }
 
+  getGPs(provinceID, cityID) {
+    this.api.getGeneralPractitioners(provinceID, cityID)
+    .subscribe(gps => {
+      this.gps = JSON.parse(gps.data);
+      console.log(gps);
+    })
+  }
+
   changeToNonEVOOption() {
     this.api.changeOption(this.optionTitle)
     .subscribe(res => {
@@ -97,15 +118,41 @@ export class SelectedOptionPage implements OnInit {
   }
 
   changeToEVOOption() {
-
+    console.log(this.optionChangeForm.value);
   }
 
 
   onChanges(): void {
     this.optionChangeForm.get('mainMemberProvince').valueChanges.subscribe(val => {
       console.log(val);
+      this.optionChangeForm.patchValue({mainMemberCity: ''});
       this.getCities(val.ID);
     });
+  }
+
+  onCityChange(): void {
+    this.optionChangeForm.get('mainMemberCity').valueChanges.subscribe(val => {
+      console.log(val);
+      this.optionChangeForm.patchValue({mainMemberPractitioner: ''});
+      this.getGPs(this.optionChangeForm.value.mainMemberProvince.ID, val.ID);
+    });
+  }
+
+  createDependant(FullName, BeneficiaryNumber): FormGroup {
+    return this.fb.group({
+      FullName: FullName,
+      BeneficiaryNumber: BeneficiaryNumber,
+      DependantsPractitioner: '',
+      PracticeNumber: '',
+      DependantProvince: '',
+      DependantCity: ''
+    });
+  }
+
+  addDependant(FullName, BeneficiaryNumber): void {
+    this.dependants = this.optionChangeForm.get('Dependants') as FormArray;
+    console.log(this.dependants);
+    this.dependants.push(this.createDependant(FullName, BeneficiaryNumber));
   }
 
 }
