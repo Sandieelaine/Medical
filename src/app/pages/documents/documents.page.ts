@@ -4,6 +4,7 @@ import { LoadingController, Platform } from '@ionic/angular';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { HelpersService } from 'src/app/services/helpers.service';
+import { Member } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-documents',
@@ -14,15 +15,18 @@ export class DocumentsPage implements OnInit {
   documents;
   loader;
   isLoading = true;
+  member:Member;
 
   constructor(private auth: AuthenticationService, private loadingCtrl: LoadingController, private platform: Platform, private fileOpener: FileOpener, private file: File, private helper: HelpersService) { }
 
   ngOnInit() {
+    this.member = this.auth.getMember();
     this.loadDocuments();
+
   }
 
   loadDocuments() {
-    this.auth.getAllDocuments().subscribe(docs => {
+    this.auth.getAllDocuments(this.member.MemberGuid, this.member.access_token).subscribe(docs => {
       this.documents = JSON.parse(docs.data);
       console.log(this.documents);
       this.isLoading = false;
@@ -38,7 +42,7 @@ export class DocumentsPage implements OnInit {
 
   downloadMemberCertificate(certificateID) {
     this.showLoader();
-    this.auth.getMemberCertificate()
+    this.auth.getMemberCertificate(this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       console.log(res);
       // Check first if running on Android
@@ -109,7 +113,7 @@ export class DocumentsPage implements OnInit {
 
 
   downloadTaxCertificate(certificateID, year) {
-    this.auth.getTaxCertificate(year)
+    this.auth.getTaxCertificate(year, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       console.log(res);
 

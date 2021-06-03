@@ -132,6 +132,53 @@ export class AuthenticationService {
     );
     return from(req);
   }
+
+  getAllDocuments(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/BenefitDocuments/GetAllDocuments/${GUID}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  // Download Documents: Tax and Member Certificates //
+  getMemberCertificate(GUID, Token) {
+    let req = this.httpNative.sendRequest(
+      `${this.url}/api/v1/Members/${GUID}/memberCertificate/`,
+      {
+        method: 'get',
+        headers: {
+          'Authorization': `Bearer ${Token}`,
+          "Content-Type": "application/pdf"
+         },
+        responseType: "blob",
+        timeout: 50000
+      }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  getTaxCertificate(year, GUID, Token) {
+    let req = this.httpNative.sendRequest(
+      `${this.url}/api/v1/Members/${GUID}/taxCertificate/${year}`,
+      {
+        method: 'get',
+        headers: {
+          'Authorization': `Bearer ${Token}`,
+          "Content-Type": "application/pdf"
+         },
+        responseType: "blob",
+        timeout: 50000
+      }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
   // Simon Grimm
 
   checkToken() {
@@ -312,16 +359,7 @@ export class AuthenticationService {
     return from(req);
   }
 
-  getAllDocuments() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/BenefitDocuments/GetAllDocuments/${this.selectedMember.MemberGuid}`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req);
-  }
+  
 
   getDocumentFromServer() {
 
@@ -340,43 +378,7 @@ export class AuthenticationService {
     );
   }
 
-  getMemberCertificate() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.sendRequest(
-      `${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/memberCertificate/`,
-      {
-        method: 'get',
-        headers: {
-          'Authorization': `Bearer ${this.selectedMember.access_token}`,
-          "Content-Type": "application/pdf"
-         },
-        responseType: "blob",
-        timeout: 50000
-      }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
 
-  getTaxCertificate(year) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.sendRequest(
-      `${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/taxCertificate/${year}`,
-      {
-        method: 'get',
-        headers: {
-          'Authorization': `Bearer ${this.selectedMember.access_token}`,
-          "Content-Type": "application/pdf"
-         },
-        responseType: "blob",
-        timeout: 50000
-      }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
 
   getClaimStatement(statementID) {
     if (!this.selectedMember) { return }

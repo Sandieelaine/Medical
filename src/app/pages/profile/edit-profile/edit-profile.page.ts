@@ -84,7 +84,7 @@ export class EditProfilePage implements OnInit {
   }
 
   loadDocuments() {
-    this.auth.getAllDocuments().subscribe(documents => {
+    this.auth.getAllDocuments(this.member.MemberGuid, this.member.access_token).subscribe(documents => {
       this.documents = JSON.parse(documents.data);
       // console.log(this.documents);
     }, err => {
