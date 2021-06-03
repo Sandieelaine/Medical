@@ -5,8 +5,8 @@ import { Member } from './../models/member.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { BehaviorSubject, from, Observable } from 'rxjs';
-import { tap, timeout, retry, switchMap, map } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { tap, timeout, retry, switchMap, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HTTP } from '@ionic-native/http/ngx';
 import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
@@ -28,6 +28,11 @@ export class AuthenticationService {
   private userData = new BehaviorSubject(null);
   selectedPreLoginContent;
 
+  // Simon Grimm
+  public member: Observable<any>;
+  private memberData = new BehaviorSubject(null);
+  // Simon Grimm
+
   constructor(
     private http: HttpClient,
     private storage: Storage,
@@ -35,17 +40,99 @@ export class AuthenticationService {
     private router: Router,
     private httpNative: HTTP,
     public toastController: ToastController) {
-    this.loadStoredTokenData();
-    this.storage.get('member').then(res => {
-      if(res === null) {return };
-      console.log(JSON.parse(res.data));
-      const parsedData = JSON.parse(res.data);
-      this.selectedMember = parsedData;
-      if (this.selectedMember !== undefined || this.selectedMember !== null) {
-        this.router.navigateByUrl('tabs/tabs/home');
-      }
-    })
+    // Simon Grimm
+      this.loadStoredToken();
+    // Simon Grimm
+
+  } 
+
+  // Simon Grimm
+  loadStoredToken() {
+    let platformObs = from(this.platform.ready());
+ 
+    this.member = platformObs.pipe(
+      switchMap(() => {
+        return from(this.storage.get('memberToken'));
+      }),
+      map(memberTokenData => {
+        if (memberTokenData) {
+          let tokenData:Member = JSON.parse(memberTokenData.data); 
+          this.memberData.next(tokenData);
+          return true;
+        } else {
+          return null;
+        }
+      })
+    );
   }
+
+  logMemberIn(username: string, password: string) {
+    const body = {
+      grant_type: 'password',
+      username,
+      password
+    };
+    let req = this.httpNative.post(`${this.url}/token`,
+    body,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+    return from(req).pipe(
+      take(1),
+      map(res => {
+        return res;
+      }),
+      switchMap(memberTokenData => {
+        let tokenData = memberTokenData;
+        this.memberData.next(tokenData);
+        let storageObs = from(this.storage.set('memberToken', tokenData));
+        return storageObs;
+      })
+    );
+  }
+
+  getMember() {
+    return this.memberData.getValue();
+  }
+
+  logMemberOut() {
+    this.storage.remove('memberToken').then(() => {
+      this.router.navigateByUrl('/');
+      this.memberData.next(null);
+    });
+  }
+
+
+  getMemberProfile(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    });
+    return from(req);
+  }
+
+  getMemberActivity(GUID, Token, pageNumber = 1) {
+    let req = this.httpNative.get(
+      `${this.url}/api/v1/Members/${GUID}/activities?pageCount=5&pageNumber=${pageNumber}`,
+      {},
+      {
+        'Authorization': `Bearer ${Token}`
+      }
+      );
+    return from(req);
+  }
+
+  getMemberDayToDayBenefits(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/daytodayBenefit/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+  // Simon Grimm
 
   checkToken() {
     this.storage.get('member').then(res => {
@@ -199,6 +286,8 @@ export class AuthenticationService {
     return this.authenticationState.value;
   }
 
+  
+
   getMemberFullProfile() {
     this.reloadToken();
     if (!this.selectedMember) { return }
@@ -210,17 +299,7 @@ export class AuthenticationService {
     return from(req);
   }
 
-  getMemberActivity(id, pageNumber = 1) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(
-      `${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/activities?pageCount=5&pageNumber=${pageNumber}`,
-      {},
-      {
-        'Authorization': `Bearer ${this.selectedMember.access_token}`
-      }
-      );
-    return from(req);
-  }
+  
 
   getDayToDayBenefits() {
     if (!this.selectedMember) { return }

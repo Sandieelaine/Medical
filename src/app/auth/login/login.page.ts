@@ -29,6 +29,28 @@ export class LoginPage implements OnInit {
       return;
     }
     this.showLoader();
+    this.auth.logMemberIn(form.value.username, form.value.password).subscribe(async res => {
+      // console.log(res);
+      if (res) {
+        this.loader.dismiss();
+        console.log('Logged In')
+        this.router.navigateByUrl('/pre-home');
+      } else {
+        await this.loader.dismiss();
+        console.log('Login Failed')
+        console.log('No res')
+      }
+    }, err => {
+      console.log('Failed')
+      this.loader.dismiss();
+    });
+  }
+
+  Login(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.showLoader();
     console.log(form.value.username);
     this.auth.login(form.value.username, form.value.password).subscribe(user => {
       console.log(user.data, 'user');

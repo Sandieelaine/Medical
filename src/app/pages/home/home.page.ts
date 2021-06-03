@@ -5,6 +5,7 @@ import { faCamera, faBaby, faHandshake, faFileContract, faCoins, faEye, faHandHo
 import { Storage } from '@ionic/storage';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FullMember } from 'src/app/models/fullmember.model';
 
 @Component({
   selector: 'app-home',
@@ -12,38 +13,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  member;
+  member:Member = null;
+  profile: FullMember;
   exploreOpt = {
     slidesPerView: 2.1,
     spaceBetween: 8
   }
   testData;
-  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router) {
-    this.auth.getSelectedMember()
-    .subscribe(res => {
-      console.log('promised', res);
-    })
-    // this.testData = window.localStorage.getItem('memberLocal');
-    // alert(this.testData);
-  }
+  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router) {}
 
-  // ionViewDidLoad() {
-  //   this.testData = window.localStorage.getItem('memberLocal');
-  //   alert(this.testData);
-  // }
 
   ngOnInit() {
     this.auth.trackView('/', 'Home Page');
-    // this.showAlert();
-    this.storage.get('member').then(res => {
-      console.log(JSON.parse(res.data));
-      const parsedData = JSON.parse(res.data);
-      this.member = parsedData;
+    this.member = this.auth.getMember();
+    console.log(this.member);
+    this.loadProfile();
+  }
+
+  loadProfile() {
+    this.auth.getMemberProfile(this.member.MemberGuid, this.member.access_token)
+    .subscribe(profile => {
+      this.profile = JSON.parse(profile.data);
     })
   }
 
   async showAlert() {
-    // //let tourDelete = await this.storage.remove('hasSeenTour');
     // let tour = await this.storage.get('hasSeenTour');
     //console.warn(tour, 'tour');
     // if (tour == null) {

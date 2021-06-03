@@ -138,6 +138,22 @@ export class SelectedOptionPage implements OnInit {
     });
   }
 
+  onDependantChanges(): void {
+    this.optionChangeForm.get('DependantProvince').valueChanges.subscribe(val => {
+      console.log(val);
+      this.optionChangeForm.patchValue({DependantProvince: ''});
+      this.getCities(val.ID);
+    });
+  }
+
+  onDependantCityChange(): void {
+    this.optionChangeForm.get('DependantCity').valueChanges.subscribe(val => {
+      console.log(val);
+      this.optionChangeForm.patchValue({mainMemberPractitioner: ''});
+      this.getGPs(this.optionChangeForm.value.DependantCity.ID, val.ID);
+    });
+  }
+
   createDependant(FullName, BeneficiaryNumber): FormGroup {
     return this.fb.group({
       FullName: [{value: FullName, disabled: true}, Validators.required],
@@ -154,5 +170,7 @@ export class SelectedOptionPage implements OnInit {
     console.log(this.dependants);
     this.dependants.push(this.createDependant(FullName, BeneficiaryNumber));
   }
+
+  
 
 }

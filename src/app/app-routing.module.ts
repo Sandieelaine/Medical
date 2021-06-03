@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -12,27 +13,33 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'claims',
-    loadChildren: () => import('./pages/card/card.module').then( m => m.CardPageModule)
+    loadChildren: () => import('./pages/card/card.module').then( m => m.CardPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'benefits',
-    loadChildren: () => import('./pages/benefits/benefits.module').then( m => m.BenefitsPageModule)
+    loadChildren: () => import('./pages/benefits/benefits.module').then( m => m.BenefitsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'providers',
-    loadChildren: () => import('./pages/providers/providers.module').then( m => m.ProvidersPageModule)
+    loadChildren: () => import('./pages/providers/providers.module').then( m => m.ProvidersPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'register',
@@ -44,15 +51,18 @@ const routes: Routes = [
   },
   {
     path: 'card',
-    loadChildren: () => import('./pages/card/card.module').then( m => m.CardPageModule)
+    loadChildren: () => import('./pages/card/card.module').then( m => m.CardPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'rewards',
-    loadChildren: () => import('./pages/rewards/rewards.module').then( m => m.RewardsPageModule)
+    loadChildren: () => import('./pages/rewards/rewards.module').then( m => m.RewardsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'walkthrough',
-    loadChildren: () => import('./auth/walkthrough/walkthrough.module').then( m => m.WalkthroughPageModule)
+    loadChildren: () => import('./auth/walkthrough/walkthrough.module').then( m => m.WalkthroughPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'fingerprint',
@@ -64,31 +74,38 @@ const routes: Routes = [
   },
   {
     path: 'contact',
-    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'bot',
-    loadChildren: () => import('./pages/bot/bot.module').then( m => m.BotPageModule)
+    loadChildren: () => import('./pages/bot/bot.module').then( m => m.BotPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'documents',
-    loadChildren: () => import('./pages/documents/documents.module').then( m => m.DocumentsPageModule)
+    loadChildren: () => import('./pages/documents/documents.module').then( m => m.DocumentsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'information',
-    loadChildren: () => import('./auth/information/information.module').then( m => m.InformationPageModule)
+    loadChildren: () => import('./auth/information/information.module').then( m => m.InformationPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./auth/welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () => import('./auth/welcome/welcome.module').then( m => m.WelcomePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'pre-login',
-    loadChildren: () => import('./pages/pre-login/pre-login.module').then( m => m.PreLoginPageModule)
+    loadChildren: () => import('./pages/pre-login/pre-login.module').then( m => m.PreLoginPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'option',
-    loadChildren: () => import('./pages/pre-login/option/option-routing.module').then( m => m.OptionPageRoutingModule)
+    loadChildren: () => import('./pages/pre-login/option/option-routing.module').then( m => m.OptionPageRoutingModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'forgot-password',
@@ -96,35 +113,43 @@ const routes: Routes = [
   },
   {
     path: 'pre-home',
-    loadChildren: () => import('./pages/pre-home/pre-home.module').then( m => m.PreHomePageModule)
+    loadChildren: () => import('./pages/pre-home/pre-home.module').then( m => m.PreHomePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'claims-landing',
-    loadChildren: () => import('./pages/claims-landing/claims-landing.module').then( m => m.ClaimsLandingPageModule)
+    loadChildren: () => import('./pages/claims-landing/claims-landing.module').then( m => m.ClaimsLandingPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'centres',
-    loadChildren: () => import('./pages/centres/centres.module').then( m => m.CentresPageModule)
+    loadChildren: () => import('./pages/centres/centres.module').then( m => m.CentresPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'submit-claim',
-    loadChildren: () => import('./pages/submit-claim/submit-claim.module').then( m => m.SubmitClaimPageModule)
+    loadChildren: () => import('./pages/submit-claim/submit-claim.module').then( m => m.SubmitClaimPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'request-card',
-    loadChildren: () => import('./pages/request-card/request-card.module').then( m => m.RequestCardPageModule)
+    loadChildren: () => import('./pages/request-card/request-card.module').then( m => m.RequestCardPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'activity',
-    loadChildren: () => import('./pages/activity/activity.module').then( m => m.ActivityPageModule)
+    loadChildren: () => import('./pages/activity/activity.module').then( m => m.ActivityPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'claims-home',
-    loadChildren: () => import('./pages/claims-home/claims-home.module').then( m => m.ClaimsHomePageModule)
+    loadChildren: () => import('./pages/claims-home/claims-home.module').then( m => m.ClaimsHomePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'option-change',
-    loadChildren: () => import('./pages/option-change/option-change.module').then( m => m.OptionChangePageModule)
+    loadChildren: () => import('./pages/option-change/option-change.module').then( m => m.OptionChangePageModule),
+    canLoad: [AuthGuard]
   }
 ];
 @NgModule({

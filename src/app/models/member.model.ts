@@ -1,6 +1,6 @@
 export interface Member {
-    // .expires: string;
-    // .issued: string;
+    '.expires': string;
+    '.issued': string;
     CellphoneNumber: string;
     MemberApplicationGuid: string;
     MemberGuid: string;

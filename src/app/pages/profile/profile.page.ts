@@ -1,5 +1,4 @@
 import { Member } from './../../models/member.model';
-import { Activity } from './../../models/activity.model';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
@@ -15,10 +14,10 @@ import { FullMember } from 'src/app/models/fullmember.model';
 })
 export class ProfilePage implements OnInit {
   user = 'member';
-  member;
-  activity;
-  dayToDayBenefits;
-  MemberImage;
+  member: Member = null;
+  activity = null;
+  dayToDayBenefits = null;
+  MemberImage = null;
   selectedMember;
   profile: FullMember = null;
   benefit;
@@ -33,81 +32,53 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // window.location.reload();
-    
-  }
-
-  ionViewDidEnter() {
-    this.getFullProfile();
-    this.loadBenefits();
+    this.member = this.auth.getMember();
+    this.getMemberProfile();
     this.getActivity();
-    this.loadDocuments();
+    this.loadBenefits();
   }
 
   ngOnInit() {
-    // this.setUpData();
+    this.auth.trackView('/', '360 View Page');
+    
   }
 
-  async setUpData() {
-      let check = await this.auth.user.subscribe(res => {
-        if (res ) {
-          console.log(res);
-          if (res !== null || res !== undefined) {
-            this.getFullProfile();
-            this.loadBenefits();
-            this.getActivity();
-            this.loadDocuments();
-          }
-        } else {
-          this.router.navigateByUrl('/tabs/tabs/home');
-        }
-      })
-  }
-
-  doRefresh(e) {
-    this.zone.run(async () => {
-    this.auth.user.subscribe(res => {
-      if (res ) {
-        this.getFullProfile();
-        this.loadBenefits();
-        this.getActivity();
-        this.loadDocuments();
-        e.target.complete();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
-  });
-  }
-
-
-  getFullProfile() {
-    this.auth.getMemberFullProfile().subscribe(profile => {
+  getMemberProfile() {
+    this.auth.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
-      console.log(profile.data);
+      // console.log(this.profile);
     }, err => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
+
+  doRefresh(e) {
+    this.getMemberProfile();
+    this.getActivity();
+    this.loadBenefits();
+    e.target.complete();
+  }
+
+
   getActivity() {
-    this.auth.getMemberActivity('1')
+    this.auth.getMemberActivity(this.member.MemberGuid, this.member.access_token, 1)
     .subscribe(res => {
       this.activity = JSON.parse(res.data);
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error);
+      // console.log(error);
     })
   }
 
   loadBenefits() {
-    this.auth.getDayToDayBenefits().subscribe(res => {
+    this.auth.getMemberDayToDayBenefits(this.member.MemberGuid, this.member.access_token).subscribe(res => {
       console.log(res);
       this.dayToDayBenefits = JSON.parse(res.data);
-      console.log(res);
+      // console.log(res);
     }, err => {
-      console.log(err);
+      // console.log(err);
       this.auth.presentToast(err.error, 5000);
     });
   }
@@ -115,19 +86,18 @@ export class ProfilePage implements OnInit {
   loadDocuments() {
     this.auth.getAllDocuments().subscribe(documents => {
       this.documents = JSON.parse(documents.data);
-      console.log(this.documents);
+      // console.log(this.documents);
     }, err => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
   logout() {
-    this.auth.logout();
+    this.auth.logMemberOut();
   }
 
 
   async showAlert() {
-    // //let tourDelete = await this.storage.remove('hasSeenTour');
     // let tour = await this.storage.get('hasSeenTour');
     //console.warn(tour, 'tour');
     // if (tour == null) {

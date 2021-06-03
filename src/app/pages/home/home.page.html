@@ -1,11 +1,11 @@
-<ion-header *ngIf="member">
+<ion-header *ngIf="profile && member">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Hello, <b>{{member?.UserName}}</b></ion-title>
+    <ion-title>Hello, <b>{{profile.FirstName}}</b></ion-title>
     <ion-avatar *ngIf="member" slot="end">
-      <img src="https://api.gems.gov.za/api/v1/MemberImage/{{member?.MemberGuid}}?counter=0" alt="">
+      <img src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
     </ion-avatar>
   </ion-toolbar>
 </ion-header>
@@ -376,5 +376,6 @@
       <ion-icon src="assets/icon/info.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  
 
 </ion-content>
