@@ -1,0 +1,145 @@
+ion-content {
+    --background: transparent;
+    background: #eeeeee;
+}
+
+
+.benefits {
+    p {
+        margin: 5px 0;
+        // text-transform: uppercase;
+        font-size: 13px;
+    }
+    h2 {
+        margin: 0;
+        font-size: 35px;
+    }
+}
+
+.dep-wrapper {
+    background: #fff;
+    padding: 5px;
+    margin: 10px;
+
+    span.dep-title {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .dependants {
+        .dependant {
+            display: inline-block;
+            padding: 2px;
+            img {
+                width: 60px;
+                height: 60px;
+                border: 2px solid #fff;
+                box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px;
+            }
+        }
+    }
+}
+
+.avatar {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+}
+
+.avatar:not(:first-child) {
+    margin-left: -60px;
+    -webkit-mask: radial-gradient(circle 55px at 5px 50%, transparent 99%, #fff 100%);
+    mask: radial-gradient(circle 55px at 5px 50%, transparent 99%, #fff 100%);
+}
+
+.avatar img {
+    width: 100%;
+    display: block;
+}
+
+
+
+
+
+
+.details {
+    background: var(--ion-color-primary);
+    padding: 20px;
+    border-bottom-right-radius: 0px;
+    display: flex;
+    align-items: center;
+    height: 200px;
+
+    .detail {
+        text-align: center;
+        border-right: 1px solid #eeeeee;
+    }
+
+    h2.title {
+        font-size: 15px !important;
+        margin-bottom: 4px !important;
+        color: var(--ion-color-darkblue);
+    }
+}
+
+h2.topt {
+    font-size: 55px !important;
+    color: #ffffff;
+}
+
+p.toptp {
+    font-size: 12px !important;
+    color: #c3c3c3;
+    padding: 0;
+    margin: 0 !important;
+    line-height: 4px;
+}
+
+.acticity-wrap {
+    margin: 0 7px;
+    border-radius: 7px;
+    overflow: hidden;
+    font-size: 17px;
+    font-weight: 500;
+
+    .activity-title {
+        color: #000;
+        font-weight: 600;
+    }
+
+    h2.activity-header {
+        font-size: 18px !important;
+        font-weight: 500;
+    }
+
+    ion-label {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.heady {
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 8px;
+}
+
+span.activity-title {
+    font-weight: 600;
+}
+
+.svg-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--ion-color-darkblue);
+    border-radius: 5px;
+    padding: 8px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+ion-item {
+    padding-top: 11px;
+    padding-bottom: 11px;
+}

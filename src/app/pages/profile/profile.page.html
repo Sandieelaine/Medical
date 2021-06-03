@@ -84,19 +84,6 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <div class="w-full p-2 flex">
-        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center">
-          <span class="text-sm font-semibold">Edit My Profile</span>         
-        </div>
-        <div class="w-2"></div>
-        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center">
-          <span class="text-sm font-semibold">Request New Card</span> 
-        </div>
-      </div>
-      
-    </ion-row>
-
     
 
     <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0" style="margin: 10px;">
@@ -113,7 +100,18 @@
       </div>
     </ion-row>
 
-    
+    <ion-row>
+      <div class="w-full p-2 flex">
+        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm" routerLink="edit">
+          <span class="text-sm font-semibold">Edit My Profile</span>         
+        </div>
+        <div class="w-2"></div>
+        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm">
+          <span class="text-sm font-semibold">Request New Card</span> 
+        </div>
+      </div>
+      
+    </ion-row>
 
     <!-- <ion-row class="ion-padding" style="margin: 5px;">
       <ion-col>
