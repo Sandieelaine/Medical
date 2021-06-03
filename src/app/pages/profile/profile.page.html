@@ -87,7 +87,7 @@
     
 
     <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0" style="margin: 10px;">
-      <div *ngIf="profile.isPrincipleMember" class="w-full flex justify-center h-16 items-center">
+      <div *ngIf="profile.isPrincipleMember" class="w-full flex justify-center h-16 items-center" routerLink="dependants">
         <div class="w-1/2">
           <span class="text-gray-900 dark:text-gray-200 ml-3 font-semibold">Dependants</span>
         </div>
@@ -100,13 +100,13 @@
       </div>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="profile">
       <div class="w-full p-2 flex">
         <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm" routerLink="edit">
           <span class="text-sm font-semibold">Edit My Profile</span>         
         </div>
         <div class="w-2"></div>
-        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm">
+        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm" routerLink="request-card">
           <span class="text-sm font-semibold">Request New Card</span> 
         </div>
       </div>
@@ -153,7 +153,7 @@
       <ion-col>
         <div class="flex justify-between">
           <span class="text-md font-semibold dark:text-gray-200">Activity</span>
-          <span routerLink="/tabs/tabs/activity" class="text-xs text-yellow-500">View All</span>
+          <span routerLink="activity" class="text-xs text-yellow-500">View All</span>
         </div>
         
         <div class="mt-1">

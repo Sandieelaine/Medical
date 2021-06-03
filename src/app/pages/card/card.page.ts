@@ -8,6 +8,9 @@ import {
   transition,
   trigger
 } from "@angular/animations";
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Member } from 'src/app/models/member.model';
+import { FullMember } from 'src/app/models/fullmember.model';
 
 @Component({
   selector: 'app-card',
@@ -42,17 +45,32 @@ import {
   ]
 })
 export class CardPage implements OnInit, OnDestroy {
+  member:Member;
+  profile:FullMember;
   state = 'default';
+  MemberImage;
 
-  constructor(private screenOrientation: ScreenOrientation, private router: Router) { }
+  constructor(private screenOrientation: ScreenOrientation, private router: Router, private api: AuthenticationService) { }
 
 
-  ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+  async ngOnInit() {
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    this.member = this.api.getMember();
+    this.getMemberProfile();
   }
 
   ngOnDestroy() {
     
+  }
+
+  getMemberProfile() {
+    this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
+      this.profile = JSON.parse(profile.data);
+      this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
+      // console.log(this.profile);
+    }, err => {
+      // console.log(err);
+    });
   }
 
   cardClicked() {

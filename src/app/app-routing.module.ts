@@ -132,16 +132,6 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
-    path: 'request-card',
-    loadChildren: () => import('./pages/request-card/request-card.module').then( m => m.RequestCardPageModule),
-    canLoad: [AuthGuard]
-  },
-  {
-    path: 'activity',
-    loadChildren: () => import('./pages/activity/activity.module').then( m => m.ActivityPageModule),
-    canLoad: [AuthGuard]
-  },
-  {
     path: 'claims-home',
     loadChildren: () => import('./pages/claims-home/claims-home.module').then( m => m.ClaimsHomePageModule),
     canLoad: [AuthGuard]

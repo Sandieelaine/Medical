@@ -60,10 +60,6 @@ const routes: Routes = [
         loadChildren: () => import('../pages/request-card/request-card.module').then(m => m.RequestCardPageModule)
       },
       {
-        path: 'activity',
-        loadChildren: () => import('../pages/activity/activity.module').then(m => m.ActivityPageModule)
-      },
-      {
         path: '',
         redirectTo: '/tabs/tabs/home',
         pathMatch: 'full'

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tabs/profile"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
     <ion-title>Request New Card</ion-title>
@@ -54,8 +54,9 @@
       </ion-select>
     </ion-item>
 
-    <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
-      [disabled]="cardRequestForm.invalid">Register</ion-button>
+      <button [disabled]="cardRequestForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Request Card
+      </button>
   </form>
 
 
