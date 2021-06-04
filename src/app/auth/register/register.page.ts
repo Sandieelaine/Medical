@@ -101,11 +101,11 @@ export class RegisterPage implements OnInit {
     this.api.submitOTP(this.registrationResponse)
       .subscribe(res => {
         // console.log(res);
-        if (res === 'valid') {
+        if (res.data === 'valid') {
           this.api.register(this.registrationForm.value)
             .subscribe(response => {
               console.log(res);
-              this.registrationResponse = response;
+              this.registrationResponse = JSON.parse(response.data);
               this.helper.presentToast('Account Created! Please log into your new account using your username and password.');
               this.router.navigateByUrl('/');
             }, error => {

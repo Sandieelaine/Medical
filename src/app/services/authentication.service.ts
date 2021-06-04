@@ -331,7 +331,7 @@ export class AuthenticationService {
     return from(req);
   }
 
-  register(registrationData: RegisterMember):Observable<any> {
+  register(registrationData: RegisterMember) {
     let req = this.httpNative.post(`${this.url}/api/v1/Auth/Register`,
     registrationData,
     {
@@ -340,7 +340,7 @@ export class AuthenticationService {
     return from(req);
   }
 
-  submitOTP(otp: RegisterMemberResponse):Observable<any> {
+  submitOTP(otp: RegisterMemberResponse){
     let req = this.httpNative.post(`${this.url}/api/otp/validate`,
     otp,
     {
@@ -349,12 +349,58 @@ export class AuthenticationService {
     return from(req);
   }
 
-  genericRequestOTP(payload: any): Observable<any> {
+  genericRequestOTP(payload: any) {
     let req = this.httpNative.post(`${this.url}/api/otp/send`,
     payload,
     {
       "Content-Type": "application/x-www-form-urlencoded"
     })
+    return from(req);
+  }
+
+  CheckUsernameExists(payload: { UserName: any; GEMSMemberNumber: any; }) {
+    const body = {
+      UserName: payload.UserName,
+      GEMSMemberNumber: payload.GEMSMemberNumber
+    };
+    let req = this.httpNative.post(`${this.url}/api/v1/account/CheckUsernameExists`,
+    body,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+ 
+  changePassword(payload: any) {
+      let req = this.httpNative.post(`${this.url}/api/v1/account/ChangePassword`,
+      payload,
+      {
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    return from(req);
+  }
+
+  checkUsernameExistsRetrieveUsername(payload: { MemberIDNumber: any; }) {
+    const body = {
+      MemberIDNumber: payload.MemberIDNumber
+    };
+    let req = this.httpNative.post(`${this.url}/api/v1/account/CheckUsernameExists`,
+      body,
+      {
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    return from(req);
+  }
+
+  getUsername(payload: { MemberIDNumber: any; }) {
+    const body = {
+      MemberIDNumber: payload.MemberIDNumber
+    };
+    let req = this.httpNative.post(`${this.url}/api/v1/account/GetUsername`,
+      body,
+      {
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
     return from(req);
   }
 
