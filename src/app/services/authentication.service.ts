@@ -1,5 +1,5 @@
 import { ClaimsHistory } from './../models/claim.model';
-import { Platform, ToastController } from '@ionic/angular';
+import { AlertController, Platform, ToastController } from '@ionic/angular';
 import { Activity } from './../models/activity.model';
 import { Member } from './../models/member.model';
 import { Injectable } from '@angular/core';
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { HTTP } from '@ionic-native/http/ngx';
 import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
 import * as moment from 'moment';
+import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
+import {Keepalive} from '@ng-idle/keepalive';
 
 declare var gtag;
 
@@ -29,6 +31,12 @@ export class AuthenticationService {
   private userData = new BehaviorSubject(null);
   selectedPreLoginContent;
 
+  idleState = 'Not started.';
+  timedOut = false;
+  lastPing?: Date = null;
+  secondsLeft = 1;
+  idleTimer:HTMLIonAlertElement;
+
   // Simon Grimm
   public member: Observable<any>;
   private memberData = new BehaviorSubject(null);
@@ -40,7 +48,10 @@ export class AuthenticationService {
     private platform: Platform,
     private router: Router,
     private httpNative: HTTP,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    private idle: Idle, private keepalive: Keepalive,
+    private alertCtrl: AlertController
+    ) {
     // Simon Grimm
       this.loadStoredToken();
     // Simon Grimm
@@ -62,6 +73,7 @@ export class AuthenticationService {
             this.logMemberOut();
             return null;
           }
+          this.setIdleTimeout();
           this.memberData.next(tokenData);
           return true;
         } else {
@@ -70,6 +82,64 @@ export class AuthenticationService {
       })
     );
   }
+
+setIdleTimeout() {
+  // sets an idle timeout of 5 seconds, for testing purposes.
+  this.idle.setIdle(5);
+  // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
+  this.idle.setTimeout(25);
+  // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
+  this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+  this.idle.onIdleEnd.subscribe(() => this.idleState = 'No longer idle.');
+  this.idle.onTimeout.subscribe(() => {
+    this.idleState = 'Timed out!';
+    this.timedOut = true;
+    this.idle.stop();
+    this.idleTimer.dismiss();
+    this.logout();
+  });
+  this.idle.onIdleStart.subscribe(() => this.idleState = 'You\'ve gone idle!');
+  this.idle.onTimeoutWarning.subscribe((countdown) => {
+    if(countdown === 25) {
+      this.showAlert(this.secondsLeft);
+    }
+    this.secondsLeft = countdown;
+    //this.secondsLeft = countdown;
+    this.idleState = 'You will time out in ' + countdown + ' seconds!';
+    console.log('You will time out in ' + countdown + ' seconds!')
+  });
+
+  // sets the ping interval to 15 seconds
+  this.keepalive.interval(15);
+
+  this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
+
+  this.reset();
+}
+
+async showAlert(seconds) {
+  // ${this.secondsLeft || 0}
+    this.idleTimer = await this.alertCtrl.create({
+      header: `Important Notice ${this.secondsLeft}`,
+      subHeader: `You will be automatically logged out after 25 seconds`,
+      buttons: [
+        {
+          text: 'Continue',
+          handler: () => {
+            this.reset();
+          }
+        }
+      ]
+    });
+    await this.idleTimer.present();
+}
+
+reset() {
+  this.idle.watch();
+  this.idleState = 'Started.';
+  this.timedOut = false;
+}
 
   logMemberIn(username: string, password: string) {
     const body = {
