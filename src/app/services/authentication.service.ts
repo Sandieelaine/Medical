@@ -10,6 +10,7 @@ import { tap, timeout, retry, switchMap, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HTTP } from '@ionic-native/http/ngx';
 import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
+import * as moment from 'moment';
 
 declare var gtag;
 
@@ -56,7 +57,11 @@ export class AuthenticationService {
       }),
       map(memberTokenData => {
         if (memberTokenData) {
-          let tokenData:Member = JSON.parse(memberTokenData.data); 
+          let tokenData:Member = JSON.parse(memberTokenData.data);
+          if (moment(tokenData['.expires']).isBefore(moment())) {
+            this.logMemberOut();
+            return null;
+          }
           this.memberData.next(tokenData);
           return true;
         } else {
