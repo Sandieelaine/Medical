@@ -16,7 +16,7 @@
 
   <div class="wrapper">
 
-    <ion-slides #slides [options]="slideOpts">
+    <ion-slides #slides [options]="slideOpts" mode="md">
 
       <ion-slide>
         <div class="top">
@@ -24,13 +24,13 @@
 
         </div>
         <div class="bottom">
-          <h2>Claims Management<br> Simplified</h2>
+          <span class="block font-bold text-3xl">Claims Management<br> Simplified</span>
           <ion-text color="dark">
-            <p>Lorem Ipsum is simply dummy text</p>
+            <span class="block text-sm my-3">Lorem Ipsum is simply dummy text</span>
           </ion-text>
 
           <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
-          <span class="skip-step" routerLink="/onboard">Skip this step</span>
+          <span class="block mt-1 text-sm text-gray-700" routerLink="/onboard">Skip this step</span>
         </div>
       </ion-slide>
 
@@ -40,15 +40,14 @@
 
         </div>
         <div class="bottom">
-          <h2>360 View<br></h2>
+          <span class="block font-bold text-3xl">360&deg; View</span>
           <ion-text color="dark">
-            <p>Lorem Ipsum is simply dummy text of the printing
-              and typesetting industry. </p>
+            <span class="block text-sm my-3 px-6">Enjoy a personalised experience on the App. Here you will have a 360 view of your profile. You can also view your recent activity, Balances, Option type, Add or terminate a dependant, Membership number and acess to your personal health records.</span>
           </ion-text>
 
           <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
 
-          <span class="skip-step" routerLink="/onboard">Skip this step</span>
+          <span class="block mt-1 text-sm text-gray-700" routerLink="/onboard">Skip this step</span>
         </div>
       </ion-slide>
 
@@ -58,10 +57,9 @@
 
         </div>
         <div class="bottom">
-          <h2>Benefit Management<br></h2>
+          <span class="block font-bold text-3xl">Benefit Management</span>
           <ion-text color="dark">
-            <p>Lorem Ipsum is simply dummy text of the printing
-              and typesetting industry. </p>
+            <span class="block text-sm my-3">Lorem Ipsum is simply dummy text</span>
           </ion-text>
 
           <ion-button color="primary" fill="solid" shape="round" routerLink="/onboard">Continue</ion-button>

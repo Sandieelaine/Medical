@@ -60,7 +60,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   loadProfile() {
-    this.api.getMemberFullProfile()
+    this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token)
     .subscribe(profile => {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;

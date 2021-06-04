@@ -320,7 +320,46 @@ export class AuthenticationService {
 
   // ************************************ End  New Code ************************************* //
 
-  
+  // ************************************ Authentication ************************************ //
+
+  sendOTP(registrationData: RegisterMember) {
+    let req = this.httpNative.post(`${this.url}/api/otp/send`,
+    registrationData,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+
+  register(registrationData: RegisterMember):Observable<any> {
+    let req = this.httpNative.post(`${this.url}/api/v1/Auth/Register`,
+    registrationData,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+
+  submitOTP(otp: RegisterMemberResponse):Observable<any> {
+    let req = this.httpNative.post(`${this.url}/api/otp/validate`,
+    otp,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+
+  genericRequestOTP(payload: any): Observable<any> {
+    let req = this.httpNative.post(`${this.url}/api/otp/send`,
+    payload,
+    {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+  }
+
+  // ************************************ End Authentication ************************************ //
+
   
   
   
@@ -423,23 +462,7 @@ export class AuthenticationService {
   }
   
   
-  register(registrationData: RegisterMember):Observable<any> {
-    let req = this.httpNative.post(`${this.url}/api/otp/sen`,
-    registrationData,
-    {
-      "Content-Type": "application/x-www-form-urlencoded"
-    })
-    return from(req);
-  }
-
-  submitOTP(otp: RegisterMemberResponse):Observable<any> {
-    let req = this.httpNative.post(`${this.url}/api/otp/validate`,
-    otp,
-    {
-      "Content-Type": "application/x-www-form-urlencoded"
-    })
-    return from(req);
-  }
+  
 
   reloadToken() {
     this.storage.get('member').then(res => {

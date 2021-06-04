@@ -47,6 +47,8 @@
   .bottom {
     flex: 1;
     padding-top: 1rem;
+    // justify-content: center;
+    // align-items: center;
   }
   
   ion-button {
@@ -54,17 +56,7 @@
     width: 85vw;
   }
   
-  .skip-step {
-    color: #707070;
-    font-size: medium;
-    display: block;
-    cursor: pointer;
-    margin-top: 0.5rem;
-  }
-  
-  .skip-step:focus {
-    outline: none;
-  }
+
   
   
   @media screen and (max-width:320px) {

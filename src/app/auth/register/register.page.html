@@ -29,45 +29,79 @@
         <ion-label position="stacked">Username</ion-label>
         <ion-input autocomplete="off" type="text" name="UserName" formControlName="UserName"></ion-input>
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('UserName', 'required')">Name is required</div>
 
       <ion-item>
         <ion-label position="stacked">ID Number</ion-label>
         <ion-input type="text" name="MemberIDNumber" formControlName="MemberIDNumber"></ion-input>
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'required')">ID Number is required
+      </div>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'minlength')">ID number should be
+        13 characters long</div>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'maxlength')">ID number should be
+        13 characters long</div>
 
       <ion-item>
         <ion-label position="stacked">Password</ion-label>
         <ion-input type="password" position="stacked" name="Password" formControlName="Password"
           autocomplete="new-password"></ion-input>
-        <!-- <ion-button fill="clear" slot="start">
-          <ion-icon color="dark" name="clipboard"></ion-icon>
-        </ion-button> -->
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'required')">Password is required</div>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'pattern')">Password must be at least 8
+        characters containing a
+        least a capital letter, a number and a special character (e.g #,!,@).
+      </div>
 
       <ion-item>
-        <ion-label position="stacked">Cellphone Number</ion-label>
+        <ion-label position="stacked">Confirm Password</ion-label>
+        <ion-input type="password" position="stacked" name="ConfirmPassword" formControlName="ConfirmPassword"
+          autocomplete="new-password"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('ConfirmPassword', 'required')">This field is
+        required.</div>
+      <div class="text-xs text-red-600 block"
+        *ngIf="registrationForm.get('ConfirmPassword').touched && helper.confirmedValidator">Passwords do not match
+      </div>
+
+      <div class="w-full px-3 inline-block">
+        <p class="text-xs flex items-center py-2" style="color:#949494; position: relative;top: -9px;">Password must
+          be at least 8 characters containing a least a
+          capital letter, a number and a special character (e.g #,!,@).</p>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Cell Number (062XXXX89)</ion-label>
         <ion-input type="tel" name="CellphoneNumber" formControlName="CellphoneNumber"></ion-input>
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'required')">Cell Number is
+        required</div>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'minlength')">Please enter a valid
+        cell number</div>
 
       <ion-item>
         <ion-label position="stacked">Member Number</ion-label>
         <ion-input type="text" name="GEMSMemberNumber" formControlName="GEMSMemberNumber"></ion-input>
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('GEMSMemberNumber', 'required')">GEMS Member Number
+        is required</div>
 
       <ion-item>
         <ion-label position="stacked">Where did you hear about GEMS?</ion-label>
-        <ion-select formControlName="Referrals" [(ngModel)]="registrationForm.value.Referrals" value="brown"
-          okText="Okay" cancelText="Dismiss">
-          <ion-select-option *ngFor="let refferalOption of refferalOptions" [value]="refferalOption">
+        <ion-select formControlName="Referrals" okText="Okay" cancelText="Dismiss">
+          <ion-select-option *ngFor="let refferalOption of refferalOptions" [value]="refferalOption" name="Referrals">
             {{refferalOption.Description}}</ion-select-option>
         </ion-select>
       </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Referrals', 'required')">Please select an option
+      </div>
       <!-- <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
         [disabled]="registrationForm.invalid">Register</ion-button> -->
 
-        <button [disabled]="registrationForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
-          Register
-        </button>
+      <button [disabled]="registrationForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Register
+      </button>
     </form>
   </div>
 
@@ -82,21 +116,27 @@
 
       <div class="w-full md:w-full lg:w-full block">
         <ion-item>
-          <ion-label position="stacked">OTP Pin</ion-label>
+          <ion-label position="stacked">Enter OTP XXXXXX</ion-label>
           <ion-input type="text" name="OTPPin" formControlName="OTPPin"></ion-input>
         </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</div>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6
+          digits long</div>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6
+          digits long</div>
         <!-- <mat-form-field appearance="outline">
           <input matInput autocomplete="off" type="text" name="OTPPin" formControlName="OTPPin"
             class="">
           <mat-icon matSuffix>perm_identity</mat-icon>
-          <mat-error *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</mat-error>
-          <mat-error *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits long</mat-error>
-          <mat-error *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits long</mat-error>
+          <div *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</div>
+          <div *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits long</div>
+          <div *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits long</div>
         </mat-form-field> -->
       </div>
 
-      
-      <button [disabled]="otpForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+
+      <button [disabled]="otpForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Submit OTP
       </button>
       <!-- <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit" [disabled]="otpForm.invalid">

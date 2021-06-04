@@ -9,7 +9,8 @@ import { IonSlides } from '@ionic/angular';
 export class WalkthroughPage implements OnInit {
   @ViewChild('slides', {static: false}) slides: IonSlides;
   slideOpts = {
-    pager: true
+    pager: true,
+    initialSlide: 0,
   };
 
 
@@ -20,7 +21,8 @@ export class WalkthroughPage implements OnInit {
 
   goToSlide(a?: number) {
     console.log('Helklo');
-    //this.slides.slideTo(a);
+    this.slides.startAutoplay();
+    // this.slides.slideTo(2);
     this.slides.slideNext();
   }
 

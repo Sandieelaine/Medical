@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Hello, <b>{{profile.FirstName}}</b></ion-title>
+    <ion-title><span class="font-normal">Hello, </span> <b>{{profile.FirstName | titlecase}}</b></ion-title>
     <ion-avatar *ngIf="member" slot="end">
       <img src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
     </ion-avatar>

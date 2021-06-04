@@ -23,6 +23,8 @@ export class BenefitsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.member = this.api.getMember();
+    console.log(this.member);
     this.loadBenefits();
   }
 
@@ -33,6 +35,7 @@ export class BenefitsPage implements OnInit {
 
   loadBenefits() {
     this.isLoading = true;
+    
     this.api.getBenefits(this.member.MemberGuid, this.member.access_token).subscribe(benefits => {
       this.benefitsBackup = JSON.parse(benefits.data);
       this.benefits = [...this.benefitsBackup];
