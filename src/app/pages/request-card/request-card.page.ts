@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 
@@ -11,6 +12,7 @@ import { HelpersService } from 'src/app/services/helpers.service';
 export class RequestCardPage implements OnInit {
   cardRequestForm: FormGroup;
   provinces;
+  member:Member = null;
   
   constructor(private fb: FormBuilder, private api: AuthenticationService, private helper: HelpersService) {
     this.cardRequestForm = this.fb.group({
@@ -43,7 +45,7 @@ export class RequestCardPage implements OnInit {
     this.cardRequestForm.value.Province.$$hashKey = "object:364";
     console.log(this.cardRequestForm.value);
 
-    this.api.requestNewCard(this.cardRequestForm.value)
+    this.api.requestNewCard(this.cardRequestForm.value, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       this.helper.presentToast('Your card will be sent to your new address');
     }, err => {

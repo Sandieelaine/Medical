@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
+import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -18,11 +19,14 @@ export class SubmitClaimPage implements OnInit {
   memberNo = '1234567';
   baseURL;
 
+  member:Member = null;
+
   constructor(private api: AuthenticationService) {
     this.baseURL = this.api.url;
   }
 
   ngOnInit() {
+    this.member = this.api.getMember();
   }
 
   uploadFileEvt(event: any) {
@@ -48,7 +52,7 @@ export class SubmitClaimPage implements OnInit {
 
   submitClaim() {
     if(this.base64Doc && this.docName) {
-      this.api.submitClaim(this.docName, this.base64Doc)
+      this.api.submitClaim(this.docName, this.base64Doc, this.member.MemberGuid, this.member.access_token)
       .subscribe(res => {
         console.log(res);
       }, err => {

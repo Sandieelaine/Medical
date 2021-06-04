@@ -143,7 +143,7 @@ export class AuthenticationService {
     return from(req);
   }
 
-  // Download Documents: Tax and Member Certificates //
+  //********************* Download Documents: Tax and Member Certificates *********************//
   getMemberCertificate(GUID, Token) {
     let req = this.httpNative.sendRequest(
       `${this.url}/api/v1/Members/${GUID}/memberCertificate/`,
@@ -179,8 +179,166 @@ export class AuthenticationService {
       // timeout(10000000)
     );
   }
-  // Simon Grimm
 
+  //*************************************  Claims ***********************************//
+  getClaimsHistory(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/MemberClaims/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+
+
+  getClaimStatement(statementID, GUID, Token) {
+    let req = this.httpNative.sendRequest(
+      `${this.url}/api/v1/Members/${GUID}/claimStatements/${statementID}`,
+      {
+        method: 'get',
+        headers: {
+          'Authorization': `Bearer ${Token}`,
+          "Content-Type": "application/pdf"
+         },
+        responseType: "blob",
+        timeout: 50000
+      }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  getClaims(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/claimStatements/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  getClaimsByDate(dateFrom, dateTill, GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/claims?dateFrom=${dateFrom}&dateTill=${dateTill}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  submitClaim(DocName, DocURLUpload, GUID, Token) {
+    const body = {
+      DocName,
+      DocURLUpload
+    };
+    let req = this.httpNative.post(`${this.url}/api/v1/Members/${GUID}/claims/submit/`,
+    body,
+    {
+      'Authorization': `Bearer ${Token}`
+    });
+    return from(req);
+  }
+  //*************************************  End Claims ***********************************//
+
+  // ************************************  Benefits *******************************//
+  getBenefits(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/benefitUsage/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+  // ************************************  End Benefits *******************************//
+  
+  // ************************************  Request New Card *******************************//
+  requestNewCard(postalAddress, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/requestNewCard/`,
+    postalAddress,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+  // ************************************  Request New Card *******************************//
+
+
+  // ************************************  Change Option *******************************//
+
+  changeOption(option, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/ChangeBenefitOption/${option}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+  changeToEVOOption(option, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/ChangeBenefitOption/${option}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000)
+    );
+  }
+
+  // ************************************  Change Option *******************************//
+
+  getAllWalkInCentres(Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/WalkInCentres/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
+  // ************************************ End  New Code ************************************* //
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   checkToken() {
     this.storage.get('member').then(res => {
       if (res) {
@@ -365,39 +523,7 @@ export class AuthenticationService {
 
   }
 
-  getClaimsHistory() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/MemberClaims/`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000)
-    );
-  }
-
-
-
-  getClaimStatement(statementID) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.sendRequest(
-      `${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claimStatements/${statementID}`,
-      {
-        method: 'get',
-        headers: {
-          'Authorization': `Bearer ${this.selectedMember.access_token}`,
-          "Content-Type": "application/pdf"
-         },
-        responseType: "blob",
-        timeout: 50000
-      }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
+  
 
   getClaimStatementCopy(statementID) {
     if (!this.selectedMember) { return }
@@ -413,59 +539,10 @@ export class AuthenticationService {
     );
   }
 
-  getClaims() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claimStatements/`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
-
-  getClaimsByDate(dateFrom, dateTill) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claims?dateFrom=${dateFrom}&dateTill=${dateTill}`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
-
-  submitClaim(DocName, DocURLUpload) {
-    if (!this.selectedMember) { return }
-    const body = {
-      DocName,
-      DocURLUpload
-    };
-    let req = this.httpNative.post(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/claims/submit/`,
-    body,
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    });
-    return from(req);
-  }
+  
 
 
-  getBenefits() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/benefitUsage/`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      timeout(10000)
-    );
-  }
+  
 
   async presentToast(message, duration = 3000) {
     const toast = await this.toastController.create({
@@ -483,57 +560,11 @@ export class AuthenticationService {
 
   trackEvent(category, action, label?, value?) {}
 
-  getAllWalkInCentres() {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.get(`${this.url}/api/v1/WalkInCentres/`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
-  }
+  
 
-  requestNewCard(postalAddress) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/requestNewCard/`,
-    postalAddress,
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000)
-    );
-  }
+  
 
-  changeOption(option) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/ChangeBenefitOption/${option}`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000)
-    );
-  }
-
-  changeToEVOOption(option) {
-    if (!this.selectedMember) { return }
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${this.selectedMember.MemberGuid}/ChangeBenefitOption/${option}`,
-    {},
-    {
-      'Authorization': `Bearer ${this.selectedMember.access_token}`
-    }
-    );
-    return from(req).pipe(
-      // timeout(10000)
-    );
-  }
+  
 
 
   loadPreloginInformation() {

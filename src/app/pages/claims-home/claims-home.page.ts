@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FullMember } from 'src/app/models/fullmember.model';
+import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -18,19 +19,22 @@ export class ClaimsHomePage implements OnInit {
   claims:any;
   automaticClose = true;
   isLoading = false;
+  member:Member = null;
 
   constructor(private api: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  ionViewDidEnter() {
+    this.member = this.api.getMember();
     this.getFullProfile();
     this.getClaimsByDate();
   }
 
+  ionViewDidEnter() {
+    
+  }
+
   getFullProfile() {
-    this.api.getMemberFullProfile().subscribe(profile => {
+    this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       console.log(profile.data);
@@ -41,7 +45,7 @@ export class ClaimsHomePage implements OnInit {
 
   getClaimsByDate() {
     this.isLoading = true;
-    this.api.getClaimsByDate(this.dateFrom, this.dateTill)
+    this.api.getClaimsByDate(this.dateFrom, this.dateTill, this.member.MemberGuid, this.member.access_token)
     .subscribe(claims => {
       console.log(JSON.parse(claims.data));
       this.claims = JSON.parse(claims.data);
@@ -53,14 +57,8 @@ export class ClaimsHomePage implements OnInit {
 
   doRefresh(e?) {
     this.isLoading = true;
-    this.api.user.subscribe(res => {
-      if (res ) {
-        this.getClaimsByDate();
-        e.target.complete();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
+    this.getClaimsByDate();
+    e.target.complete();
   }
 
   toggleSection(index) {

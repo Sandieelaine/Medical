@@ -2,6 +2,7 @@ import { WalkInCentre } from './../../models/walk-in-centres.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Plugins } from '@capacitor/core';
+import { Member } from 'src/app/models/member.model';
 const { Geolocation } = Plugins;
 
 declare var google;
@@ -16,6 +17,7 @@ export class CentresPage implements OnInit {
   map: any;
   coordinates;
   centres: WalkInCentre[] = [];
+  member:Member = null;
   slideOptions = {
     slidesPerView: 1.4,
     initialSlide: 0,
@@ -26,13 +28,14 @@ export class CentresPage implements OnInit {
   constructor(private api: AuthenticationService) { }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.getCurrentPosition();
     this.getCentres();
     
   }
 
   getCentres() {
-    this.api.getAllWalkInCentres()
+    this.api.getAllWalkInCentres(this.member.access_token)
     .subscribe(centres => {
       this.centres = JSON.parse(centres.data);
       console.log(this.centres);

@@ -4,6 +4,7 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
 import { ClaimsByDate } from 'src/app/models/claim.model';
 import { Router } from '@angular/router';
+import { Member } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-claims-landing',
@@ -17,17 +18,19 @@ export class ClaimsLandingPage implements OnInit {
   claims:any;
   automaticClose = true;
   isLoading = false;
+  member:Member = null;
 
   constructor(private api: AuthenticationService, private datePicker: DatePicker, private router: Router) {
   }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.getClaimsByDate();
   }
 
   getClaimsByDate() {
     this.isLoading = true;
-    this.api.getClaimsByDate(this.dateFrom, this.dateTill)
+    this.api.getClaimsByDate(this.dateFrom, this.dateTill, this.member.MemberGuid, this.member.access_token)
     .subscribe(claims => {
       console.log(JSON.parse(claims.data));
       this.claims = JSON.parse(claims.data);
@@ -39,14 +42,8 @@ export class ClaimsLandingPage implements OnInit {
 
   doRefresh(e?) {
     this.isLoading = true;
-    this.api.user.subscribe(res => {
-      if (res ) {
-        this.getClaimsByDate();
-        e.target.complete();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
+    this.getClaimsByDate();
+    e.target.complete();
   }
 
   segmentChanged(e: CustomEvent) {

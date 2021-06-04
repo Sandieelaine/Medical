@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: DependantsPage
+  },
+  {
+    path: 'dependant/:Dependant',
+    loadChildren: () => import('./dependant/dependant.module').then( m => m.DependantPageModule)
   }
 ];
 

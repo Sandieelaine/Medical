@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Member } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-selected-option',
@@ -21,6 +22,7 @@ export class SelectedOptionPage implements OnInit {
   cities = [];
   gps = [];
   dependants;
+  member:Member = null;
 
   constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder) {
     this.optionChangeForm = this.fb.group({
@@ -38,6 +40,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.loadProfile();
     this.getProvinces();
     this.activatedRoute.paramMap.subscribe(paramMap => {
@@ -103,7 +106,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   changeToNonEVOOption() {
-    this.api.changeOption(this.optionTitle)
+    this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       this.helper.presentToast(
         'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',

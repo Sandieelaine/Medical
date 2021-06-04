@@ -1,6 +1,7 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Member } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-benefits',
@@ -15,34 +16,24 @@ export class BenefitsPage implements OnInit {
   automaticClose = true;
   isLoading = false;
 
+  member:Member = null;
+
   constructor(private api: AuthenticationService, private router: Router, private auth: AuthenticationService) {
     
   }
 
   ngOnInit() {
-    this.auth.user.subscribe(res => {
-      if (res ) {
-        this.loadBenefits();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
+    this.loadBenefits();
   }
 
   doRefresh(e?) {
-    this.auth.user.subscribe(res => {
-      if (res ) {
-        this.loadBenefits();
-        e.target.complete();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })
+    this.loadBenefits();
+    e.target.complete();
   }
 
   loadBenefits() {
     this.isLoading = true;
-    this.api.getBenefits().subscribe(benefits => {
+    this.api.getBenefits(this.member.MemberGuid, this.member.access_token).subscribe(benefits => {
       this.benefitsBackup = JSON.parse(benefits.data);
       this.benefits = [...this.benefitsBackup];
       this.benefits[0].open = true;

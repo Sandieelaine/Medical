@@ -4,6 +4,7 @@ import { PickerController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Member } from 'src/app/models/member.model';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class ClaimsPage implements OnInit {
   automaticClose;
   isLoading = false;
 
+  member:Member = null;
+
   constructor(
     private api: AuthenticationService,
     private router: Router,
@@ -32,19 +35,13 @@ export class ClaimsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.api.user.subscribe(res => {
-      if (res ) {
-        this.loadClaimsStatements();
-        // this.loadClaimsHistory();
-      } else {
-        this.router.navigateByUrl('/tabs/tabs/home');
-      }
-    })   
+    this.member = this.api.getMember();
+    this.loadClaimsStatements();
   }
 
 
   loadClaimsHistory() {
-    this.api.getClaimsHistory().subscribe(history => {
+    this.api.getClaimsHistory(this.member.MemberGuid, this.member.access_token).subscribe(history => {
       this.claimsHistory = JSON.parse(history.data);
       console.log(this.claimsHistory);
     }, error => {
@@ -55,7 +52,7 @@ export class ClaimsPage implements OnInit {
 
   loadClaimsStatements() {
     this.isLoading = true;
-    this.api.getClaims().subscribe(claims => {
+    this.api.getClaims(this.member.MemberGuid, this.member.access_token).subscribe(claims => {
       this.claims = JSON.parse(claims.data);
       console.log(this.claims);
       setTimeout(() => {
@@ -67,7 +64,7 @@ export class ClaimsPage implements OnInit {
   }
 
   downloadClaimStatement(statementID) {
-    this.api.getClaimStatement(statementID)
+    this.api.getClaimStatement(statementID, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       console.log(res);
 
