@@ -60,6 +60,21 @@ const routes: Routes = [
         loadChildren: () => import('../pages/request-card/request-card.module').then(m => m.RequestCardPageModule)
       },
       {
+        path: 'option-change',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../pages/option-change/option-change.module').then(m => m.OptionChangePageModule)
+          },
+          {
+            path: ':option/:status',
+            loadChildren: () => import('../pages/option-change/option-change.module').then(m => m.OptionChangePageModule)
+          }
+          
+        ]
+        
+      },
+      {
         path: '',
         redirectTo: '/tabs/tabs/home',
         pathMatch: 'full'

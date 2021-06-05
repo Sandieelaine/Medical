@@ -1,13 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button>
+        <ion-icon src="./assets/img/menu.svg"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
     <ion-title>360&deg; View</ion-title>
     <ion-buttons slot="end">
-      <ion-icon (click)="logout()" slot="end" color="warning" name="log-out-outline"></ion-icon>
+      <ion-button (click)="logout()">
+        <ion-button>LOGOUT</ion-button>
+        <!-- <ion-icon slot="end" color="warning" name="log-out-outline"></ion-icon> -->
+      </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -35,25 +41,25 @@
   <ion-grid class="ion-no-padding benefit-slide">
     <ion-row *ngIf="profile" class="details">
       <ion-col size="3">
-        <img class="rounded-full border-gray-400 border-2 border-solid" [src]="MemberImage" alt="">
+        <img class="rounded-full w-20 border-gray-100 border-2 p-1 border-solid" [src]="MemberImage" alt="">
       </ion-col>
       <ion-col size="9">
         <div class="rounded p-5">
-          <span class="text-white text-sm uppercase block">{{profile?.FullName | titlecase}}</span>
+          <span class="text-gray-100 text-xs uppercase block">{{profile?.FullName | titlecase}}</span>
           <span class="text-white text-4xl font-bold block" *ngIf="dayToDayBenefits">
             {{dayToDayBenefits[0].MaxAmount.Amount | currency: 'R'}}</span>
-          <span class="text-white text-sm uppercase block">Balance</span>
+          <span class="text-gray-100 text-xs uppercase block">Balance</span>
         </div>
       </ion-col>
-      <hr class="bg-gray-300 w-full">
+      <hr class="bg-gray-400 w-full opacity-40 mt-1">
 
       <ion-col col="6" >
-        <span class="text-white text-xs leading-none uppercase pt-4 block">My Plan</span>
+        <span class="text-white text-xs leading-none uppercase pt-7 block">My Plan</span>
         <span class="text-white text-lg font-bold leading-none uppercase pt-4 pb-4">{{profile?.Plan?.BenefitPlanName}}</span>
       </ion-col>
 
       <ion-col col="6">
-        <span class="text-white text-xs leading-none uppercase pt-4 block">Member No.</span>
+        <span class="text-white text-xs leading-none uppercase pt-7 block">Member No.</span>
         <span class="text-white text-lg font-bold leading-none uppercase pt-4">{{profile?.MemberNo}}</span>
       </ion-col>
       <div class="h-4"></div>
@@ -61,7 +67,7 @@
 
 
 
-    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-16">
+    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-11">
       <ion-col>
         <div class="flex" style="padding: 10px;">
           <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
@@ -159,7 +165,7 @@
         <div class="mt-1">
           <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" button detail lines="none">
             <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
-            <ion-label>
+            <ion-label class="ion-text-wrap">
               <span class="block font-semibold text-md">{{item.Header}}</span>
               <span class="text-xs text-gray-600">{{item.DOA | date: 'mediumDate'}}</span>
             </ion-label>

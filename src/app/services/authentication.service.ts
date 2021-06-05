@@ -183,7 +183,7 @@ reset() {
 
   logMemberOut() {
     this.storage.remove('memberToken').then(() => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/', {replaceUrl: true});
       this.memberData.next(null);
     });
   }

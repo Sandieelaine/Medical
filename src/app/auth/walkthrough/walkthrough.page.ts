@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 
 @Component({
@@ -14,7 +15,7 @@ export class WalkthroughPage implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -24,6 +25,10 @@ export class WalkthroughPage implements OnInit {
     this.slides.startAutoplay();
     // this.slides.slideTo(2);
     this.slides.slideNext();
+  }
+
+  continueToApp() {
+    this.router.navigateByUrl('/onboard', {replaceUrl: true});
   }
 
 }

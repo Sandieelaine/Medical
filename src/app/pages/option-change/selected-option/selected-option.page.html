@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="tabs/tabs/option-change"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
     <ion-title>{{optionTitle}}</ion-title>
@@ -107,8 +107,8 @@
         <div formArrayName="Dependants"
           *ngFor="let dependant of optionChangeForm.get('Dependants')['controls']; let i = index;">
           <div [formGroupName]="i">
-            <div class="flex justify-between bg-gems-primary-blue text-gray-200 font-semibold p-3 rounded">
-              <div>
+            <div class="flex capitalize justify-between bg-gems-primary-blue text-gray-200 font-semibold p-3 rounded">
+              <div class="capitalize">
                 {{optionChangeForm.get('Dependants')['controls'][i]['controls'].FullName.value}}
               </div>
               <div>

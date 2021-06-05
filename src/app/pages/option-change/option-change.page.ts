@@ -17,7 +17,7 @@ export class OptionChangePage implements OnInit {
   }
 
   changeOption(option, optionStatus) {
-    this.router.navigate(['option-change', option, optionStatus]).then(res => {
+    this.router.navigate(['tabs', 'tabs', 'option-change', option, optionStatus]).then(res => {
       console.log('Navigated');
     })
   }

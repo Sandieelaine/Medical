@@ -1,7 +1,9 @@
 <ion-header *ngIf="profile && member">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button>
+        <ion-icon src="./assets/img/menu.svg"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
     <ion-title><span class="font-normal">Hello, </span> <b>{{profile.FirstName | titlecase}}</b></ion-title>
     <ion-avatar *ngIf="member" slot="end">
@@ -89,7 +91,7 @@
   </div>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="rounded-md p-4 mx-4 my-4" style="background: #00b5a6;" routerLink="/option-change">
+<div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly" class="rounded-md p-4 mx-4 my-4" style="background: #00b5a6;" routerLink="/tabs/tabs/option-change">
   <div class="flex">
     <div class="flex-shrink-0">
       <!-- Heroicon name: solid/check-circle -->

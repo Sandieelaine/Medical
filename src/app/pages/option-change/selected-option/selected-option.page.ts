@@ -90,6 +90,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   getCities(ID) {
+    console.log('runs');
     this.api.getCities(ID)
     .subscribe(cities => {
       this.cities = JSON.parse(cities.data);
