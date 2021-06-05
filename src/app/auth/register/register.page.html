@@ -25,15 +25,19 @@
 <ion-content class="ion-padding">
   <div *ngIf="screenMode === 0">
     <form [formGroup]="registrationForm" (ngSubmit)='register()' class="mt-2">
-      <ion-item>
-        <ion-label position="stacked">Username</ion-label>
-        <ion-input autocomplete="off" type="text" name="UserName" formControlName="UserName"></ion-input>
+      <ion-item lines="none">
+        <ion-input autocomplete="off" placeholder="User Name" type="text" name="UserName" formControlName="UserName"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person-outline"></ion-icon>
+        </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('UserName', 'required')">Name is required</div>
 
-      <ion-item>
-        <ion-label position="stacked">ID Number</ion-label>
-        <ion-input type="text" name="MemberIDNumber" formControlName="MemberIDNumber"></ion-input>
+      <ion-item lines="none">
+        <ion-input type="text" name="MemberIDNumber" placeholder="ID Number" formControlName="MemberIDNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="id-card-outline"></ion-icon>
+        </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'required')">ID Number is required
       </div>
@@ -42,10 +46,12 @@
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'maxlength')">ID number should be
         13 characters long</div>
 
-      <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" position="stacked" name="Password" formControlName="Password"
+      <ion-item lines="none">
+        <ion-input type="password" position="stacked" placeholder="Password" name="Password" formControlName="Password"
           autocomplete="new-password"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="key-outline"></ion-icon>
+          </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'required')">Password is required</div>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'pattern')">Password must be at least 8
@@ -53,10 +59,12 @@
         least a capital letter, a number and a special character (e.g #,!,@).
       </div>
 
-      <ion-item>
-        <ion-label position="stacked">Confirm Password</ion-label>
-        <ion-input type="password" position="stacked" name="ConfirmPassword" formControlName="ConfirmPassword"
+      <ion-item lines="none">
+        <ion-input type="password" position="stacked" placeholder="Confirm Password" name="ConfirmPassword" formControlName="ConfirmPassword"
           autocomplete="new-password"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="key-outline"></ion-icon>
+          </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('ConfirmPassword', 'required')">This field is
         required.</div>
@@ -70,23 +78,27 @@
           capital letter, a number and a special character (e.g #,!,@).</p>
       </div>
 
-      <ion-item>
-        <ion-label position="stacked">Cell Number (062XXXX89)</ion-label>
-        <ion-input type="tel" name="CellphoneNumber" formControlName="CellphoneNumber"></ion-input>
+      <ion-item lines="none">
+        <ion-input type="tel" name="CellphoneNumber" placeholder="Cell Number (062XXXX89)" formControlName="CellphoneNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="call-outline"></ion-icon>
+        </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'required')">Cell Number is
         required</div>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'minlength')">Please enter a valid
         cell number</div>
 
-      <ion-item>
-        <ion-label position="stacked">Member Number</ion-label>
-        <ion-input type="text" name="GEMSMemberNumber" formControlName="GEMSMemberNumber"></ion-input>
+      <ion-item lines="none">
+        <ion-input type="text" name="GEMSMemberNumber" placeholder="Member Number" formControlName="GEMSMemberNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="key-outline"></ion-icon>
+        </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block" *ngIf="errorHandling('GEMSMemberNumber', 'required')">GEMS Member Number
         is required</div>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-label position="stacked">Where did you hear about GEMS?</ion-label>
         <ion-select formControlName="Referrals" okText="Okay" cancelText="Dismiss">
           <ion-select-option *ngFor="let refferalOption of refferalOptions" [value]="refferalOption" name="Referrals">
@@ -115,7 +127,7 @@
 
 
       <div class="w-full md:w-full lg:w-full block">
-        <ion-item>
+        <ion-item lines="none">
           <ion-label position="stacked">Enter OTP XXXXXX</ion-label>
           <ion-input type="text" name="OTPPin" formControlName="OTPPin"></ion-input>
         </ion-item>

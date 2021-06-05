@@ -13,6 +13,7 @@ import { RegisterMember, RegisterMemberResponse } from '../models/auth.model';
 import * as moment from 'moment';
 import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
 import {Keepalive} from '@ng-idle/keepalive';
+import { HelpersService } from './helpers.service';
 
 declare var gtag;
 
@@ -50,7 +51,8 @@ export class AuthenticationService {
     private httpNative: HTTP,
     public toastController: ToastController,
     private idle: Idle, private keepalive: Keepalive,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private helper: HelpersService
     ) {
     // Simon Grimm
       this.loadStoredToken();
@@ -85,7 +87,7 @@ export class AuthenticationService {
 
 setIdleTimeout() {
   // sets an idle timeout of 5 seconds, for testing purposes.
-  this.idle.setIdle(5);
+  this.idle.setIdle(50000);
   // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
   this.idle.setTimeout(25);
   // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
@@ -120,8 +122,17 @@ setIdleTimeout() {
 
 async showAlert(seconds) {
   // ${this.secondsLeft || 0}
+  var counter = 25;
+  var newYearCountdown = setInterval(function(){
+    console.log(counter);
+    counter--
+    if (counter === 0) {
+      console.log("HAPPY NEW YEAR!!");
+      clearInterval(newYearCountdown);
+    }
+  }, 1000);
     this.idleTimer = await this.alertCtrl.create({
-      header: `Important Notice ${this.secondsLeft}`,
+      header: `Important Notice ${counter}`,
       subHeader: `You will be automatically logged out after 25 seconds`,
       buttons: [
         {

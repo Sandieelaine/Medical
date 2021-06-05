@@ -49,21 +49,22 @@
   </div>
 
   <div *ngIf="isEVOOption" class="p-4">
+    <div>
+      <span class="text-sm font-bold">Main Member Details</span>
+    </div>
     <form [formGroup]="optionChangeForm" (ngSubmit)='changeToEVOOption()' class="mt-2">
       <ion-item lines="none">
-        <ion-label position="stacked">First Name</ion-label>
-        <ion-input autocomplete="off" type="text" name="mainMemberFirstName"
+        <!-- <ion-label position="stacked">First Name</ion-label> -->
+        <ion-input autocomplete="off" placeholder="First Name" type="text" name="mainMemberFirstName"
           formControlName="mainMemberFirstName"></ion-input>
       </ion-item>
 
       <ion-item lines="none">
-        <ion-label position="stacked">Last Name</ion-label>
-        <ion-input type="text" name="mainMemberLastName" formControlName="mainMemberLastName"></ion-input>
+        <ion-input placeholder="Last Name" type="text" name="mainMemberLastName" formControlName="mainMemberLastName"></ion-input>
       </ion-item>
 
       <ion-item lines="none">
-        <ion-label position="stacked">Member Number</ion-label>
-        <ion-input type="number" position="stacked" name="memberNumber" formControlName="memberNumber">
+        <ion-input type="number" placeholder="Member Number" position="stacked" name="memberNumber" formControlName="memberNumber">
         </ion-input>
       </ion-item>
 
@@ -100,7 +101,9 @@
       </ion-item>
 
       <div class="p-0" *ngIf="optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false">
-        Dependants Forms
+        <div class=" my-3">
+          <span class="text-sm font-bold">Dependants Details</span>
+        </div>
         <div formArrayName="Dependants"
           *ngFor="let dependant of optionChangeForm.get('Dependants')['controls']; let i = index;">
           <div [formGroupName]="i">
