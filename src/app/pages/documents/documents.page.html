@@ -24,8 +24,19 @@
 
 <ion-content>
 
+  <span class="font-semibold text-lg ml-2 mt-3 block">Member Certificate</span>
+  <ion-card *ngIf="documents">
+    <ion-item lines="none" detail (click)="downloadMemberCertificate(documents?.MemberCertificate.Name)">
+      <ion-icon color="primary" name="cloud-download-outline" slot="start"></ion-icon>
+      <ion-label>
+        <span class="dark:text-gray-500 font-bold text-lg leading-loose">{{documents?.MemberCertificate.date | date: 'mediumDate'}}</span>
+        <!-- <h2>Emerald Value</h2> -->
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
   
-  <ion-list *ngIf="documents">
+  <!-- <ion-list *ngIf="documents">
     <ion-list-header>
       Member Certificate
     </ion-list-header>
@@ -36,8 +47,8 @@
       </ion-label>
       
     </ion-item>
-  </ion-list>
-  <ion-list *ngIf="documents">
+  </ion-list> -->
+  <!-- <ion-list *ngIf="documents">
     <ion-list-header>
       Tax Certificates
     </ion-list-header>
@@ -47,7 +58,17 @@
         <h2>{{document?.YearStringValue | date: 'mediumDate'}}</h2>
       </ion-label>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+  <span class="font-semibold text-lg ml-2">Tax Certificates</span>
+  <ion-card *ngFor="let document of documents?.TaxCertificates">
+    <ion-item lines="none" detail (click)="downloadTaxCertificate(document?.Name, document.YearStringValue)">
+      <ion-icon color="primary" name="cloud-download-outline" slot="start"></ion-icon>
+      <ion-label>
+        <span class="dark:text-gray-500 font-bold text-lg leading-loose">{{document?.YearStringValue | date: 'mediumDate'}}</span>
+        <!-- <h2>Emerald Value</h2> -->
+      </ion-label>
+    </ion-item>
+  </ion-card>
 
   <div *ngIf="documents && documents?.TaxCertificates.length === 0">
     The member does not have any tax certificates
