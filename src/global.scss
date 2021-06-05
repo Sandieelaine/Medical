@@ -36,6 +36,22 @@
  }
 }
 
+ion-modal {
+    // padding: 90px 50px;
+    padding-top: calc(50% + 100px);
+    padding-bottom: calc(50% + 100px);
+    padding-left: 40px;
+    padding-right: 40px;
+}
+// .modal-wrapper {
+//     border-radius: 20px;
+// }
+.gems-modal .modal-wrapper {
+    width: 600px;
+    height: 300px;
+    border-radius: 20px;
+}
+
 * {
 	outline:none;
 }

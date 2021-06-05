@@ -48,7 +48,8 @@
     <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/claims-home" class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
+          <div routerLink="/tabs/tabs/claims-home"
+            class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
             <span class="title">Claims</span>
           </div>
@@ -91,22 +92,27 @@
   </div>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-<div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly" class="rounded-md p-4 mx-4 my-4" style="background: #00b5a6;" routerLink="/tabs/tabs/option-change">
-  <div class="flex">
-    <div class="flex-shrink-0">
-      <!-- Heroicon name: solid/check-circle -->
-      <svg class="h-5 w-5 text-green-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-      </svg>
-    </div>
-    <div class="ml-3">
-      <p class="text-sm font-bold text-white">
-        GEMS 2021 EVO Switch is now open for members on Emerald. Make your switch to EVO before 31 July 2021 and continue enjoying the same rich benefits, but at a more affordable rate!
-        <!-- <span class="text-yellow-500 block bg-white p-2 text-center rounded-full mt-1"> Change Option</span> -->
-      </p>
+  <div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly"
+    class="rounded-md p-4 mx-4 my-4" style="background: #00b5a6;" routerLink="/tabs/tabs/option-change">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <!-- Heroicon name: solid/check-circle -->
+        <svg class="h-5 w-5 text-green-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+          aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-bold text-white">
+          GEMS 2021 EVO Switch is now open for members on Emerald. Make your switch to EVO before 31 July 2021 and
+          continue enjoying the same rich benefits, but at a more affordable rate!
+          <!-- <span class="text-yellow-500 block bg-white p-2 text-center rounded-full mt-1"> Change Option</span> -->
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- <div class="options-grid">
     <ion-grid class="ion-no-padding">
@@ -168,9 +174,9 @@
         <ion-col col-12 class="ion-no-padding">
           <ion-slides [options]="exploreOpt">
             <ion-slide>
-              <ion-card>
+              <div class="shadow-sm bg-white rounded-lg">
                 <div style="position: relative">
-                  <div class="rainbow" style="width: 70%; bottom: 3px;">
+                  <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -182,17 +188,21 @@
                     <div></div>
                     <div></div>
                   </div>
-                  <img width="100%" src="assets/img/tanzanite1.png" alt="">
+                  <div style="height: 150px width: 100%; position: relative;">
+                    <img class="object-cover w-full" src="assets/img/tanzanite1.png" alt="">
+                  </div>
+
                 </div>
-                <ion-card-header>
-                  <ion-card-title>News</ion-card-title>
-                </ion-card-header>
-              </ion-card>
+                <div class="text-gray-800 flex p-2">
+                  <span class="font-semibold text-sm">News</span>
+                </div>
+              </div>
             </ion-slide>
+
             <ion-slide>
-              <ion-card>
+              <div class="shadow-sm bg-white rounded-lg">
                 <div style="position: relative">
-                  <div class="rainbow" style="width: 70%; bottom: 3px;">
+                  <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -204,17 +214,21 @@
                     <div></div>
                     <div></div>
                   </div>
-                  <img width="100%" src="assets/img/tanzanite1.png" alt="">
+                  <div style="height: 150px width: 100%; position: relative;">
+                    <img class="object-cover w-full" src="assets/img/tanzanite1.png" alt="">
+                  </div>
+
                 </div>
-                <ion-card-header>
-                  <ion-card-title>Plans</ion-card-title>
-                </ion-card-header>
-              </ion-card>
+                <div class="text-gray-800 flex p-2">
+                  <span class="font-semibold text-sm">News</span>
+                </div>
+              </div>
             </ion-slide>
+
             <ion-slide>
-              <ion-card>
+              <div class="shadow-sm bg-white rounded-lg">
                 <div style="position: relative">
-                  <div class="rainbow" style="width: 70%; bottom: 3px;">
+                  <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -226,35 +240,17 @@
                     <div></div>
                     <div></div>
                   </div>
-                  <img width="100%" src="assets/img/tanzanite1.png" alt="">
-                </div>
-                <ion-card-header>
-                  <ion-card-title>Our Plans</ion-card-title>
-                </ion-card-header>
-              </ion-card>
-            </ion-slide>
-            <ion-slide>
-              <ion-card>
-                <div style="position: relative">
-                  <div class="rainbow" style="width: 70%; bottom: 3px;">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                  <div style="height: 150px width: 100%; position: relative;">
+                    <img class="object-cover w-full" src="assets/img/tanzanite1.png" alt="">
                   </div>
-                  <img width="100%" src="assets/img/tanzanite1.png" alt="">
+
                 </div>
-                <ion-card-header>
-                  <ion-card-title>Our Plans</ion-card-title>
-                </ion-card-header>
-              </ion-card>
+                <div class="text-gray-800 flex p-2">
+                  <span class="font-semibold text-sm">News</span>
+                </div>
+              </div>
             </ion-slide>
+
           </ion-slides>
         </ion-col>
       </ion-row>
@@ -378,6 +374,6 @@
       <ion-icon src="assets/icon/info.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  
+
 
 </ion-content>

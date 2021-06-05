@@ -1,3 +1,4 @@
+import { RewardsPage } from './../pages/rewards/rewards.page';
 import { ClaimsHistory } from './../models/claim.model';
 import { AlertController, Platform, ToastController } from '@ionic/angular';
 import { Activity } from './../models/activity.model';
@@ -14,6 +15,7 @@ import * as moment from 'moment';
 import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
 import {Keepalive} from '@ng-idle/keepalive';
 import { HelpersService } from './helpers.service';
+import { ModalController } from '@ionic/angular';
 
 declare var gtag;
 
@@ -52,13 +54,17 @@ export class AuthenticationService {
     public toastController: ToastController,
     private idle: Idle, private keepalive: Keepalive,
     private alertCtrl: AlertController,
-    private helper: HelpersService
+    private helper: HelpersService,
+    public modalController: ModalController
     ) {
     // Simon Grimm
       this.loadStoredToken();
+      this.presentModal();
     // Simon Grimm
 
   } 
+
+  
 
   // Simon Grimm
   loadStoredToken() {
@@ -84,6 +90,15 @@ export class AuthenticationService {
       })
     );
   }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: RewardsPage,
+      cssClass: 'gems-modal'
+    });
+    return await modal.present();
+  }
+
 
 setIdleTimeout() {
   // sets an idle timeout of 5 seconds, for testing purposes.

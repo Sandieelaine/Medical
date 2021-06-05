@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-rewards',
@@ -7,31 +6,36 @@ import * as confetti from 'canvas-confetti';
   styleUrls: ['./rewards.page.scss'],
 })
 export class RewardsPage implements OnInit {
+  count = 25
 
-  constructor() { }
+  constructor() {
+    console.log(this.count);
+  }
 
   ngOnInit() {
-    confetti.create()({
-      shapes: ['circle', 'circle', 'square'],
-      particleCount: 300,
-      spread: 90,
-      origin: {
-          y: (1),
-          x: (0.5)
-      }
-  });
+    this.countDown();
   }
 
-  ionViewDidEnter() {
-    confetti.create()({
-      shapes: ['circle', 'circle', 'square'],
-      particleCount: 300,
-      spread: 90,
-      origin: {
-          y: (1),
-          x: (0.5)
+  countDown() {
+    setTimeout(() => {
+      this.count--;
+      console.log(this.count);
+      if (this.count > 0) {
+        this.countDown();
       }
-  });
+    }, 1000);
   }
+
+
+
+
+
+
+
+  ionViewDidEnter() {
+
+  }
+
+  
 
 }

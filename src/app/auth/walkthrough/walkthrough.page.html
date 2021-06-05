@@ -1,4 +1,4 @@
-<div id="strip">
+<!-- <div id="strip" style="margin-top: var(--ion-safe-area-top);">
   <div></div>
   <div></div>
   <div></div>
@@ -9,12 +9,12 @@
   <div></div>
   <div></div>
   <div></div>
-</div>
-<div style="position: absolute; width: 100%; top: 0; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px"></div>
+</div> -->
+<div style="position: absolute; width: 100%; top: var(--ion-safe-area-top); z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px"></div>
 
 <ion-content>
 
-  <div class="wrapper">
+  <div class="wrapper" style="margin-top: var(--ion-safe-area-top);">
 
     <ion-slides #slides [options]="slideOpts" mode="md">
 
@@ -62,7 +62,7 @@
             <span class="block text-sm my-3">Lorem Ipsum is simply dummy text</span>
           </ion-text>
 
-          <ion-button color="primary" fill="solid" shape="round">Continue</ion-button>
+          <ion-button color="primary" fill="solid" shape="round" (click)="continueToApp()">Continue</ion-button>
         </div>
       </ion-slide>
 
