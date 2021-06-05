@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-rewards',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class RewardsPage implements OnInit {
   count = 25
 
-  constructor() {
+  constructor(public api: AuthenticationService) {
     console.log(this.count);
   }
 
@@ -22,6 +23,8 @@ export class RewardsPage implements OnInit {
       console.log(this.count);
       if (this.count > 0) {
         this.countDown();
+      } else {
+        // this.api.modal.dismiss();
       }
     }, 1000);
   }

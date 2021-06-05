@@ -39,6 +39,7 @@ export class AuthenticationService {
   lastPing?: Date = null;
   secondsLeft = 1;
   idleTimer:HTMLIonAlertElement;
+  count = 25
 
   // Simon Grimm
   public member: Observable<any>;
@@ -59,7 +60,7 @@ export class AuthenticationService {
     ) {
     // Simon Grimm
       this.loadStoredToken();
-      this.presentModal();
+      
     // Simon Grimm
 
   } 
@@ -135,19 +136,23 @@ setIdleTimeout() {
   this.reset();
 }
 
-async showAlert(seconds) {
-  // ${this.secondsLeft || 0}
-  var counter = 25;
-  var newYearCountdown = setInterval(function(){
-    console.log(counter);
-    counter--
-    if (counter === 0) {
-      console.log("HAPPY NEW YEAR!!");
-      clearInterval(newYearCountdown);
+countDown() {
+  setTimeout(() => {
+    this.count--;
+    console.log(this.count);
+    if (this.count > 0) {
+      this.countDown();
+    } else {
+      // this.api.modal.dismiss();
     }
   }, 1000);
+}
+
+async showAlert(seconds) {
+    this.countDown();
+    console.log(this.count);
     this.idleTimer = await this.alertCtrl.create({
-      header: `Important Notice ${counter}`,
+      header: `Important Notice ${this.count}`,
       subHeader: `You will be automatically logged out after 25 seconds`,
       buttons: [
         {

@@ -54,6 +54,16 @@
       <ion-progress-bar [value]="+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount"></ion-progress-bar>
       <!-- <p>{{+benefit.MaxAmount.Amount/+benefit.FreeAmount.Amount}}</p>
       <p>{{+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount}}</p> -->
+      <div class="mt-2 flex items-center" *ngFor="let depBenefit of benefit?.BenefitUsageBeneficiaries">
+        <div class=" w-1/12">
+          <span class="bg-gems-primary-blue text-white p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
+        </div>
+        <div class="text-black w-11/12">
+          <span> <span class="font-semibold">R{{depBenefit?.FreeAmount.Amount}}</span> of <span class="font-semibold">R{{depBenefit?.MaxAmount.Amount}}</span> available</span>
+          <ion-progress-bar [value]="+depBenefit?.FreeAmount.Amount/+depBenefit?.MaxAmount.Amount"></ion-progress-bar>
+        </div>
+        
+      </div>
     </div>
   </div>
 

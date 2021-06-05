@@ -9,8 +9,8 @@ import { Member } from 'src/app/models/member.model';
   styleUrls: ['./benefits.page.scss'],
 })
 export class BenefitsPage implements OnInit {
-  benefits;
-  benefitsBackup;
+  benefits:BenefitUsage[];
+  benefitsBackup:BenefitUsage[];
   loader;
   items:any[] = [{name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}, {name: 'Hello'}];
   automaticClose = true;
@@ -35,7 +35,7 @@ export class BenefitsPage implements OnInit {
 
   loadBenefits() {
     this.isLoading = true;
-    
+
     this.api.getBenefits(this.member.MemberGuid, this.member.access_token).subscribe(benefits => {
       this.benefitsBackup = JSON.parse(benefits.data);
       this.benefits = [...this.benefitsBackup];
