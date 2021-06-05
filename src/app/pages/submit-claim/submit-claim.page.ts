@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-submit-claim',
@@ -11,6 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class SubmitClaimPage implements OnInit {
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
   docName;
+  claimFile;
   base64Doc;
   title = 'MR';
   firstName = 'John';
@@ -18,10 +20,11 @@ export class SubmitClaimPage implements OnInit {
   DOB = '02/10/2001';
   memberNo = '1234567';
   baseURL;
+  DocURLUpload
 
   member:Member = null;
 
-  constructor(private api: AuthenticationService) {
+  constructor(private api: AuthenticationService, private helper: HelpersService) {
     this.baseURL = this.api.url;
   }
 
@@ -29,37 +32,51 @@ export class SubmitClaimPage implements OnInit {
     this.member = this.api.getMember();
   }
 
-  uploadFileEvt(event: any) {
-    event.stopPropagation();
-    console.log(event);
-    const files: FileList = event.target.files;
-    console.log(files[0].size);
-    this.docName = files[0].name;
-    const file = files[0].arrayBuffer().then(res => {
-      console.log(res)
-      // Converts arraybuffer to typed array object
-      const TYPED_ARRAY = new Uint8Array(res);
-      // converts the typed array to string of characters
-        const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-      
-      //converts string of characters to base64String
-        let base64String = btoa(STRING_CHAR);
-        this.base64Doc = base64String;
-        console.log(base64String);
-    });
-    const reader = new FileReader();
-  }
-
   submitClaim() {
-    if(this.base64Doc && this.docName) {
-      this.api.submitClaim(this.docName, this.base64Doc, this.member.MemberGuid, this.member.access_token)
-      .subscribe(res => {
-        console.log(res);
-      }, err => {
-        alert(err);
-      })
+    console.log(this.claimFile);
+    if (this.claimFile !== undefined) {
+        this.docName = this.claimFile.name;
+        var reader = new FileReader();
+        // Get the original real FileReader. The polyfill saves a reference to it.
+        const realFileReader = (reader as any)._realReader;
+
+        // Make sure we were able to get the original FileReader 
+        if (realFileReader) {
+            // Swap out the polyfill instance for the original instance.
+            reader = realFileReader;
+        }
+        reader.onloadend = (e) => {
+          console.log(e);
+            let b64 = e.target.result.toString().split("base64,")[1];
+            this.base64Doc = b64;
+            console.log(this.base64Doc);
+            this.api.submitClaim(this.docName, this.base64Doc, this.member.MemberGuid, this.member.access_token)
+            .subscribe(res => {
+              console.log(res);
+              this.helper.presentToast('Claim Submitted Successfully');
+            }, err => {
+              console.log(err);
+              this.helper.presentToast('Claim Submission Failed');
+            })
+
+            
+        };
+        reader.readAsDataURL(this.claimFile);
     }
-    
+    else {
+        alert("Please upload a document for your claim");
+    }
+};
+
+uploadFileEvt(event) {
+  console.log(event);
+  if(event.target.files.length > 0) {
+    if(event.target.files[0].size > 2000000) {
+      alert("File selected exceeds the maximum size limit of 2MB");
+      return;
+    }
+    this.claimFile = event.target.files[0];
   }
+}
 
 }

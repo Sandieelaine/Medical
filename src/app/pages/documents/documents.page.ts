@@ -20,6 +20,7 @@ export class DocumentsPage implements OnInit {
   constructor(private auth: AuthenticationService, private loadingCtrl: LoadingController, private platform: Platform, private fileOpener: FileOpener, private file: File, private helper: HelpersService) { }
 
   ngOnInit() {
+    this.auth.trackView('/', 'Documents Page');
     this.member = this.auth.getMember();
     this.loadDocuments();
 

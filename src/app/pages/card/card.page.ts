@@ -57,6 +57,7 @@ export class CardPage implements OnInit, OnDestroy {
     await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     this.member = this.api.getMember();
     this.getMemberProfile();
+    this.api.trackView('/', 'Digital Card');
   }
 
   ngOnDestroy() {

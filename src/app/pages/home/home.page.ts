@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit() {
+    this.auth.trackEvent('Documents', 'Play', 'Member Certificate')
     this.auth.trackView('/', 'Home Page');
     this.member = this.auth.getMember();
     console.log(this.member);

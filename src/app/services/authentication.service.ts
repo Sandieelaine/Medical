@@ -348,7 +348,7 @@ reset() {
       DocName,
       DocURLUpload
     };
-    let req = this.httpNative.post(`${this.url}/api/v1/Members/${GUID}/claims/submit/`,
+    let req = this.httpNative.post(`${this.url}/api/v1/Members/${GUID}/claims/submitz/`,
     body,
     {
       'Authorization': `Bearer ${Token}`

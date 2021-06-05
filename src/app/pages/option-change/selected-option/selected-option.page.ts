@@ -40,6 +40,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   ngOnInit() {
+    this.api.trackView('/', 'Option Change Selected Option');
     this.member = this.api.getMember();
     this.loadProfile();
     this.getProvinces();

@@ -18,11 +18,12 @@ export class BenefitsPage implements OnInit {
 
   member:Member = null;
 
-  constructor(private api: AuthenticationService, private router: Router, private auth: AuthenticationService) {
+  constructor(private api: AuthenticationService, private router: Router) {
     
   }
 
   ngOnInit() {
+    this.api.trackView('/', 'Benefits Page');
     this.member = this.api.getMember();
     console.log(this.member);
     this.loadBenefits();

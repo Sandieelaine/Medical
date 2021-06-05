@@ -43,7 +43,11 @@
     <input class="my-2" type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
   </ion-item>
 
-  <ion-button (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button>
+  <!-- <ion-button (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button> -->
+
+  <button (click)="submitClaim()" [disabled]="!claimFile" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-2">
+    Submit Claim
+  </button>
 
 
 </ion-content>

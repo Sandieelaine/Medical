@@ -41,7 +41,16 @@ const routes: Routes = [
       },
       {
         path: 'claims-home',
-        loadChildren: () => import('../pages/claims-home/claims-home.module').then(m => m.ClaimsHomePageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../pages/claims-home/claims-home.module').then(m => m.ClaimsHomePageModule)
+          },
+          {
+            path: 'submit-claim',
+            loadChildren: () => import('../pages/submit-claim/submit-claim.module').then(m => m.SubmitClaimPageModule)
+          },
+        ]   
       },
       {
         path: 'submit-claim',

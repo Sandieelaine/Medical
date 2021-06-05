@@ -31,7 +31,7 @@ export class CentresPage implements OnInit {
     this.member = this.api.getMember();
     this.getCurrentPosition();
     this.getCentres();
-    
+    this.api.trackView('/', 'Walk In Centres');
   }
 
   getCentres() {
