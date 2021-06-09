@@ -65,6 +65,7 @@ export class SelectedOptionPage implements OnInit {
     });
     this.onChanges();
     this.onCityChange();
+    this.onGPChange()
   }
 
   loadProfile() {
@@ -166,6 +167,13 @@ export class SelectedOptionPage implements OnInit {
     });
   }
 
+  onGPChange() {
+    this.optionChangeForm.get('mainMemberPractitioner').valueChanges.subscribe(val => {
+      console.log(val);
+      this.optionChangeForm.patchValue({PracticeNumber: val.PracticeNumber});
+    });
+  }
+
   onDependantChanges(): void {
     this.optionChangeForm.get('Dependants').valueChanges.subscribe(val => {
       console.log(val, 33);
@@ -229,7 +237,6 @@ selectDependantPractitioner(data, index) {
   let item = this.dependants.at(index);
   console.log(data);
   console.log(item.value);
-
 }
 
 
