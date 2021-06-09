@@ -19,8 +19,11 @@ export class SelectedOptionPage implements OnInit {
 
   optionChangeForm: FormGroup;
   provinces;
+  provinces_dependants = [];
   cities = [];
+  cities_dependants = [];
   gps = [];
+  gps_dependants =[]
   dependants;
   member:Member = null;
 
@@ -76,6 +79,8 @@ export class SelectedOptionPage implements OnInit {
            console.log(changes);
           //  this.cities = null;
            this.getProvinces();
+          //  this.onDependantChanges();
+          //  this.onDependantCityChange();
         }) 
       }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
@@ -92,6 +97,7 @@ export class SelectedOptionPage implements OnInit {
     this.api.getProvinces()
     .subscribe(provinces => {
       this.provinces = JSON.parse(provinces.data);
+      this.provinces_dependants = JSON.parse(provinces.data);
       console.log(provinces);
     })
   }
@@ -101,6 +107,7 @@ export class SelectedOptionPage implements OnInit {
     this.api.getCities(ID)
     .subscribe(cities => {
       this.cities = JSON.parse(cities.data);
+      this.cities_dependants = JSON.parse(cities.data);
       console.log(cities);
     })
   }
@@ -109,6 +116,7 @@ export class SelectedOptionPage implements OnInit {
     this.api.getGeneralPractitioners(provinceID, cityID)
     .subscribe(gps => {
       this.gps = JSON.parse(gps.data);
+      this.gps_dependants = JSON.parse(gps.data);
       console.log(gps);
     })
   }
@@ -151,8 +159,8 @@ export class SelectedOptionPage implements OnInit {
 
   onDependantChanges(): void {
     this.optionChangeForm.get('Dependants').valueChanges.subscribe(val => {
-      console.log(val);
-      this.optionChangeForm.patchValue({DependantProvince: ''});
+      console.log(val, 33);
+      // this.optionChangeForm.patchValue({DependantProvince: ''});
       this.getCities(val.ID);
     });
   }
@@ -183,6 +191,29 @@ export class SelectedOptionPage implements OnInit {
     console.log(this.dependants);
     this.dependants.push(this.createDependant(FullName, BeneficiaryNumber));
   }
+
+  changeDependantProvince(data, index) {
+    console.log(data, index, 'running');
+    let item = this.dependants.at(index);
+    console.log(item.value.DependantProvince.ID);
+      this.api.getCities(item.value.DependantProvince.ID)
+      .subscribe(cities => {
+        this.cities_dependants = JSON.parse(cities.data);
+        console.log(cities);
+  })
+}
+
+changeDependantCity(data, index) {
+  console.log(data, index, 'running');
+  let item = this.dependants.at(index);
+  console.log(item.value.DependantProvince.ID);
+    this.api.getGeneralPractitioners(item.value.DependantProvince.ID, data.value.DependantCity.ID)
+    .subscribe(gps => {
+      this.gps_dependants = JSON.parse(gps.data);
+      console.log(gps);
+})
+}
+
 
   
 

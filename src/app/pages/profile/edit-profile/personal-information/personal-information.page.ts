@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -12,11 +13,13 @@ export class PersonalInformationPage implements OnInit {
   member:Member = null;
   profile: FullMember = null;
   MemberImage = null;
+  personalInformationForm: FormGroup;
 
-  constructor(private api: AuthenticationService) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
+    this.initializePersonalInfo();
   }
 
   getMemberProfile() {
@@ -28,5 +31,34 @@ export class PersonalInformationPage implements OnInit {
       // console.log(err);
     });
   }
+
+  initializePersonalInfo = () => {
+
+    this.personalInformationForm = this.fb.group({
+      MemberTitle: this.fb.group({
+        ID: '',
+        Description: '',
+        $$hashKey: ''
+      }),
+      FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
+      LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
+      TelNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      WorkNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      CellNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      EmailAddress: ['', [Validators.required, Validators.email]],
+      MemberMaritalStatus: this.fb.group({
+        ID: '',
+        Description: '',
+        $$hashKey: ''
+      }),
+      Gender:  this.fb.group({
+        ID: '',
+        Description: '',
+        $$hashKey: ''
+      }),
+      MemberIDNo: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      DOB: '',
+    });
+  };
 
 }
