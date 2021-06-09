@@ -737,14 +737,88 @@ reset() {
 
   
 
-  
-
-  
-
-
   loadPreloginInformation() {
     return this.http.get('assets/json/pre-login.json')
   }
+
+
+  //**************************** Update Member Information **************************/
+  getMemberContactInformation(GUID, Token){
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/ContactInfo/${GUID}/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`,
+    }
+    );
+    return from(req);
+  }
+
+  getMemberEmergencyContactInfo(GUID, Token){
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/EmergencyContactInfo/${GUID}/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`,
+    }
+    );
+    return from(req);
+  }
+
+
+  updateMemberInformation(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  updateMemberContactInformation(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/ContactInfo/${GUID}`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  updateMemberEmergencyContactInfo(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/EmergencyContactInfo/${GUID}`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  updateMemberCommunicationPreferences(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/UpdateMemberCommunicationPreferences`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  removeDependant(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/removeDependant`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+
+
+
+
+  
 
   
 

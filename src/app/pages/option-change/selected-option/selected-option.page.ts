@@ -66,11 +66,17 @@ export class SelectedOptionPage implements OnInit {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
       if (this.profile.Dependants && this.profile.Dependants.length > 0) {
+        
         this.optionChangeForm.addControl('Dependants', this.fb.array([]));
         for (var dependant of this.profile.Dependants) {
           console.log(dependant.FirstName);
           this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
         }
+        this.optionChangeForm.get('Dependants').valueChanges.subscribe((changes) => {
+           console.log(changes);
+          //  this.cities = null;
+           this.getProvinces();
+        }) 
       }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
       this.optionChangeForm.patchValue({mainMemberFirstName: this.profile.FirstName});
@@ -144,7 +150,7 @@ export class SelectedOptionPage implements OnInit {
   }
 
   onDependantChanges(): void {
-    this.optionChangeForm.get('DependantProvince').valueChanges.subscribe(val => {
+    this.optionChangeForm.get('Dependants').valueChanges.subscribe(val => {
       console.log(val);
       this.optionChangeForm.patchValue({DependantProvince: ''});
       this.getCities(val.ID);
@@ -158,6 +164,8 @@ export class SelectedOptionPage implements OnInit {
       this.getGPs(this.optionChangeForm.value.DependantCity.ID, val.ID);
     });
   }
+
+  
 
   createDependant(FullName, BeneficiaryNumber): FormGroup {
     return this.fb.group({

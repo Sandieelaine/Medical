@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: EditProfilePage
+  },
+  {
+    path: 'personal-information',
+    loadChildren: () => import('./personal-information/personal-information.module').then( m => m.PersonalInformationPageModule)
   }
 ];
 

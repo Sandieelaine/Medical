@@ -99,8 +99,7 @@ const routes: Routes = [
   },
   {
     path: 'pre-login',
-    loadChildren: () => import('./pages/pre-login/pre-login.module').then( m => m.PreLoginPageModule),
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./pages/pre-login/pre-login.module').then( m => m.PreLoginPageModule)
   },
   {
     path: 'option',
@@ -140,6 +139,10 @@ const routes: Routes = [
     path: 'option-change',
     loadChildren: () => import('./pages/option-change/option-change.module').then( m => m.OptionChangePageModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'retrieve-username',
+    loadChildren: () => import('./auth/retrieve-username/retrieve-username.module').then( m => m.RetrieveUsernamePageModule)
   }
 ];
 @NgModule({

@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Retrieve Username</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div id="strip">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div
+  style="position: absolute; width: 100%; top: 55px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
+</div>
+
+<ion-content>
+  <!-- SCREEM MODE 1-->
+  <div *ngIf="screenMode === 0">
+
+    <form [formGroup]="checkUsernameExistsForm" (ngSubmit)='checkUsernameExists(checkUsernameExistsForm)' class="mt-2">
+      <ion-item lines="none">
+        <ion-input autocomplete="off" placeholder="GEMS Member number/ ID Number" type="text" name="GEMSMemberNumber"
+          formControlName="GEMSMemberNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block"
+        *ngIf="checkUsernameExistsFormErrorHandling('GEMSMemberNumber', 'required')">GEMS Member number/ ID Number is
+        required</div>
+      <div class="text-xs text-red-600 block"
+        *ngIf="checkUsernameExistsFormErrorHandling('GEMSMemberNumber', 'minlength')">GEMS Member
+        number/ ID Number should have a minium of 5 characters long</div>
+      <div class="text-xs text-red-600 block"
+        *ngIf="checkUsernameExistsFormErrorHandling('GEMSMemberNumber', 'maxlength')">GEMS Member
+        number/ ID number should have a maximum of 13 characters long</div>
+
+      <button [disabled]="checkUsernameExistsForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Reset Password
+      </button>
+
+    </form>
+
+  </div>
+
+  <!-- GO TO OTP PAGE -->
+  <div *ngIf="screenMode === 1">
+    <div *ngIf="requestOTPResponse" class="w-full text-center bg-green-200 p-5 rounded mt-6">
+      <span class="block text-sm">We have just sent you an OTP(One Time Pin) to {{requestOTPResponse.Cellnumber}}
+        Please enter the 6 digit number in the field below.
+        (Depending on your carrier it may take up to 1 minute).</span>
+    </div>
+    <form [formGroup]="otpForm" (ngSubmit)='submitOTP()' class="mt-2">
+
+      <ion-item lines="none">
+        <ion-input autocomplete="off" placeholder="Enter OTP XXXXXX" type="text" name="OTPPin" formControlName="OTPPin">
+        </ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</div>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits
+        long</div>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits
+        long</div>
+
+
+      <button [disabled]="otpForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit OTP
+      </button>
+    </form>
+  </div>
+
+
+  <div *ngIf="screenMode === 2">
+
+    <p class="py-2"> Your username is <span class="underline">{{yourUserName}}</span></p>
+    
+    <!-- <form [formGroup]="getUsernameForm" (ngSubmit)='getUsername()' class="mt-2">
+
+      <ion-item lines="none">
+        <ion-input autocomplete="off" placeholder="Password" type="password" name="Password"
+          formControlName="Password"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="getUsernameErrorHandling('Password', 'required')">Password is required</div>
+          <div class="text-xs text-red-600 block" *ngIf="getUsernameErrorHandling('Password', 'pattern')">Password must be at least 8 characters containing a least a capital letter, a number and a special character (e.g #,!,@).
+          </div>
+
+
+      <div class="w-full px-3 -mt-2 inline-block">
+        <p class="text-gray-700 text-xs">The username must be at least 6 characters and must not contain any spaces
+        </p>
+      </div>
+
+      <button [disabled]="getUsernameForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit
+      </button>
+    </form> -->
+  </div>
+</ion-content>

@@ -45,7 +45,7 @@ export class RegisterPage implements OnInit {
       UserName: ['', [Validators.required, Validators.minLength(6)]], // Username must not contain any spaces
       CellphoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
       Password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')]],
-      ConfirmPassword: ['', [Validators.required]],
+      ConfirmPassword: ['', [Validators.required], Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')],
       GEMSMemberNumber: ['', Validators.required],
       MemberIDNumber: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       Referrals: ['', Validators.required],
