@@ -127,9 +127,10 @@
                 formControlName="BeneficiaryNumber"></ion-input>
             </ion-item> -->
 
+            
             <ion-item lines="none" class="my-2">
               <ion-label position="stacked">Province</ion-label>
-              <ion-select (ionChange)="changeDependantProvince(dependant.controls.DependantProvince.value, i)" formControlName="DependantProvince" value="brown" okText="Okay" cancelText="Dismiss">
+              <ion-select (ionChange)="changeDependantProvince(dependant.controls.DependantProvince.value, i)" value="brown" formControlName="DependantProvince" okText="Okay" cancelText="Dismiss">
                 <ion-select-option *ngFor="let province of provinces_dependants" [value]="province">
                   {{province.Description}}</ion-select-option>
               </ion-select>
@@ -145,7 +146,7 @@
       
             <ion-item lines="none" class="my-2" *ngIf="gps_dependants.length > 0 && gps">
               <ion-label position="stacked">Family Practitioner</ion-label>
-              <ion-select formControlName="DependantsPractitioner" value="brown" okText="Okay" cancelText="Dismiss">
+              <ion-select (ionChange)="selectDependantPractitioner(dependant.controls.DependantCity.value, i)" formControlName="DependantsPractitioner" value="brown" okText="Okay" cancelText="Dismiss">
                 <ion-select-option *ngFor="let gp of gps_dependants" [value]="gp">
                   {{gp.Description}}</ion-select-option>
               </ion-select>

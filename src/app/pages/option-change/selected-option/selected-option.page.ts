@@ -36,7 +36,10 @@ export class SelectedOptionPage implements OnInit {
       mainMemberCity: ['', Validators.required],
       mainMemberPractitioner: ['', [Validators.required]],
       Doyouwanttoapplythispractitionertoall: ['', [Validators.required]],
-      // Dependants: this.fb.array([])
+      proposedBenefitOption: ['', [Validators.required]],
+      Dependants: this.fb.array([]),
+      BeneficiaryNumber: ['', [Validators.required]],
+      PracticeNumber: ['', [Validators.required]],
     });
     this.optionChangeForm.patchValue({Doyouwanttoapplythispractitionertoall: true});
     
@@ -52,6 +55,7 @@ export class SelectedOptionPage implements OnInit {
       const option = paramMap.get('option');
       const status = paramMap.get('status');
       this.optionTitle = option;
+      this.optionChangeForm.patchValue({proposedBenefitOption: this.optionTitle});
       if (status === 'EVO') {
         this.isEVOOption = true;
       } else if (status === 'nonEVO') {
@@ -68,6 +72,7 @@ export class SelectedOptionPage implements OnInit {
     .subscribe(profile => {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
+      
       if (this.profile.Dependants && this.profile.Dependants.length > 0) {
         
         this.optionChangeForm.addControl('Dependants', this.fb.array([]));
@@ -75,18 +80,19 @@ export class SelectedOptionPage implements OnInit {
           console.log(dependant.FirstName);
           this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
         }
-        this.optionChangeForm.get('Dependants').valueChanges.subscribe((changes) => {
-           console.log(changes);
-          //  this.cities = null;
-           this.getProvinces();
-          //  this.onDependantChanges();
-          //  this.onDependantCityChange();
-        }) 
+        // this.optionChangeForm.get('Dependants').valueChanges.subscribe((changes) => {
+        //    console.log(changes);
+        //   //  this.cities = null;
+        //    this.getProvinces();
+        //   //  this.onDependantChanges();
+        //   //  this.onDependantCityChange();
+        // }) 
       }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
       this.optionChangeForm.patchValue({mainMemberFirstName: this.profile.FirstName});
       this.optionChangeForm.patchValue({mainMemberLastName: this.profile.LastName});
       this.optionChangeForm.patchValue({memberNumber: this.profile.MemberNo});
+      this.optionChangeForm.patchValue({BeneficiaryNumber: this.profile.BeneficiaryCode});
       console.log(this.plan);
     }, err => {
 
@@ -113,12 +119,15 @@ export class SelectedOptionPage implements OnInit {
   }
 
   getGPs(provinceID, cityID) {
-    this.api.getGeneralPractitioners(provinceID, cityID)
+    if (provinceID && cityID) {
+      this.api.getGeneralPractitioners(provinceID, cityID)
     .subscribe(gps => {
       this.gps = JSON.parse(gps.data);
       this.gps_dependants = JSON.parse(gps.data);
       console.log(gps);
     })
+    }
+    
   }
 
   changeToNonEVOOption() {
@@ -206,12 +215,21 @@ export class SelectedOptionPage implements OnInit {
 changeDependantCity(data, index) {
   console.log(data, index, 'running');
   let item = this.dependants.at(index);
-  console.log(item.value.DependantProvince.ID);
-    this.api.getGeneralPractitioners(item.value.DependantProvince.ID, data.value.DependantCity.ID)
+  console.log(data);
+  console.log(item.value.DependantProvince.ID, item.value.DependantCity.ID);
+    this.api.getGeneralPractitioners(item.value.DependantProvince.ID, item.value.DependantCity.ID)
     .subscribe(gps => {
       this.gps_dependants = JSON.parse(gps.data);
       console.log(gps);
 })
+}
+
+selectDependantPractitioner(data, index) {
+  console.log(data, index, 'running');
+  let item = this.dependants.at(index);
+  console.log(data);
+  console.log(item.value);
+
 }
 
 
