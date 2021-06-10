@@ -216,10 +216,10 @@ export class SelectedOptionPage implements OnInit {
     return this.fb.group({
       FullName: [{value: FullName, disabled: true}, Validators.required],
       BeneficiaryNumber: [{value: BeneficiaryNumber, disabled: true}, Validators.required],
-      DependantsPractitioner: '',
-      PracticeNumber: '',
-      DependantProvince: '',
-      DependantCity: '',
+      DependantsPractitioner: ['', Validators.required],
+      PracticeNumber: [''],
+      DependantProvince: ['', Validators.required],
+      DependantCity: ['', Validators.required],
     });
   }
 
