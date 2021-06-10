@@ -29,9 +29,9 @@ export class SelectedOptionPage implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder) {
     this.optionChangeForm = this.fb.group({
-      mainMemberFirstName: [{value: '', disabled: true}, [Validators.required]],
-      mainMemberLastName: [{value: '', disabled: true}, Validators.required],
-      memberNumber: [{value: '', disabled: true}, [Validators.required]],
+      mainMemberFirstName: ['', [Validators.required]],
+      mainMemberLastName: ['', Validators.required],
+      memberNumber: ['', [Validators.required]],
       mainMemberProvince: ['', Validators.required],
       mainMemberCity: ['', Validators.required],
       mainMemberPractitioner: ['', [Validators.required]],
@@ -74,26 +74,21 @@ export class SelectedOptionPage implements OnInit {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
       
-      if (this.profile.Dependants && this.profile.Dependants.length > 0) {
-        
+      if (this.profile.Dependants && this.profile.Dependants.length > 0) {   
         this.optionChangeForm.addControl('Dependants', this.fb.array([]));
         for (var dependant of this.profile.Dependants) {
           console.log(dependant.FirstName);
           this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
         }
-        // this.optionChangeForm.get('Dependants').valueChanges.subscribe((changes) => {
-        //    console.log(changes);
-        //   //  this.cities = null;
-        //    this.getProvinces();
-        //   //  this.onDependantChanges();
-        //   //  this.onDependantCityChange();
-        // }) 
       }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
-      this.optionChangeForm.patchValue({mainMemberFirstName: this.profile.FirstName});
-      this.optionChangeForm.patchValue({mainMemberLastName: this.profile.LastName});
-      this.optionChangeForm.patchValue({memberNumber: this.profile.MemberNo});
-      this.optionChangeForm.patchValue({BeneficiaryNumber: this.profile.BeneficiaryCode});
+      this.optionChangeForm.patchValue({mainMemberFirstName: profileData.FirstName});
+      this.optionChangeForm.patchValue({mainMemberLastName: profileData.LastName});
+      this.optionChangeForm.patchValue({memberNumber: profileData.MemberNo});
+      this.optionChangeForm.patchValue({BeneficiaryNumber: profileData.BeneficiaryCode});
+      this.optionChangeForm.controls['mainMemberFirstName'].disable();
+      this.optionChangeForm.controls['mainMemberLastName'].disable();
+      this.optionChangeForm.controls['memberNumber'].disable();
       console.log(this.plan);
     }, err => {
 
@@ -147,7 +142,14 @@ export class SelectedOptionPage implements OnInit {
   }
 
   changeToEVOOption() {
-    console.log(this.optionChangeForm.value);
+    if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall && this.profile.Dependants.length > 0) {
+      console.log('Teah');
+      const control = <FormArray>this.optionChangeForm.controls['Dependants'];
+        for(let i = control.length-1; i >= 0; i--) {
+            control.removeAt(i)
+      }
+    }
+    console.log(this.optionChangeForm.getRawValue());
   }
 
 
@@ -196,10 +198,10 @@ export class SelectedOptionPage implements OnInit {
     return this.fb.group({
       FullName: [{value: FullName, disabled: true}, Validators.required],
       BeneficiaryNumber: [{value: BeneficiaryNumber, disabled: true}, Validators.required],
-      DependantsPractitioner: '',
-      PracticeNumber: '',
-      DependantProvince: '',
-      DependantCity: ''
+      DependantsPractitioner: ['', Validators.required],
+      PracticeNumber: ['', Validators.required],
+      DependantProvince: ['', Validators.required],
+      DependantCity: ['', Validators.required],
     });
   }
 
@@ -235,6 +237,7 @@ changeDependantCity(data, index) {
 selectDependantPractitioner(data, index) {
   console.log(data, index, 'running');
   let item = this.dependants.at(index);
+  item.patchValue({PracticeNumber: item.value.DependantsPractitioner.PracticeNumber})
   console.log(data);
   console.log(item.value);
 }
