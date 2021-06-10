@@ -65,7 +65,8 @@ export class SelectedOptionPage implements OnInit {
     });
     this.onChanges();
     this.onCityChange();
-    this.onGPChange()
+    this.onGPChange();
+    this.onIsDoctorForAllChange()
   }
 
   loadProfile() {
@@ -74,7 +75,7 @@ export class SelectedOptionPage implements OnInit {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
       
-      if (this.profile.Dependants && this.profile.Dependants.length > 0) {   
+      if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false && this.profile.Dependants && this.profile.Dependants.length > 0) {   
         this.optionChangeForm.addControl('Dependants', this.fb.array([]));
         for (var dependant of this.profile.Dependants) {
           console.log(dependant.FirstName);
@@ -142,13 +143,8 @@ export class SelectedOptionPage implements OnInit {
   }
 
   changeToEVOOption() {
-    if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall && this.profile.Dependants.length > 0) {
-      console.log('Teah');
-      const control = <FormArray>this.optionChangeForm.controls['Dependants'];
-        for(let i = control.length-1; i >= 0; i--) {
-            control.removeAt(i)
-      }
-    }
+    
+    console.log(this.optionChangeForm.status)
     console.log(this.optionChangeForm.getRawValue());
   }
 
@@ -176,6 +172,28 @@ export class SelectedOptionPage implements OnInit {
     });
   }
 
+  onIsDoctorForAllChange(): void {
+    this.optionChangeForm.get('Doyouwanttoapplythispractitionertoall').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val) {
+        if (this.profile.Dependants.length > 0) {
+          console.log('Teah');
+          const control = <FormArray>this.optionChangeForm.controls['Dependants'];
+            for(let i = control.length-1; i >= 0; i--) {
+                control.removeAt(i)
+          }
+        }
+      } else if (val === false) {
+        this.optionChangeForm.addControl('Dependants', this.fb.array([]));
+        for (var dependant of this.profile.Dependants) {
+          console.log(dependant.FirstName);
+          this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
+        }
+      }
+      // this.optionChangeForm.patchValue({mainMemberPractitioner: ''});
+    });
+  }
+
   onDependantChanges(): void {
     this.optionChangeForm.get('Dependants').valueChanges.subscribe(val => {
       console.log(val, 33);
@@ -198,10 +216,10 @@ export class SelectedOptionPage implements OnInit {
     return this.fb.group({
       FullName: [{value: FullName, disabled: true}, Validators.required],
       BeneficiaryNumber: [{value: BeneficiaryNumber, disabled: true}, Validators.required],
-      DependantsPractitioner: ['', Validators.required],
-      PracticeNumber: ['', Validators.required],
-      DependantProvince: ['', Validators.required],
-      DependantCity: ['', Validators.required],
+      DependantsPractitioner: '',
+      PracticeNumber: '',
+      DependantProvince: '',
+      DependantCity: '',
     });
   }
 
