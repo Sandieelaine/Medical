@@ -1,11 +1,11 @@
 import { FullMember } from 'src/app/models/fullmember.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Member } from 'src/app/models/member.model';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selected-option',
@@ -30,7 +30,7 @@ export class SelectedOptionPage implements OnInit {
   member:Member = null;
   optionChangePayload;
 
-  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder, private loadingCtrl: LoadingController) {
+  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private router: Router) {
     this.optionChangeForm = this.fb.group({
       mainMemberFirstName: ['', [Validators.required]],
       mainMemberLastName: ['', Validators.required],
@@ -69,7 +69,7 @@ export class SelectedOptionPage implements OnInit {
     this.onChanges();
     this.onCityChange();
     this.onGPChange();
-    this.onIsDoctorForAllChange()
+    this.onIsDoctorForAllChange();
   }
 
   loadProfile() {
@@ -185,17 +185,29 @@ export class SelectedOptionPage implements OnInit {
     //console.log(this.optionChangeForm.status)
     //console.log(this.optionChangeForm.getRawValue());
     console.log(this.optionChangePayload);
+    console.log(this.optionTitle);
 
-    // this.api.changeToEVOOption(this.optionChangePayload, this.member.MemberGuid, this.member.access_token)
-    // .subscribe(res => {
-    //   console.log(res.data);
-    //   this.loader.dismiss();
-    //   this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.');
-    // }, err => {
-    //   console.log(err);
-    //   this.loader.dismiss();
-    //   this.helper.presentToast('Failed To Change Option. Please Try Again');
-    // });
+    let selectedOption;
+    if (this.optionTitle === 'Tanzanite One') {
+      selectedOption = 'TanzaniteChangeOptionInfo';
+    } else if (this.optionTitle === 'Emerald Value') {
+      selectedOption = 'EVOChangeOptionInfo';
+    } else {
+      return;
+    }
+
+    console.log(selectedOption);
+
+    this.api.changeToEVOOption(this.optionChangePayload, selectedOption, this.member.MemberGuid, this.member.access_token)
+    .subscribe(res => {
+      console.log(res.data);
+      this.loader.dismiss();
+      this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.');
+    }, err => {
+      console.log(err);
+      this.loader.dismiss();
+      this.helper.presentToast('Failed To Change Option. Please Try Again');
+    });
   }
 
 
@@ -318,6 +330,39 @@ async showLoader() {
     cssClass: 'login-spinner'
   });
   this.loader.present();
+}
+
+async showAlert() {
+    let tourAlert = await this.alertCtrl.create({
+      header: 'Important Notice',
+      // tslint:disable-next-line: max-line-length
+      subHeader: `Your current option is <span class="font-bold">${this.plan}</span>, you are now
+      about to change your
+      membership option for 2021 to <span class="font-bold">${this.optionTitle}</span>.
+    Please note: if you are found to have used your personal medical savings account (PMSA)
+      on the Ruby option, such
+      use may result in you being indebted to the Scheme for any claims funded by the Scheme in excess of your PMSA
+      contributions.
+    Please note: When changing from any other benefit option to EVO or Tanzanite One, you and
+      your dependants are
+      each required to nominate a GP.`,
+      buttons: [
+        {
+          text: 'Decline',
+          handler: async () => {
+            this.router.navigateByUrl('/tabs/tabs/home');
+          }
+        },
+        {
+          text: 'Accept',
+          handler: () => {
+            
+            return false;
+          }
+        }
+      ]
+    });
+    await tourAlert.present();
 }
 
 

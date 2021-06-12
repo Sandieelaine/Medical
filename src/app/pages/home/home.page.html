@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-title><span class="font-normal">Hello, </span> <b>{{profile.FirstName | titlecase}}</b></ion-title>
     <div slot="end" *ngIf="member">
-      <img class="w-10 rounded-full mb-1 ml-1 border-solid border-2 border-gray-600 p-1" src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
+      <img class="w-10 rounded-full mb-1 ml-1 mr-2 border-solid border-2 border-gray-600 p-1" src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
     </div>
     <!-- <ion-avatar *ngIf="member" slot="end">
       <img src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">

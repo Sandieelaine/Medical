@@ -176,7 +176,8 @@ reset() {
     const body = {
       grant_type: 'password',
       username,
-      password
+      password,
+      platform: 'Member App'
     };
     let req = this.httpNative.post(`${this.url}/token`,
     body,
@@ -398,9 +399,9 @@ reset() {
     );
   }
 
-  changeToEVOOption(payload, GUID, Token) {
+  changeToEVOOption(payload, option, GUID, Token) {
     // http://dev.api.gems.local/api/v1/Members/e9f66d2f-ea15-e611-80d0-00155d8ec705/TanzaniteChangeOptionInfo
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/EVOChangeOptionInfo`,
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/${option}`,
     payload,
     {
       'Authorization': `Bearer ${Token}`
@@ -545,7 +546,8 @@ reset() {
     const body = {
         grant_type: 'password',
         username,
-        password
+        password,
+        platform: 'Member App'
       };
       
       console.log(this.url);
