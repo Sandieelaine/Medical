@@ -386,9 +386,9 @@ reset() {
 
   // ************************************  Change Option *******************************//
 
-  changeOption(option, payload, GUID, Token) {
+  changeOption(option, GUID, Token) {
     let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/ChangeBenefitOption/${option}`,
-    payload,
+    {},
     {
       'Authorization': `Bearer ${Token}`
     }
@@ -399,6 +399,7 @@ reset() {
   }
 
   changeToEVOOption(payload, GUID, Token) {
+    // http://dev.api.gems.local/api/v1/Members/e9f66d2f-ea15-e611-80d0-00155d8ec705/TanzaniteChangeOptionInfo
     let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/EVOChangeOptionInfo`,
     payload,
     {

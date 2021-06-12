@@ -54,16 +54,18 @@
     </div>
     <form [formGroup]="optionChangeForm" (ngSubmit)='changeToEVOOption()' class="mt-2">
       <ion-item lines="none">
-        <!-- <ion-label position="stacked">First Name</ion-label> -->
+        <ion-label position="stacked">First Name</ion-label>
         <ion-input autocomplete="off" placeholder="First Name" type="text" name="mainMemberFirstName"
           formControlName="mainMemberFirstName"></ion-input>
       </ion-item>
 
       <ion-item lines="none">
+        <ion-label position="stacked">Last Name</ion-label>
         <ion-input placeholder="Last Name" type="text" name="mainMemberLastName" formControlName="mainMemberLastName"></ion-input>
       </ion-item>
 
       <ion-item lines="none">
+        <ion-label position="stacked">Member Number</ion-label>
         <ion-input type="number" placeholder="Member Number" position="stacked" name="memberNumber" formControlName="memberNumber">
         </ion-input>
       </ion-item>

@@ -78,13 +78,13 @@ export class SelectedOptionPage implements OnInit {
       const profileData = JSON.parse(profile.data);
       this.profile = profileData;
       
-      if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false && this.profile.Dependants && this.profile.Dependants.length > 0) {   
-        this.optionChangeForm.addControl('Dependants', this.fb.array([]));
-        for (var dependant of this.profile.Dependants) {
-          console.log(dependant.FirstName);
-          this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
-        }
-      }
+      // if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false && this.profile.Dependants && this.profile.Dependants.length > 0) {   
+      //   this.optionChangeForm.addControl('Dependants', this.fb.array([]));
+      //   for (var dependant of this.profile.Dependants) {
+      //     console.log(dependant.FirstName);
+      //     this.addDependant(dependant.FullName, dependant.BeneficiaryCode);
+      //   }
+      // }
       this.plan = profileData.Plan.BenefitPlanName.toLowerCase();
       this.optionChangeForm.patchValue({mainMemberFirstName: profileData.FirstName});
       this.optionChangeForm.patchValue({mainMemberLastName: profileData.LastName});
@@ -132,36 +132,50 @@ export class SelectedOptionPage implements OnInit {
 
   changeToNonEVOOption() {
     this.showLoader();
-    setTimeout(() => {
+    this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
+    .subscribe(res => {
       this.loader.dismiss();
-      this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.')
-    }, 3000);
-    // this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
-    // .subscribe(res => {
-    //   this.helper.presentToast(
-    //     'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
-    //     5000
-    //   )
-    // }, err => {
-    //   this.helper.presentToast(
-    //     'Failed To Change Option. Please try again!',
-    //     5000
-    //   )
-    // })
+      this.helper.presentToast(
+        'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
+        5000
+      )
+    }, err => {
+      this.loader.dismiss();
+      this.helper.presentToast(
+        'Failed To Change Option. Please try again!',
+        5000
+      )
+    })
   }
 
   changeToEVOOption() {
+    console.log(this.optionTitle);
     this.optionChangePayload = this.optionChangeForm.getRawValue();
     this.optionChangePayload.mainMemberProvince = this.optionChangeForm.value.mainMemberProvince.Description;
     this.optionChangePayload.mainMemberCity = this.optionChangeForm.value.mainMemberCity.Description;
     this.optionChangePayload.mainMemberPractitioner = this.optionChangeForm.value.mainMemberPractitioner.Description;
 
-    if (this.optionChangePayload.Dependants.length > 0) {
+    if (this.optionChangePayload.Dependants.length > 0 && this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === false) {
       for (var dependant of this.optionChangePayload.Dependants) {
         console.log(dependant);
         dependant.DependantsPractitioner = dependant.DependantsPractitioner.Description;
         dependant.DependantProvince = dependant.DependantProvince.Description;
         dependant.DependantCity = dependant.DependantCity.Description;
+      }
+    }
+
+    if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === true) {
+      for (var DEP of this.profile.Dependants) {
+        console.log(dependant);
+        let modifiedDEP = {
+          DependantsPractitioner: this.optionChangePayload.mainMemberPractitioner,
+          DependantProvince: this.optionChangePayload.mainMemberProvince,
+          DependantCity: this.optionChangePayload.mainMemberCity,
+          PracticeNumber: this.optionChangeForm.value.PracticeNumber,
+          BeneficiaryNumber: DEP.BeneficiaryCode,
+          FullName: DEP.FullName
+        };
+        this.optionChangePayload.Dependants.push(modifiedDEP);
       }
     }
 
