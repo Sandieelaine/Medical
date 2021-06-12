@@ -386,9 +386,9 @@ reset() {
 
   // ************************************  Change Option *******************************//
 
-  changeOption(option, GUID, Token) {
+  changeOption(option, payload, GUID, Token) {
     let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/ChangeBenefitOption/${option}`,
-    {},
+    payload,
     {
       'Authorization': `Bearer ${Token}`
     }
@@ -398,9 +398,9 @@ reset() {
     );
   }
 
-  changeToEVOOption(option, GUID, Token) {
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/ChangeBenefitOption/${option}`,
-    {},
+  changeToEVOOption(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/EVOChangeOptionInfo`,
+    payload,
     {
       'Authorization': `Bearer ${Token}`
     }

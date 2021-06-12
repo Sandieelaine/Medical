@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Member } from 'src/app/models/member.model';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selected-option',
@@ -16,6 +17,7 @@ export class SelectedOptionPage implements OnInit {
   isEVOOption:boolean;
   profile: FullMember;
   plan: string;
+  loader;
 
   optionChangeForm: FormGroup;
   provinces;
@@ -26,8 +28,9 @@ export class SelectedOptionPage implements OnInit {
   gps_dependants =[]
   dependants;
   member:Member = null;
+  optionChangePayload;
 
-  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder) {
+  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private helper: HelpersService, private fb: FormBuilder, private loadingCtrl: LoadingController) {
     this.optionChangeForm = this.fb.group({
       mainMemberFirstName: ['', [Validators.required]],
       mainMemberLastName: ['', Validators.required],
@@ -128,24 +131,57 @@ export class SelectedOptionPage implements OnInit {
   }
 
   changeToNonEVOOption() {
-    this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
-    .subscribe(res => {
-      this.helper.presentToast(
-        'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
-        5000
-      )
-    }, err => {
-      this.helper.presentToast(
-        'Failed To Change Option. Please try again!',
-        5000
-      )
-    })
+    this.showLoader();
+    setTimeout(() => {
+      this.loader.dismiss();
+      this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.')
+    }, 3000);
+    // this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
+    // .subscribe(res => {
+    //   this.helper.presentToast(
+    //     'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
+    //     5000
+    //   )
+    // }, err => {
+    //   this.helper.presentToast(
+    //     'Failed To Change Option. Please try again!',
+    //     5000
+    //   )
+    // })
   }
 
   changeToEVOOption() {
+    this.optionChangePayload = this.optionChangeForm.getRawValue();
+    this.optionChangePayload.mainMemberProvince = this.optionChangeForm.value.mainMemberProvince.Description;
+    this.optionChangePayload.mainMemberCity = this.optionChangeForm.value.mainMemberCity.Description;
+    this.optionChangePayload.mainMemberPractitioner = this.optionChangeForm.value.mainMemberPractitioner.Description;
+
+    if (this.optionChangePayload.Dependants.length > 0) {
+      for (var dependant of this.optionChangePayload.Dependants) {
+        console.log(dependant);
+        dependant.DependantsPractitioner = dependant.DependantsPractitioner.Description;
+        dependant.DependantProvince = dependant.DependantProvince.Description;
+        dependant.DependantCity = dependant.DependantCity.Description;
+      }
+    }
+
+    //this.showLoader();
     
-    console.log(this.optionChangeForm.status)
-    console.log(this.optionChangeForm.getRawValue());
+    
+    //console.log(this.optionChangeForm.status)
+    //console.log(this.optionChangeForm.getRawValue());
+    console.log(this.optionChangePayload);
+
+    // this.api.changeToEVOOption(this.optionChangePayload, this.member.MemberGuid, this.member.access_token)
+    // .subscribe(res => {
+    //   console.log(res.data);
+    //   this.loader.dismiss();
+    //   this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.');
+    // }, err => {
+    //   console.log(err);
+    //   this.loader.dismiss();
+    //   this.helper.presentToast('Failed To Change Option. Please Try Again');
+    // });
   }
 
 
@@ -258,6 +294,16 @@ selectDependantPractitioner(data, index) {
   item.patchValue({PracticeNumber: item.value.DependantsPractitioner.PracticeNumber})
   console.log(data);
   console.log(item.value);
+}
+
+
+async showLoader() {
+  this.loader = await this.loadingCtrl.create({
+    spinner: 'lines',
+    message: 'Loading',
+    cssClass: 'login-spinner'
+  });
+  this.loader.present();
 }
 
 
