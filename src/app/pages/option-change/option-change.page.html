@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="tabs/tabs/home"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>Option Change</ion-title>
+    <ion-title><span class="text-white dark:text-dark-modegraylight">Option Change</span></ion-title>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -25,50 +25,50 @@
 <ion-content>
   <div class="w-full">
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'beryl'" (click)="changeOption('Beryl', 'nonEVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full bg-white dark:bg-black rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/beryl.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Beryl</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Beryl</span>
       </div>
     </div>
     
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'ruby'" (click)="changeOption('Ruby', 'nonEVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full dark:bg-black bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/ruby.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Ruby</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Ruby</span>
       </div>
     </div>
 
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'onyx'" (click)="changeOption('Onyx', 'nonEVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full bg-white dark:bg-black rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/onyx.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Onyx</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Onyx</span>
       </div>
     </div>
 
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'emerald'" (click)="changeOption('Emerald', 'nonEVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full bg-white dark:bg-black rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/emerald.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Emerald</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Emerald</span>
       </div>
     </div>
 
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'emerald value'" (click)="changeOption('Emerald Value', 'EVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full bg-white dark:bg-black rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/emerald-value.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Emerald Value</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Emerald Value</span>
       </div>
     </div>
 
     <div class="inline-block w-1/2 p-2" *ngIf="profile?.Plan?.BenefitPlanName.toLowerCase() !== 'tanzanite one'" (click)="changeOption('Tanzanite One', 'EVO')">
-      <div class="w-full bg-white rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
+      <div class="w-full bg-white dark:bg-black rounded-lg flex flex-col items-center justify-center p-4 shadow-lg">
         <img class="w-24" src="assets/img/plans/tanzanite-one.png" alt="">
         <div class="h-4"></div>
-        <span class="font-bold text-sm text-center uppercase tracking-widest">Tanzanite One</span>
+        <span class="font-bold text-sm text-center uppercase tracking-widest text-black dark:text-dark-modegraylight">Tanzanite One</span>
       </div>
     </div>
   </div>

@@ -15,6 +15,9 @@ module.exports = {
         'emerald': '#31b055',
         'emerald_value': '#16b7a7',
         'onyx': '#7b8084',
+        'dark-modegray': '#202020',
+        'dark-modegraylight': '#575757',
+        'turq': '#32b5a6'
       }
     },
   },

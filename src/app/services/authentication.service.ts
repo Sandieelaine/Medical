@@ -369,6 +369,18 @@ reset() {
     return from(req);
   }
   // ************************************  End Benefits *******************************//
+
+  // ************************************  Authorisations *******************************//
+  getAuthorisations(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/authorisations?pageCount=10&pageNumber=1`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+  // ************************************  End Authorisations *******************************//
   
   // ************************************  Request New Card *******************************//
   requestNewCard(postalAddress, GUID, Token) {
@@ -813,6 +825,14 @@ reset() {
     {
       'Authorization': `Bearer ${Token}`
     }
+    );
+    return from(req);
+  }
+
+  getBeneficiaryOptions(): Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/formOptions/memberApplication/beneficiaryOptions`,
+    {},
+    {}
     );
     return from(req);
   }

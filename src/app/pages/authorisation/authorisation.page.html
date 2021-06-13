@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button class="text-black dark:text-gray-400" defaultHref="/tabs/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Authorisations</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <div class="w-full p-2">
+      <button routerLink="/tabs/tabs/authorisation/request" class="text-white bg-gems-primary-blue w-full p-3 rounded-full text-sm font-semibold">Request Hospital Pre-Authorisation</button>
+    </div>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+
+
+
+
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="isLoading">
+    <div class="px-2 py-1" *ngFor="let authorisation of [1, 2, 3, 4, 5, 6, 7, 8]">
+      <ion-item mode="md" lines="full">
+        <ion-icon class="bg-gems-primary-blue p-2 roundeddark:text-gray-400" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward" mode="ios"></ion-icon>
+        <ion-label class="font-semibold">
+          <h3 class="block text-lg"><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p class="text-sm text-gray-700"><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+
+  <div class="px-2 py-1" *ngFor="let authorisation of authorisations; let i = index;" (click)="toggleSection(i)">
+    <ion-item mode="md" lines="full">
+      <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+      <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!authorisation.open"></ion-icon>
+      <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="authorisation.open"></ion-icon>
+      <ion-label class="font-semibold"><span class="text-black dark:text-dark-modegraylight">{{authorisation?.PracticeProviderName | titlecase}}</span></ion-label>
+    </ion-item>
+    <div *ngIf="authorisation.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': authorisation.open, 'hidden': !authorisation.open}">
+      <div class="w-full flex">
+        <div class="w-1/2">
+          <span class="text-xs block">DOA</span>
+          <span class="text-sm font-semibold">{{authorisation.DOA | date: 'shortDate'}}</span>
+          <div style="height: 10px;"></div>
+          <span class="text-xs block">Status</span>
+          <span class="text-sm font-semibold">{{authorisation.Status}}</span>
+          <div style="height: 10px;"></div>
+          <span class="text-xs block">Reference No.</span>
+          <span class="text-sm font-semibold">{{authorisation.ReferenceNo}}</span>
+        
+        </div>
+  
+        <div class="w-1/2">
+          <span class="text-xs block">Auth Type</span>
+          <span class="text-sm font-semibold">{{authorisation.AuthType}}</span>
+          <div style="height: 10px;"></div>
+          <span class="text-xs block">Medication Name</span>
+          <span class="text-sm font-semibold">{{authorisation.MedicationName}}</span>
+          <div style="height: 10px;"></div>
+          <span class="text-xs block">Description</span>
+          <span class="text-sm font-semibold">{{authorisation.Description || 'N/A'}}</span>
+        </div>
+      </div>
+      
+      <div class="w-full mt-2">
+        <span class="text-xs block">Provider Name</span>
+        <span class="text-sm font-semibold">{{authorisation.PracticeProviderName}}</span>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

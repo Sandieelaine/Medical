@@ -1,9 +1,9 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/home"></ion-back-button>
+      <ion-back-button class="text-white dark:text-gray-400" defaultHref="/tabs/tabs/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Benefits</ion-title>
+    <ion-title><span class="text-white dark:text-gray-400">Benefits</span></ion-title>
   </ion-toolbar>
   <ion-toolbar mode="md">
     <ion-searchbar mode="md" (ionChange)="filterBenefits($event)"></ion-searchbar>
@@ -22,7 +22,34 @@
     <div></div>
     <div></div>
   </div>
-</div>
+</div> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button class="text-black dark:text-gray-400" defaultHref="/tabs/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Benefits</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="md">
+    <ion-searchbar color="primary" mode="md" (ionChange)="filterBenefits($event)"></ion-searchbar>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -32,7 +59,7 @@
   <div *ngIf="isLoading">
     <div class="px-2 py-1" *ngFor="let claim of [1, 2, 3, 4, 5, 6, 7, 8]">
       <ion-item mode="md" lines="full">
-        <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+        <ion-icon class="bg-gems-primary-blue p-2 roundeddark:text-gray-400" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
         <ion-icon slot="end" name="chevron-forward" mode="ios"></ion-icon>
         <ion-label class="font-semibold">
           <h3 class="block text-lg"><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
@@ -44,21 +71,21 @@
 
   <div class="px-2 py-1" *ngFor="let benefit of benefits; let i = index;" (click)="toggleSection(i)">
     <ion-item mode="md" lines="full">
-      <ion-icon class="bg-gems-primary-blue p-2 rounded text-white" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+      <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
       <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!benefit.open"></ion-icon>
       <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="benefit.open"></ion-icon>
-      <ion-label class="font-semibold">{{benefit?.Description | titlecase}}</ion-label>
+      <ion-label class="font-semibold"><span class="text-black dark:text-dark-modegraylight">{{benefit?.Description | titlecase}}</span></ion-label>
     </ion-item>
     <div *ngIf="benefit.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
-      <span> <span class="font-semibold">R{{benefit.FreeAmount.Amount}}</span> of <span class="font-semibold">R{{benefit.MaxAmount.Amount}}</span> available</span>
+      <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.FreeAmount.Amount}}</span> of <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.MaxAmount.Amount}}</span> available</span>
       <ion-progress-bar [value]="+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount"></ion-progress-bar>
       <!-- <p>{{+benefit.MaxAmount.Amount/+benefit.FreeAmount.Amount}}</p>
       <p>{{+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount}}</p> -->
       <div class="mt-2 flex items-center" *ngFor="let depBenefit of benefit?.BenefitUsageBeneficiaries">
         <div class=" w-1/12">
-          <span class="bg-gems-primary-blue text-white p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
+          <span class="bg-gems-primary-blue text-white dark:text-gray-400 p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
         </div>
-        <div class="text-black w-11/12">
+        <div class="text-black dark:text-dark-modegraylight w-11/12">
           <span> <span class="font-semibold">R{{depBenefit?.FreeAmount.Amount}}</span> of <span class="font-semibold">R{{depBenefit?.MaxAmount.Amount}}</span> available</span>
           <ion-progress-bar [value]="+depBenefit?.FreeAmount.Amount/+depBenefit?.MaxAmount.Amount"></ion-progress-bar>
         </div>

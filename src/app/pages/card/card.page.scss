@@ -30,4 +30,11 @@
   .front {
     transform: rotateY(180deg);
   }
+
+  @media (prefers-color-scheme: dark) {
+    ion-content {
+     --background: transparent !important;
+     background: #202020 !important;
+ }
+}
   

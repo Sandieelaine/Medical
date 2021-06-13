@@ -13,7 +13,17 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfilePageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfilePageModule)
+          },
+          {
+            path: 'personal-information',
+            loadChildren: () => import('../pages/profile/edit-profile/personal-information/personal-information.module').then(m => m.PersonalInformationPageModule)
+          }
+        ]
+        
       },
       {
         path: 'map',
@@ -30,6 +40,20 @@ const routes: Routes = [
       {
         path: 'rewards',
         loadChildren: () => import('../pages/rewards/rewards.module').then(m => m.RewardsPageModule)
+      },
+      {
+        path: 'authorisation',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../pages/authorisation/authorisation.module').then(m => m.AuthorisationPageModule)
+          },
+          {
+            path: 'request',
+            loadChildren: () => import('../pages/authorisation/request/request.module').then(m => m.RequestPageModule)
+          }
+        ]
+        
       },
       {
         path: 'claims',

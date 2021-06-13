@@ -31,3 +31,15 @@ ion-item {
     padding-top: 15px;
     padding-bottom: 15px;
   }
+
+  // Dark Mode Styling
+@media (prefers-color-scheme: dark) {
+    ion-item {
+      margin-bottom: 5px;
+      border-radius: 10px;
+      border: 1px solid #000 !important;
+    }
+    .bottom {
+        background: #202020;
+    }
+  }

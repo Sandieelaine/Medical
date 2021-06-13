@@ -10,3 +10,12 @@ ion-input {
 ion-button {
     height: 60px;
   }
+
+  // Dark Mode Styling
+@media (prefers-color-scheme: dark) {
+    ion-item {
+      margin-bottom: 5px;
+      border-radius: 10px;
+      border: 1px solid #000 !important;
+    }
+  }

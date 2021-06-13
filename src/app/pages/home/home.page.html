@@ -1,17 +1,15 @@
 <ion-header *ngIf="profile && member">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-menu-button>
+      <ion-menu-button class="text-black dark:text-dark-modegraylight">
         <ion-icon src="./assets/img/menu.svg"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
     <ion-title><span class="font-normal">Hello, </span> <b>{{profile.FirstName | titlecase}}</b></ion-title>
     <div slot="end" *ngIf="member">
-      <img class="w-10 rounded-full mb-1 ml-1 mr-2 border-solid border-2 border-gray-600 p-1" src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
+      <img class="w-10 rounded-full mb-1 ml-1 mr-2 border-solid border-2 border-gray-600 p-1"
+        src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
     </div>
-    <!-- <ion-avatar *ngIf="member" slot="end">
-      <img src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
-    </ion-avatar> -->
   </ion-toolbar>
 </ion-header>
 <div class="gems-border">
@@ -54,19 +52,19 @@
           <div routerLink="/tabs/tabs/claims-home"
             class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
-            <span class="title">Claims</span>
+            <span class="title text-black dark:text-dark-modegraylight">Claims</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
           <div routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
             <img class="svg-icon" src="assets/img/home/benefits_fill.svg" alt="">
-            <span class="title">Benefits</span>
+            <span class="title text-black dark:text-dark-modegraylight">Benefits</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
           <div routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/360_white.svg" alt="">
-            <span class="title">360&deg; View</span>
+            <span class="title text-black dark:text-dark-modegraylight">360&deg; View</span>
           </div>
         </ion-col>
       </ion-row>
@@ -75,19 +73,19 @@
         <ion-col col-4 class="ion-no-padding">
           <div routerLink="/tabs/tabs/documents" class="icon-box right-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/download_white.svg" alt="">
-            <span class="title">Downloads</span>
+            <span class="title text-black dark:text-dark-modegraylight">Downloads</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
           <div routerLink="/tabs/tabs/contact" class="icon-box right-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/help.svg" alt="">
-            <span class="title">Help</span>
+            <span class="title text-black dark:text-dark-modegraylight">Help</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div class="icon-box bg-white dark:bg-black">
+          <div routerLink="/tabs/tabs/authorisation" class="icon-box bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/more.svg" alt="">
-            <span class="title">More</span>
+            <span class="title text-black dark:text-dark-modegraylight">More</span>
           </div>
         </ion-col>
       </ion-row>
@@ -96,19 +94,19 @@
 
   <!-- This example requires Tailwind CSS v2.0+ -->
   <div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly"
-    class="rounded-md p-4 mx-4 my-4" style="background: #00b5a6;" routerLink="/tabs/tabs/option-change">
+    class="rounded-md p-4 mx-4 my-4 bg-turq dark:bg-black " routerLink="/tabs/tabs/option-change">
     <div class="flex">
       <div class="flex-shrink-0">
         <!-- Heroicon name: solid/check-circle -->
-        <svg class="h-5 w-5 text-green-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-          aria-hidden="true">
+        <svg class="h-5 w-5 text-green-50 dark:text-dark-modegraylight" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
             clip-rule="evenodd" />
         </svg>
       </div>
       <div class="ml-3">
-        <p class="text-sm font-bold text-white">
+        <p class="text-sm font-bold text-white dark:text-dark-modegraylight">
           GEMS 2021 EVO Switch is now open for members on Emerald. Make your switch to EVO before 31 July 2021 and
           continue enjoying the same rich benefits, but at a more affordable rate!
           <!-- <span class="text-yellow-500 block bg-white p-2 text-center rounded-full mt-1"> Change Option</span> -->
@@ -169,7 +167,7 @@
       <ion-row>
         <ion-col col-12 class="ion-no-padding">
           <ion-label>
-            <h2 class="activity-title dark:text-gray-400 text-gray-900">Explore</h2>
+            <h2 class="activity-title dark:text-dark-modegraylight text-gray-900">Explore</h2>
           </ion-label>
         </ion-col>
       </ion-row>
@@ -177,7 +175,7 @@
         <ion-col col-12 class="ion-no-padding">
           <ion-slides [options]="exploreOpt">
             <ion-slide>
-              <div class="shadow-sm bg-white rounded-lg">
+              <div class="shadow-sm bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">
                   <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
@@ -196,14 +194,14 @@
                   </div>
 
                 </div>
-                <div class="text-gray-800 flex p-2">
+                <div class="text-gray-800 dark:text-dark-modegraylight flex p-2">
                   <span class="font-semibold text-sm">News</span>
                 </div>
               </div>
             </ion-slide>
 
             <ion-slide>
-              <div class="shadow-sm bg-white rounded-lg">
+              <div class="shadow-sm bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">
                   <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
@@ -222,14 +220,15 @@
                   </div>
 
                 </div>
-                <div class="text-gray-800 flex p-2">
+                <div class="text-gray-800 dark:text-dark-modegraylight flex p-2">
                   <span class="font-semibold text-sm">News</span>
                 </div>
               </div>
             </ion-slide>
+
 
             <ion-slide>
-              <div class="shadow-sm bg-white rounded-lg">
+              <div class="shadow-sm bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">
                   <div class="rainbow" style="width: 70%; bottom: 0px;">
                     <div></div>
@@ -248,11 +247,15 @@
                   </div>
 
                 </div>
-                <div class="text-gray-800 flex p-2">
+                <div class="text-gray-800 dark:text-dark-modegraylight flex p-2">
                   <span class="font-semibold text-sm">News</span>
                 </div>
               </div>
             </ion-slide>
+
+
+
+
 
           </ion-slides>
         </ion-col>

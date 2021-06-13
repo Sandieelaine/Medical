@@ -1,3 +1,6 @@
+
+
+// Normal Mode Styling
 .login-wrapper {
     height: 100vh;
     display: flex;
@@ -42,6 +45,9 @@
     margin-top: -20px;
     z-index: 1;
   }
+
+
+
   
   ion-item {
     margin-bottom: 5px;
@@ -71,3 +77,23 @@
     text-align: center;
   }
   
+// Dark Mode Styling
+  @media (prefers-color-scheme: dark) {
+    .bottom {
+      flex: 1;
+      background: #202020;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      margin-top: -20px;
+      z-index: 1;
+    }
+    ion-item {
+      margin-bottom: 5px;
+      border-radius: 10px;
+      border: 1px solid #000 !important;
+    }
+  }

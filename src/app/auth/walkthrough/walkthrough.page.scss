@@ -31,7 +31,7 @@
   .top {
     width: 100%;
     flex: 1;
-    max-height: calc(60vh);
+    max-height: calc(55vh);
     background: #eeeeee;
     padding: 2rem 0;
     clip-path: circle(100% at 50% 0);
@@ -41,12 +41,12 @@
   }
   
   .top img {
-    max-height: 49vh;
+    max-height: 43vh;
   }
   
   .bottom {
     flex: 1;
-    padding-top: 1rem;
+    padding-top: 0.1rem;
     // justify-content: center;
     // align-items: center;
   }
@@ -78,3 +78,29 @@
     }
   }
   
+
+    // Dark Mode Styling
+@media (prefers-color-scheme: dark) {
+  .wrapper {
+    background: #000;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  h2 {
+    color: #000;
+  }
+  
+  p {
+    color: #707070;
+    line-height: 25px;
+    font-size: 0.8750em;
+    padding-left: 1rem;
+    padding-right: 1rem
+  }
+  .top {
+    background: #202020;
+  }
+}

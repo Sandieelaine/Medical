@@ -143,6 +143,10 @@ const routes: Routes = [
   {
     path: 'retrieve-username',
     loadChildren: () => import('./auth/retrieve-username/retrieve-username.module').then( m => m.RetrieveUsernamePageModule)
+  },
+  {
+    path: 'authorisation',
+    loadChildren: () => import('./pages/authorisation/authorisation.module').then( m => m.AuthorisationPageModule)
   }
 ];
 @NgModule({

@@ -29,7 +29,7 @@
     
   </div> -->
 
-  <div class="bg-gray-300 w-screen" style="height: 100vh">
+  <div class="bg-gray-300 text-white dark:text-gray-500 dark:bg-dark-modegray w-screen" style="height: 100vh">
     <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center">
       <div class="card shadow-lg rounded-md" (click)="cardClicked()" [@cardFlip]="state">
         <div class="face back">
@@ -37,7 +37,7 @@
         </div>
         <div class="face front">
           <img class="h-full opacity-0" src="assets/img/sapphire.jpg" />
-          <div class="absolute top-0 h-full bg-white overflow-hidden p-2 rounded-md">
+          <div class="absolute top-0 h-full bg-white dark:bg-black overflow-hidden p-2 rounded-md">
             <div class="w-full">
               <div class="w-full inline-block">
                 <div class="w-1/12">

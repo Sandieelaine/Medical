@@ -1,9 +1,140 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>personal-information</ion-title>
+    <ion-title>Personal Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+  <!-- PERSONAL DETAILS TAB-->
+  <form [formGroup]="personalInformationForm" class="mt-2">
+
+
+          <ion-item lines="none">
+            <ion-label position="stacked">Title</ion-label>
+            <ion-select [compareWith]="objectComparisonFunction" [value]='profile?.MemberTitle' formControlName="MemberTitle" okText="Okay" cancelText="Dismiss">
+              <ion-select-option *ngFor="let title of TitleArray" [value]="title" name="Referrals">
+                {{title.Description}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input [value]='profile?.FirstName' type="text" name="FirstName" placeholder="First Name" formControlName="FirstName"></ion-input>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="person"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('FirstName', 'required')">First Name is
+            required
+          </div>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('FirstName', 'pattern')">First Name must
+            only have alphabetic letters
+          </div>
+
+          <ion-item lines="none">
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input [value]='profile?.LastName' type="text" name="LastName" placeholder="Last Name" formControlName="LastName"></ion-input>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="person"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('LastName', 'required')">Last Name is
+            required
+          </div>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('LastName', 'pattern')">Last Name must only
+            have alphabetic letters
+          </div>
+
+          <ion-item lines="none">
+            <ion-label position="stacked">Date of Birth</ion-label>
+            <ion-datetime [value]='profile?.DOB' displayFormat="MM/DD/YYYY" placeholder="Date Of Birth" formControlName="DOB"></ion-datetime>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="calendar"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('DOB', 'required')">Date of Birth is
+            required
+          </div>
+
+
+          <ion-item lines="none">
+            <ion-label position="stacked">Email Address</ion-label>
+            <ion-input [value]='profile?.EmailAddress' type="email" name="EmailAddress" formControlName="EmailAddress"></ion-input>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="mail"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('EmailAddress', 'required')">Email Address
+            is required
+          </div>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('EmailAddress', 'email')">Email Address is
+            invalid
+          </div>
+
+
+          <ion-item lines="none">
+            <ion-label position="stacked">ID Number</ion-label>
+            <ion-input [value]='profile?.MemberIDNo' type="text" name="MemberIDNo" formControlName="MemberIDNo"></ion-input>
+            <ion-button fill="clear" slot="end">
+              <ion-icon color="primary" name="id-card"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <div class="text-xs text-red-600 block" *ngIf="personalInformationFormErrorHandling('MemberIDNo', 'required')">ID Number is
+            required
+          </div>
+
+
+          
+          <ion-item lines="none">
+            <ion-label position="stacked">Marital Status</ion-label>
+            <ion-select [compareWith]="objectComparisonFunction" [value]='profile?.MemberMaritalStatus' formControlName="MemberMaritalStatus" okText="Okay" cancelText="Dismiss">
+              <ion-select-option *ngFor="let title of maritalStatusArray" [value]="title" name="Referrals">
+                {{title.Description}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- <ion-item lines="none">
+            <ion-label position="stacked">Gender</ion-label>
+            <ion-select [compareWith]="objectComparisonFunction" [value]='profile?.Gender' formControlName="Gender" okText="Okay" cancelText="Dismiss">
+              <ion-select-option *ngFor="let title of genderArray" [value]="title" name="Referrals">
+                {{title.Description}}</ion-select-option>
+            </ion-select>
+          </ion-item> -->
+        
+
+
+
+      <!-- <div class="w-full md:w-1/4 md:px-2 inline-block">
+        
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="Gender" [value]='profile?.Gender'>
+            <mat-option *ngFor="let title of genderArray" [value]="title.Description">{{title.Description}}
+            </mat-option>
+          </mat-select>
+        
+      </div> -->
+
+      <!-- <div class="w-full flex justify-end">
+        <button type="button" (click)='updateMemberPersonalInfo(personalInformationForm)'
+                class="ml-auto inline-flex items-center justify-center md:mx-2  px-12 py-3 mb-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+          SAVE
+        </button>
+        
+      </div> -->
+      <button (click)='updateMemberPersonalInfo(personalInformationForm)' [disabled]="personalInformationForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit OTP
+      </button>
+
+      <button (click)='updateMemberPersonalInfo(personalInformationForm)'
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit OTP
+      </button>
+
+
+  </form>
 
 </ion-content>
