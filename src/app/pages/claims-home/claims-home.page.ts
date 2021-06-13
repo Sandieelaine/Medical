@@ -17,6 +17,7 @@ export class ClaimsHomePage implements OnInit {
   dateFrom = "2021-1-1";
   dateTill = "2021-2-2";
   claims:any;
+  claimsBackup: any;
   automaticClose = true;
   isLoading = false;
   member:Member = null;
@@ -48,7 +49,8 @@ export class ClaimsHomePage implements OnInit {
     this.api.getClaimsByDate(this.dateFrom, this.dateTill, this.member.MemberGuid, this.member.access_token)
     .subscribe(claims => {
       console.log(JSON.parse(claims.data));
-      this.claims = JSON.parse(claims.data);
+      this.claimsBackup = JSON.parse(claims.data);
+      this.claims = [...this.claimsBackup];
       this.isLoading = false;
     }, err => {
       console.log(err);
@@ -68,6 +70,36 @@ export class ClaimsHomePage implements OnInit {
       this.claims.filter((theItem, itemIndex) => itemIndex != index)
       .map(item => item.open = false);
     }
+  }
+
+  filterUpdate(e:CustomEvent) {
+    console.log(e.detail.value);
+    this.claims = [...this.claimsBackup];
+    console.log(e);
+    console.log(this.claims);
+    let value = e.detail.value;
+    console.log(value);
+    if (value === "pending") {
+      value === null;
+      this.claims = this.claims.filter(currentClaim => {
+        if (!currentClaim.Status && value !== ' ') {
+          return (currentClaim.Status.toLowerCase().indexOf(value.toLowerCase()) > -1);
+        } else {
+          this.claims = [...this.claimsBackup];
+        }
+      });
+    } else if (value === "all") {
+      this.claims = [...this.claimsBackup];
+    } else {
+      this.claims = this.claims.filter(currentClaim => {
+        if (currentClaim.Status && value !== ' ') {
+          return (currentClaim.Status.toLowerCase().indexOf(value.toLowerCase()) > -1);
+        } else {
+          this.claims = [...this.claimsBackup];
+        }
+      });
+    }
+    
   }
 
 }

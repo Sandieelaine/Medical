@@ -24,7 +24,8 @@
     <!-- <ion-searchbar mode="md" placeholder="Search By Ref Code"></ion-searchbar> -->
     <ion-item>
       <ion-label>Filter By Status</ion-label>
-      <ion-select placeholder="Select One">
+      <ion-select (ionChange)="filterUpdate($event)" placeholder="Select One">
+        <ion-select-option value="all">All</ion-select-option>
         <ion-select-option value="rejected">Rejected</ion-select-option>
         <ion-select-option value="pending">Pending</ion-select-option>
         <ion-select-option value="settled">Settled</ion-select-option>
@@ -115,6 +116,10 @@
           <!-- <span class="text-xs text-yellow-500">View All</span> -->
         </div>
 
+        <div *ngIf="!isLoading && claims && claims.length < 1" class="mt-3 bg-white p-4 text-center text-lg font-medium rounded shadow-sm">
+          No claims to show 
+        </div>
+
         <div class="mt-3" *ngIf="isLoading">
           <ion-item class="my-1 rounded" lines="full" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
             <ion-avatar slot="start">
@@ -131,7 +136,7 @@
           </ion-item>
         </div>
 
-        <div class="mt-4 ">
+        <div class="mt-3">
           <div class="py-1" *ngFor="let claim of claims; let i = index;" (click)="toggleSection(i)">
             <ion-item detail="false" lines="none" class="rounded">
               <ion-avatar
@@ -175,6 +180,8 @@
             </div>
           </div>
         </div>
+
+        
         <div>
         </div>
       </ion-col>
