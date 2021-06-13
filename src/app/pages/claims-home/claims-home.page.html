@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons mode="md" slot="start">
-      <ion-menu-button></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-back-button class="text-black dark:text-gray-400" defaultHref="/tabs/tabs/home"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>My Claims</ion-title>
+    <ion-title>Claims History (6 Months)</ion-title>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">
@@ -21,13 +21,21 @@
     </div>
   </div>
   <ion-toolbar mode="md" color="primary">
-    <ion-searchbar mode="md" placeholder="Search By Ref Code"></ion-searchbar>
+    <!-- <ion-searchbar mode="md" placeholder="Search By Ref Code"></ion-searchbar> -->
+    <ion-item>
+      <ion-label>Filter By Status</ion-label>
+      <ion-select placeholder="Select One">
+        <ion-select-option value="rejected">Rejected</ion-select-option>
+        <ion-select-option value="pending">Pending</ion-select-option>
+        <ion-select-option value="settled">Settled</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid class="ion-no-padding benefit-slide">
-    <ion-row class="details">
+    <!-- <ion-row class="details">
       <ion-col size="2">
         <img class="rounded-full p-1 border-gray-400 border-2 border-solid w-14" [src]="MemberImage" alt="">
       </ion-col>
@@ -72,31 +80,42 @@
         </div>
         
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <!-- <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0"
-      style="margin: 15px;">
-      <div class="w-full flex justify-center h-16 items-center">
-        <div class="w-1/2">
-          <span class="text-gray-900 dark:text-gray-200 ml-3 font-semibold">Dependants</span>
-        </div>
-        <div class="w-1/2 flex justify-end mr-2">
-          <div class="dependant inline-block p-0 m-0" *ngFor="let dependant of profile?.Dependants">
-            <img class="border-4 border-solid border-white dark:border-gray-900 rounded-full w-14 h-14"
-              src="https://api.gems.gov.za/api/v1/MemberImage/{{dependant.BeneficiaryID}}?counter=0" alt="">
+    <!-- <div class="text-white bg-gems-primary-blue h-32">
+
+    </div> -->
+    <ion-row class="ion-no-padding mt-1 bg-gems-primary-blue">
+      <ion-col>
+        <div class="flex" style="padding: 15px;">
+          <div routerLink="/tabs/tabs/claims-home/claim-statements" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-widest">Claims</span>
+            <span
+              class="font-extrabold text-2xl tracking-tighter dark:text-white">Statements</span>
+          </div>
+          <div style="width: 20px;"></div>
+          <div routerLink="/tabs/tabs/claims-home/submit-claim" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+            <div style="height: 10px;"></div>
+            <span class="dark:text-white text-xs uppercase tracking-widest">Submit</span>
+            <span
+              class="font-extrabold text-2xl tracking-tighter dark:text-white">A Claim</span>
           </div>
         </div>
-      </div>
-    </ion-row> -->
+
+      </ion-col>
+    </ion-row>
 
     <ion-row class="ion-padding" style="margin: 5px;">
       <ion-col>
         <div class="flex justify-between">
-          <span class="text-md font-semibold dark:text-gray-200">Latest Claims (6 Months)</span>
-          <span class="text-xs text-yellow-500">View All</span>
+          <span class="text-xs uppercase font-semibold dark:text-gray-200">Latest Claims (6 Months)</span>
+          <!-- <span class="text-xs text-yellow-500">View All</span> -->
         </div>
 
-        <div class="mt-4" *ngIf="isLoading">
+        <div class="mt-3" *ngIf="isLoading">
           <ion-item class="my-1 rounded" lines="full" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
             <ion-avatar slot="start">
               <ion-skeleton-text animated></ion-skeleton-text>

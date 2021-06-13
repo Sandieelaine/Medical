@@ -74,6 +74,10 @@ const routes: Routes = [
             path: 'submit-claim',
             loadChildren: () => import('../pages/submit-claim/submit-claim.module').then(m => m.SubmitClaimPageModule)
           },
+          {
+            path: 'claim-statements',
+            loadChildren: () => import('../pages/claims/claims.module').then(m => m.ClaimsPageModule)
+          },
         ]   
       },
       {
