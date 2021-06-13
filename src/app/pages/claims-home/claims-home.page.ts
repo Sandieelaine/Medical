@@ -82,11 +82,7 @@ export class ClaimsHomePage implements OnInit {
     if (value === "pending") {
       value === null;
       this.claims = this.claims.filter(currentClaim => {
-        if (!currentClaim.Status && value !== ' ') {
-          return (currentClaim.Status.toLowerCase().indexOf(value.toLowerCase()) > -1);
-        } else {
-          this.claims = [...this.claimsBackup];
-        }
+          return !currentClaim.Status;
       });
     } else if (value === "all") {
       this.claims = [...this.claimsBackup];
