@@ -14,8 +14,8 @@ export class ClaimsHomePage implements OnInit {
   selectedMember;
   profile: FullMember = null;
   dateStatus = "from";
-  dateFrom = "2021-1-1";
-  dateTill = "2021-2-2";
+  dateFrom = "2021-6-12";
+  dateTill = "2021-6-14";
   claims:any;
   claimsBackup: any;
   automaticClose = true;

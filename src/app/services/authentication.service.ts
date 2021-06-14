@@ -837,6 +837,16 @@ reset() {
     return from(req);
   }
 
+  requestAuthorisation(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/Authorisations/RequestAuthorisation`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
 
 
 
