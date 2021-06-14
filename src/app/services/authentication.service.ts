@@ -221,7 +221,7 @@ reset() {
 
   getMemberActivity(GUID, Token, pageNumber = 1) {
     let req = this.httpNative.get(
-      `${this.url}/api/v1/Members/${GUID}/activities?pageCount=5&pageNumber=${pageNumber}`,
+      `${this.url}/api/v1/Members/${GUID}/activities?pageCount=10&pageNumber=${pageNumber}`,
       {},
       {
         'Authorization': `Bearer ${Token}`
