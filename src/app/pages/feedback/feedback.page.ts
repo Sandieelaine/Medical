@@ -1,5 +1,10 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Member } from 'src/app/models/member.model';
+import { HelpersService } from 'src/app/services/helpers.service';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-feedback',
@@ -9,10 +14,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class FeedbackPage implements OnInit {
   feedbackForm:FormGroup;
   @ViewChild('rating', {static: true}) rating : any;
+  member:Member = null;
+  loader;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private api: AuthenticationService, private helper: HelpersService, private router: Router, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.initializeForm();
   }
 
@@ -28,6 +36,11 @@ export class FeedbackPage implements OnInit {
   onUpdateExperience(e:CustomEvent) {
     console.log(e.detail.value);
     this.feedbackForm.patchValue({didyouexperienceanyissue: e.detail.value});
+    if (e.detail.value) {
+      this.feedbackForm.addControl('didyouexperienceanyissuecomment', new FormControl('', Validators.required));
+    } else {
+      this.feedbackForm.removeControl('didyouexperienceanyissuecomment');
+    } 
   }
 
   onUpdateDataCorrect(e:CustomEvent) {
@@ -41,13 +54,36 @@ export class FeedbackPage implements OnInit {
   }
 
   submitFeedback() {
+    this.showLoader();
     const payload = this.feedbackForm.value;
     payload.howwouldyouratethenewmemberportalmobileapp = +payload.howwouldyouratethenewmemberportalmobileapp * 2;
     console.log(payload);
+    this.api.submitSurveyFeedback(payload, this.member.MemberGuid, this.member.access_token)
+    .subscribe(async res => {
+      if (this.loader) {
+        this.loader.dismiss();
+      }
+      await this.helper.presentToast('Thank you for taking part in our survey');
+      await this.router.navigateByUrl('/tabs/tabs/home');
+    }, async err => {
+      if (this.loader) {
+        this.loader.dismiss();
+      }
+      await this.helper.presentToast('Failed to submit your feedback. Please try again!');
+    });
   }
 
   logRatingChange(e) {
     console.log(e);
     this.feedbackForm.patchValue({howwouldyouratethenewmemberportalmobileapp: e});
+  }
+
+  async showLoader() {
+    this.loader = await this.loadingCtrl.create({
+      spinner: 'lines',
+      message: 'Loading',
+      cssClass: 'login-spinner'
+    });
+    this.loader.present();
   }
 }

@@ -24,7 +24,7 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()">
-    <span class="block text-black text-lg font-semibold pb-2 mt-2">Is your data correct?</span>
+    <span class="block text-black text-lg font-semibold pb-2 mt-2">How would you rate the new member portal/mobile app?</span>
     <div class="bg-white py-3 px-3 mb-2 w-full">
       <ionic5-star-rating
       class="w-full flex flex-col justify-between"
@@ -60,6 +60,14 @@
       </div>
 
     </div>
+
+    <ion-item lines="none">
+      <ion-label>Comments</ion-label>
+      <ion-textarea autocomplete="off" type="text" name="didyouexperienceanyissuecomment" formControlName="didyouexperienceanyissuecomment"></ion-textarea>
+      <ion-button fill="clear" slot="end">
+        <ion-icon color="primary" name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
 
 
     <div>

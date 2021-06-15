@@ -863,6 +863,18 @@ reset() {
     return from(req);
   }
 
+  submitSurveyFeedback(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyMemberFeedBack`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+
+
   
 
 
