@@ -61,12 +61,10 @@
 
     </div>
 
-    <ion-item lines="none">
-      <ion-label>Comments</ion-label>
+    <ion-item *ngIf="feedbackForm.value.didyouexperienceanyissue" class="mt-3" lines="none">
+      <ion-label position="stacked">Comments</ion-label>
       <ion-textarea autocomplete="off" type="text" name="didyouexperienceanyissuecomment" formControlName="didyouexperienceanyissuecomment"></ion-textarea>
-      <ion-button fill="clear" slot="end">
-        <ion-icon color="primary" name="person-outline"></ion-icon>
-      </ion-button>
+      
     </ion-item>
 
 
@@ -88,6 +86,12 @@
       </div>
     </div>
 
+    <ion-item *ngIf="feedbackForm.value.isyourdatacomplete === false" class="mt-3" lines="none">
+      <ion-label position="stacked">Comments</ion-label>
+      <ion-textarea autocomplete="off" type="text" name="isyourdatacompletecomment" formControlName="isyourdatacompletecomment"></ion-textarea>
+      
+    </ion-item>
+
 
     <div>
       <span class="block text-black text-lg font-semibold pb-2 mt-2">Is your data correct?</span>
@@ -107,6 +111,12 @@
         </ion-radio-group>
       </div>
     </div>
+
+    <ion-item *ngIf="feedbackForm.value.isyourdatacorrect === false" class="mt-3" lines="none">
+      <ion-label position="stacked">Comments</ion-label>
+      <ion-textarea autocomplete="off" type="text" name="isyourdatacorrectcomment" formControlName="isyourdatacorrectcomment"></ion-textarea>
+      
+    </ion-item>
 
 
     <button [disabled]="feedbackForm.invalid"

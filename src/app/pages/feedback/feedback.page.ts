@@ -46,11 +46,21 @@ export class FeedbackPage implements OnInit {
   onUpdateDataCorrect(e:CustomEvent) {
     console.log(e.detail.value);
     this.feedbackForm.patchValue({isyourdatacorrect: e.detail.value});
+    if (e.detail.value) {
+      this.feedbackForm.removeControl('isyourdatacorrectcomment');
+    } else {
+      this.feedbackForm.addControl('isyourdatacorrectcomment', new FormControl('', Validators.required));
+    } 
   }
 
   onUpdateDataComplete(e:CustomEvent) {
     console.log(e.detail.value);
     this.feedbackForm.patchValue({isyourdatacomplete: e.detail.value});
+    if (e.detail.value) {
+      this.feedbackForm.removeControl('isyourdatacompletecomment');
+    } else {
+      this.feedbackForm.addControl('isyourdatacompletecomment', new FormControl('', Validators.required));
+    } 
   }
 
   submitFeedback() {
@@ -60,15 +70,11 @@ export class FeedbackPage implements OnInit {
     console.log(payload);
     this.api.submitSurveyFeedback(payload, this.member.MemberGuid, this.member.access_token)
     .subscribe(async res => {
-      if (this.loader) {
-        this.loader.dismiss();
-      }
+      await this.loadingCtrl.dismiss();
       await this.helper.presentToast('Thank you for taking part in our survey');
       await this.router.navigateByUrl('/tabs/tabs/home');
     }, async err => {
-      if (this.loader) {
-        this.loader.dismiss();
-      }
+      await this.loadingCtrl.dismiss();
       await this.helper.presentToast('Failed to submit your feedback. Please try again!');
     });
   }

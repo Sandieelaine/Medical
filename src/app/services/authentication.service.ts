@@ -864,7 +864,7 @@ reset() {
   }
 
   submitSurveyFeedback(payload, GUID, Token) {
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyMemberFeedBack`,
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyMemberFeedBackkkk`,
     payload,
     {
       'Authorization': `Bearer ${Token}`
