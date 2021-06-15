@@ -46,6 +46,7 @@
     "cordova-plugin-file-opener2": "^3.0.5",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "es6-promise-plugin": "^4.2.2",
+    "ionic5-star-rating": "https://github.com/JeongJun-Lee/ionic5-star-rating/tarball/master",
     "jetifier": "^2.0.0",
     "moment": "^2.29.1",
     "ngx-joyride": "^2.4.0",

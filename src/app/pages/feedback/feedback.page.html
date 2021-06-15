@@ -23,27 +23,95 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <div>
-    <span class="block text-black text-lg font-medium pb-2">Did you experience any issues?</span>
-    <div class="rounded overflow-hidden bg-white">
-      <ion-radio-group>
-        <ion-item mode="md">
-          <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
-          <ion-label>Yes</ion-label>
-          <ion-radio value="yes"></ion-radio>
-        </ion-item>
-  
-        <ion-item mode="md" lines="none">
-          <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
-          <ion-label>No</ion-label>
-          <ion-radio value="no"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
+  <form [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()">
+    <span class="block text-black text-lg font-semibold pb-2 mt-2">Is your data correct?</span>
+    <div class="bg-white py-3 px-3 mb-2 w-full">
+      <ionic5-star-rating
+      class="w-full flex flex-col justify-between"
+      #rating activeIcon="star"
+      defaultIcon="star-outline"
+      activeColor="#fbc02c"
+      defaultColor="#aaaaaa"
+      readonly="false"
+      fontSize="25px"
+      halfStar="true"
+      (ratingChanged)="logRatingChange($event)"
+      formControlName="howwouldyouratethenewmemberportalmobileapp">
+      </ionic5-star-rating>
     </div>
-    
-  </div>
 
-    
+
+
+    <div>
+      <span class="block text-black text-lg font-semibold pb-2">Did you experience any issues?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateExperience($event)" formControlName="didyouexperienceanyissue">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+    </div>
+
+
+    <div>
+      <span class="block text-black text-lg font-semibold pb-2 mt-2">Is your data complete?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateDataComplete($event)" formControlName="isyourdatacomplete">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <div>
+      <span class="block text-black text-lg font-semibold pb-2 mt-2">Is your data correct?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateDataCorrect($event)" formControlName="isyourdatacorrect"
+          class="rounded overflow-hidden bg-white">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <button [disabled]="feedbackForm.invalid"
+      class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+      Submit Feedback
+    </button>
+
+
+  </form>
+
+
+
+
+
 
 </ion-content>
