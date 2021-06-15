@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { DatePicker } from '@ionic-native/date-picker/ngx';
 import * as moment from 'moment';
-import { ClaimsByDate } from 'src/app/models/claim.model';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
 
@@ -20,7 +18,7 @@ export class ClaimsLandingPage implements OnInit {
   isLoading = false;
   member:Member = null;
 
-  constructor(private api: AuthenticationService, private datePicker: DatePicker, private router: Router) {
+  constructor(private api: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -54,70 +52,70 @@ export class ClaimsLandingPage implements OnInit {
     console.log('clicked');
     console.log(this.dateStatus);
     console.log
-    this.datePicker.show({
-      date: new Date(this.dateFrom),
-      mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
-      // maxDate: new Date(),
-      // minDate: moment().subtract(3, 'months').toDate()
-    }).then(
-      date => {
-        console.log('Got date: ', date);
-        var check = moment(date, 'YYYY/MM/DD');
+    // this.datePicker.show({
+    //   date: new Date(this.dateFrom),
+    //   mode: 'date',
+    //   // androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
+    //   // maxDate: new Date(),
+    //   // minDate: moment().subtract(3, 'months').toDate()
+    // }).then(
+    //   date => {
+    //     console.log('Got date: ', date);
+    //     var check = moment(date, 'YYYY/MM/DD');
         
-        var month = check.format('M');
-        var day   = check.format('D');
-        var year  = check.format('YYYY');
+    //     var month = check.format('M');
+    //     var day   = check.format('D');
+    //     var year  = check.format('YYYY');
 
-        console.log(month, day, year);
-        this.dateFrom = `${year}-${month}-${day}`;
-        if(moment(date).isBefore(moment(new Date(this.dateTill)))) {
-          console.log('Date is before')
-        } else if(moment(date).isAfter(moment(new Date(this.dateTill)))) {
-          console.log('Date not allowed');
-          alert('Please select a date before your selected date until');
-        } else {
-          console.log('Noting fired');
-        }
-      },
-      err => console.log('Error occurred while getting date: ', err)
-    );
+    //     console.log(month, day, year);
+    //     this.dateFrom = `${year}-${month}-${day}`;
+    //     if(moment(date).isBefore(moment(new Date(this.dateTill)))) {
+    //       console.log('Date is before')
+    //     } else if(moment(date).isAfter(moment(new Date(this.dateTill)))) {
+    //       console.log('Date not allowed');
+    //       alert('Please select a date before your selected date until');
+    //     } else {
+    //       console.log('Noting fired');
+    //     }
+    //   },
+    //   err => console.log('Error occurred while getting date: ', err)
+    // );
   }
 
   updateDateTill() {
     console.log('clicked');
     console.log(this.dateStatus);
     console.log
-    this.datePicker.show({
-      date: new Date(this.dateTill),
-      mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
-      maxDate: new Date(),
-      minDate: moment().subtract(3, 'months').toDate()
-    }).then(
-      date => {
-        console.log('Got date: ', date);
-        var check = moment(date, 'YYYY/MM/DD');
+    // this.datePicker.show({
+    //   date: new Date(this.dateTill),
+    //   mode: 'date',
+    //   androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
+    //   maxDate: new Date(),
+    //   minDate: moment().subtract(3, 'months').toDate()
+    // }).then(
+    //   date => {
+    //     console.log('Got date: ', date);
+    //     var check = moment(date, 'YYYY/MM/DD');
         
-        var month = check.format('M');
-        var day   = check.format('D');
-        var year  = check.format('YYYY');
+    //     var month = check.format('M');
+    //     var day   = check.format('D');
+    //     var year  = check.format('YYYY');
 
-        console.log(month, day, year);
-        this.dateTill = `${year}-${month}-${day}`;
-        if(moment(date).isAfter(moment(new Date(this.dateFrom)))) {
-          console.log('Date is after and okay')
-          this.getClaimsByDate();
+    //     console.log(month, day, year);
+    //     this.dateTill = `${year}-${month}-${day}`;
+    //     if(moment(date).isAfter(moment(new Date(this.dateFrom)))) {
+    //       console.log('Date is after and okay')
+    //       this.getClaimsByDate();
           
-        } else if(moment(date).isBefore(moment(new Date(this.dateFrom)))) {
-          console.log('Date not allowed');
-          alert('Please select a date after your selected date from');
-        } else {
-          console.log('Noting fired');
-        }
-      },
-      err => console.log('Error occurred while getting date: ', err)
-    );
+    //     } else if(moment(date).isBefore(moment(new Date(this.dateFrom)))) {
+    //       console.log('Date not allowed');
+    //       alert('Please select a date after your selected date from');
+    //     } else {
+    //       console.log('Noting fired');
+    //     }
+    //   },
+    //   err => console.log('Error occurred while getting date: ', err)
+    // );
   }
 
 

@@ -30,13 +30,13 @@ export class HomePage implements OnInit {
     this.member = this.auth.getMember();
     console.log(this.member);
     this.loadProfile();
-    this.startTour();
+    // this.startTour();
   }
 
 
   async startTour() {
     const options: JoyrideOptions = {
-      steps: ['welcome','claims', 'benefits', 'profile', 'downloads', 'help', 'authorisations'],
+      steps: ['welcome','claims', 'benefits', 'profile', 'downloads', 'help', 'authorisations', 'bottomtabs', 'hometab', 'profiletab@tabs/tabs/profile', 'memberdetails'],
       // waitingTime: 2,
       themeColor:'#174575'
     };

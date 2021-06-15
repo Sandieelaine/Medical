@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
-import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    ChartsModule,
     JoyrideModule.forChild()
   ],
   declarations: [ProfilePage]

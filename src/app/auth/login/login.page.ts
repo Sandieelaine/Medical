@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
       if (res) {
         this.loader.dismiss();
         console.log('Logged In')
-        this.router.navigateByUrl('/pre-home');
+        this.router.navigateByUrl('/pre-home', {replaceUrl: true});
       } else {
         await this.loader.dismiss();
         console.log('Login Failed')

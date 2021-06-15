@@ -1,7 +1,5 @@
 // tslint:disable: prefer-const
 import { Component, OnInit } from '@angular/core';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
-
 import { Plugins } from '@capacitor/core';
 import { PickerController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -16,7 +14,7 @@ const { Geolocation } = Plugins;
 export class ContactPage implements OnInit {
   contactOptions:Contact;
 
-  constructor(private launchNavigator: LaunchNavigator, private pickerCtrl: PickerController, private api: AuthenticationService) { }
+  constructor(private pickerCtrl: PickerController, private api: AuthenticationService) { }
 
   ngOnInit() {
     this.loadContactOptions();
@@ -40,18 +38,6 @@ export class ContactPage implements OnInit {
     window.open('mailto:info@gems.gov.za');
   }
 
-  async navigate() {
-    try {
-      let options: LaunchNavigatorOptions = {
-        start: 'London, ON',
-        enableGeolocation: true
-      };
-
-      let navigate = await this.launchNavigator.navigate([-25.786513, 28.2815323], options);
-    } catch (err) {
-      alert(err);
-    }
-  }
 
   async getCurrentPosition() {
     const coordinates = await Geolocation.getCurrentPosition();
@@ -89,6 +75,10 @@ export class ContactPage implements OnInit {
       }]
     });
     await picker.present();
+  }
+
+  onRatingChange(e:CustomEvent) {
+    console.log(e);
   }
 
 }

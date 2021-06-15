@@ -147,6 +147,10 @@ const routes: Routes = [
   {
     path: 'authorisation',
     loadChildren: () => import('./pages/authorisation/authorisation.module').then( m => m.AuthorisationPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
   }
 ];
 @NgModule({

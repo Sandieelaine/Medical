@@ -42,6 +42,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/rewards/rewards.module').then(m => m.RewardsPageModule)
       },
       {
+        path: 'feedback',
+        loadChildren: () => import('../pages/feedback/feedback.module').then(m => m.FeedbackPageModule)
+      },
+      {
         path: 'authorisation',
         children: [
           {

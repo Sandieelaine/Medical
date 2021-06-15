@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ClaimsLandingPageRoutingModule } from './claims-landing-routing.module';
 import { ClaimsLandingPage } from './claims-landing.page';
-import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
     IonicModule,
     ClaimsLandingPageRoutingModule
   ],
-  declarations: [ClaimsLandingPage],
-  providers: [DatePicker]
+  declarations: [ClaimsLandingPage]
 })
 export class ClaimsLandingPageModule {}

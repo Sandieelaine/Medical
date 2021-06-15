@@ -29,7 +29,7 @@
     
   </div> -->
 
-  <div class="bg-gray-300 text-white dark:text-gray-500 dark:bg-dark-modegray w-screen" style="height: 100vh">
+  <div class="bg-gray-300 text-black dark:text-gray-500 dark:bg-dark-modegray w-screen" style="height: 100vh">
     <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center">
       <div class="card shadow-lg rounded-md" (click)="cardClicked()" [@cardFlip]="state">
         <div class="face back">
@@ -77,8 +77,8 @@
 
             <div class="w-full">
               <span class="text-xs font-bold w-1/12 inline-block"></span>
-              <span class="text-xs font-bold w-2/12 inline-block">Name</span>
-              <span class="text-xs font-bold w-3/12 inline-block">Gender</span>
+              <span class="text-xs font-bold w-3/12 inline-block">Name</span>
+              <span class="text-xs font-bold w-2/12 inline-block">Gender</span>
               <span class="text-xs font-bold w-3/12 inline-block">DOB/ID Number</span>
               <span class="text-xs font-bold w-3/12 inline-block">Benefit Date</span>
             </div>
@@ -86,8 +86,8 @@
               <div class="w-full" *ngFor="let dependant of profile.Dependants | slice:0:3">
                 <span *ngIf="MemberImage" class="text-xs font-bold w-1/12 inline-block"><img class="w-6 rounded-sm" [src]="'https://api.gems.gov.za/api/v1/MemberImage/' + dependant.BeneficiaryID + '?counter=0'" alt="">
                 </span>
-                <span class="text-xs w-2/12 inline-block font-medium">{{dependant?.FullName | titlecase}}</span>
-                <span class="text-xs w-3/12 inline-block">{{dependant?.Gender}}</span>
+                <span class="text-xs w-3/12 inline-block font-medium">{{dependant?.FullName | titlecase}}</span>
+                <span class="text-xs w-2/12 inline-block">{{dependant?.Gender}}</span>
                 <span class="text-xs w-3/12 inline-block">{{dependant?.DOB | date: 'mediumDate'}}</span>
                 <span class="text-xs w-3/12 inline-block">{{dependant?.Plan?.EffectiveFromDate | date: 'mediumDate'}}</span>
               </div>

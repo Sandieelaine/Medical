@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Member Feedback</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div>
+    <span class="block text-black text-lg font-medium pb-2">Did you experience any issues?</span>
+    <div class="rounded overflow-hidden bg-white">
+      <ion-radio-group>
+        <ion-item mode="md">
+          <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+          <ion-label>Yes</ion-label>
+          <ion-radio value="yes"></ion-radio>
+        </ion-item>
+  
+        <ion-item mode="md" lines="none">
+          <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+    
+  </div>
+
+    
+
+</ion-content>
