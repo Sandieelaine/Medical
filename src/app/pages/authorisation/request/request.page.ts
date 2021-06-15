@@ -14,27 +14,29 @@ export class RequestPage implements OnInit {
   authorizationForm!: FormGroup;
   member:Member = null;
   profile:FullMember = null;
+  MemberImage;
 
   constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
+    this.loadProfile();
     this.initializeauthorizationForm();
   }
 
   initializeauthorizationForm = () => {
     this.authorizationForm = this.fb.group({
-      AuthType: '',
-      HospName: '',
-      HospDuration: '',
-      AdmissionDate: '',
+      AuthType: ['', Validators.required],
+      HospName: ['', Validators.required],
+      HospDuration: ['', Validators.required],
+      AdmissionDate: ['', Validators.required],
       AdmissionReason: '',
-      ProcedureDescription: '',
+      ProcedureDescription: ['', Validators.required],
       ProcedureDoctor: this.fb.group({
         Name:  ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
         Surname:  ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
         ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-        PracticeNumber: ''
+        PracticeNumber: ['', Validators.required],
       })
     });
   }
@@ -43,6 +45,7 @@ export class RequestPage implements OnInit {
     this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token)
     .subscribe(profile => {
       this.profile = JSON.parse(profile.data);
+      this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
     })
   }
 
@@ -61,12 +64,16 @@ export class RequestPage implements OnInit {
   };
 
   public errorHandling = (control: string, error: string) => {
-    console.log(this.authorizationForm.controls[control])
-    return this.authorizationForm.controls[control].hasError(error);
+    console.log(this.authorizationForm.controls[control]);
+    if (this.authorizationForm.controls[control].touched && this.authorizationForm.controls[control].dirty) {
+      return this.authorizationForm.controls[control].hasError(error);
+    }
   }
 
   submitPreAuthRequest() {
     console.log(this.authorizationForm.value);
+    return;
+    this.api.requestAuthorisation(this.authorizationForm.value, this.member.MemberGuid, this.member.access_token)
   }
 
 }

@@ -10,3 +10,22 @@ ion-input {
 ion-button {
     height: 60px;
   }
+  .details {
+    background: var(--ion-color-primary);
+    padding: 10px 25px 10px;
+    border-bottom-right-radius: 0px;
+    display: flex;
+    align-items: center;
+    // height: 280px;
+
+    .detail {
+        text-align: center;
+        border-right: 1px solid #eeeeee;
+    }
+
+    h2.title {
+        font-size: 15px !important;
+        margin-bottom: 4px !important;
+        color: var(--ion-color-darkblue);
+    }
+}

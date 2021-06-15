@@ -1,14 +1,14 @@
-<ion-header *ngIf="profile && member">
+<ion-header joyrideStep="welcome" title="Page Title" [text]="'Welcome, ' + profile?.FirstName">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button class="text-black dark:text-dark-modegraylight">
         <ion-icon src="./assets/img/menu.svg"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-title><span class="font-normal">Hello, </span> <b>{{profile.FirstName | titlecase}}</b></ion-title>
+    <ion-title><span class="font-normal">Hello, </span> <b>{{profile?.FirstName | titlecase}}</b></ion-title>
     <div slot="end" *ngIf="member">
       <img class="w-10 rounded-full mb-1 ml-1 mr-2 border-solid border-2 border-gray-600 p-1"
-        src="https://api.gems.gov.za/api/v1/MemberImage/{{member.MemberGuid}}?counter=0" alt="">
+        src="https://api.gems.gov.za/api/v1/MemberImage/{{member?.MemberGuid}}?counter=0" alt="">
     </div>
   </ion-toolbar>
 </ion-header>
@@ -28,6 +28,8 @@
 </div>
 
 <ion-content>
+
+  <div class="text-white bg-gems-primary-blue p-4">Hello World</div>
   <div class="header-area">
     <ion-grid class="ion-no-padding">
       <ion-row>
@@ -49,20 +51,20 @@
     <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/claims-home"
+          <div joyrideStep="claims" title="Claims" text="Welcome To Claims" routerLink="/tabs/tabs/claims-home"
             class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Claims</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
+          <div joyrideStep="benefits" title="Benefits" text="Welcome To Benefits" routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
             <img class="svg-icon" src="assets/img/home/benefits_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Benefits</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
+          <div joyrideStep="profile" title="360&deg; View" text="Welcome To Profile" routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/360_white.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">360&deg; View</span>
           </div>
@@ -71,19 +73,19 @@
 
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/documents" class="icon-box right-5 bg-white dark:bg-black">
+          <div joyrideStep="downloads" title="Downloads" text="Welcome To Benefits" routerLink="/tabs/tabs/documents" class="icon-box right-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/download_white.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Downloads</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/contact" class="icon-box right-5 bg-white dark:bg-black">
+          <div joyrideStep="help" title="Help" text="Welcome To Profile" routerLink="/tabs/tabs/contact" class="icon-box right-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/help.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Help</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div routerLink="/tabs/tabs/authorisation" class="icon-box bg-white dark:bg-black">
+          <div joyrideStep="authorisations" title="Authorisations" text="Welcome To Profile" routerLink="/tabs/tabs/authorisation" class="icon-box bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/more.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Authorisations</span>
           </div>
@@ -376,10 +378,11 @@
 
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="showAlert()">
+    <ion-fab-button (click)="startTour()">
       <ion-icon src="assets/icon/info.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 
 
 </ion-content>

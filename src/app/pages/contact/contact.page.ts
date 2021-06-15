@@ -4,6 +4,8 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
 
 import { Plugins } from '@capacitor/core';
 import { PickerController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Contact } from 'src/app/models/contact.model';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -12,10 +14,22 @@ const { Geolocation } = Plugins;
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
+  contactOptions:Contact;
 
-  constructor(private launchNavigator: LaunchNavigator, private pickerCtrl: PickerController) { }
+  constructor(private launchNavigator: LaunchNavigator, private pickerCtrl: PickerController, private api: AuthenticationService) { }
 
   ngOnInit() {
+    this.loadContactOptions();
+  }
+
+  loadContactOptions() {
+    this.api.getContactOptions()
+    .subscribe(res => {
+      console.log(res);
+      this.contactOptions = JSON.parse(res.data);
+    }, err => {
+      console.log(err);
+    });
   }
 
   call() {

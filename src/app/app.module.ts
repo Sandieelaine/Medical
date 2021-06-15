@@ -23,6 +23,7 @@ import { File } from '@ionic-native/file/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the core NgIdleModule but includes keepalive providers for easy wireup
 import { MomentModule } from 'angular2-moment'; // optional, provides moment-style pipes for date formatting
+import { JoyrideModule} from 'ngx-joyride';
 
 library.add(faBaby, faCamera);
 
@@ -44,7 +45,8 @@ library.add(faBaby, faCamera);
     FormsModule,
     ReactiveFormsModule,
     MomentModule,
-    NgIdleKeepaliveModule.forRoot()
+    NgIdleKeepaliveModule.forRoot(),
+    JoyrideModule.forRoot()
   ],
   providers: [
     StatusBar,

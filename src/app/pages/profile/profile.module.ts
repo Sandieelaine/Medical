@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +13,8 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    ChartsModule
+    ChartsModule,
+    JoyrideModule.forChild()
   ],
   declarations: [ProfilePage]
 })

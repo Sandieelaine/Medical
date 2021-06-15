@@ -1,11 +1,12 @@
 import { Member } from './../../models/member.model';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, NgZone, OnInit } from '@angular/core';
-import { faCamera, faBaby, faHandshake, faFileContract, faCoins, faEye, faHandHoldingUsd, faSearchLocation, faHeartbeat, faUserTie, faPaperPlane, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { Storage } from '@ionic/storage';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FullMember } from 'src/app/models/fullmember.model';
+import { JoyrideService } from 'ngx-joyride';
+import { JoyrideOptions } from 'ngx-joyride/lib/models/joyride-options.class';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomePage implements OnInit {
     spaceBetween: 8
   }
   testData;
-  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router) {}
+  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
 
 
   ngOnInit() {
@@ -29,6 +30,21 @@ export class HomePage implements OnInit {
     this.member = this.auth.getMember();
     console.log(this.member);
     this.loadProfile();
+    this.startTour();
+  }
+
+
+  async startTour() {
+    const options: JoyrideOptions = {
+      steps: ['welcome','claims', 'benefits', 'profile', 'downloads', 'help', 'authorisations'],
+      // waitingTime: 2,
+      themeColor:'#174575'
+    };
+
+    const stored = await this.storage.get('hasSeenGEMSTour');
+    if (stored || stored !== undefined || null) {
+      this.joyrideService.startTour(options);
+    }
   }
 
   loadProfile() {

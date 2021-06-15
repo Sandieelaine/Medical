@@ -847,6 +847,24 @@ reset() {
     return from(req);
   }
 
+  getContactOptions(): Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/contactus`,
+    {},
+    {}
+    );
+    return from(req);
+  }
+
+  getSuggestionsImprovementsCategories(): Observable<any> {
+    let req = this.httpNative.get(`${this.url}/api/v1/suggestionsImprovementsCategories`,
+    {},
+    {}
+    );
+    return from(req);
+  }
+
+  
+
 
 
 

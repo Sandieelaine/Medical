@@ -22,113 +22,138 @@
   </div>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="authorizationForm" class="mt-2">
+<ion-content>
+  <ion-grid class="ion-no-padding benefit-slide">
+    <ion-row *ngIf="profile" class="details">
+      <ion-col size="2">
+        <img class="rounded-full w-12 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid"
+          [src]="MemberImage" alt="">
+      </ion-col>
+      <ion-col size="10">
+        <div class="rounded p-5">
+          <span
+            class="text-gray-100 dark:text-gray-300 text-lg capitalize block">{{profile?.FullName | titlecase}}</span>
+          <!-- <span class="text-gray-100 dark:text-gray-300 text-xs uppercase block">{{profile?.DOB}}</span> -->
+          <span class="text-gray-100 dark:text-gray-300 text-sm uppercase block">{{profile?.MemberNo}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Auth Type</ion-label>
-    <ion-select formControlName="AuthType" okText="Okay" cancelText="Dismiss">
-      <ion-select-option *ngFor="let title of [{name: 'Hospital Auth'}, {name: 'Oncology Auth'}, {name: 'Chronic Auth'}]" [value]="title.name" name="AuthType">
-        {{title.name}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <div class="p-2">
+    <form [formGroup]="authorizationForm" class="mt-2">
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Procedure Description or Diagnosis</ion-label>
-    <ion-textarea type="text" name="ProcedureDescription" formControlName="ProcedureDescription"></ion-textarea>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="person"></ion-icon>
-    </ion-button>
-  </ion-item>
-  <div class="text-xs text-red-600 block" *ngIf="errorHandling('ProcedureDescription', 'required')">Procedure Description is required
-  </div>
+      <ion-item lines="none">
+        <ion-label position="stacked">Auth Type</ion-label>
+        <ion-select formControlName="AuthType" okText="Okay" cancelText="Dismiss">
+          <ion-select-option
+            *ngFor="let title of [{name: 'Hospital Auth'}, {name: 'Oncology Auth'}, {name: 'Chronic Auth'}]"
+            [value]="title.name" name="AuthType">
+            {{title.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  
-
-  <div style="background-color: #eee;" class="p-2 text-black rounded my-2 font-semibold">
-    Doctor handling the procedure
-  </div>
-
-  <ion-item lines="none" formGroupName="ProcedureDoctor">
-    <ion-label position="stacked">Doctor Name</ion-label>
-    <ion-input type="text" name="Name" formControlName="Name"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="person"></ion-icon>
-    </ion-button>
-  </ion-item>
-
-  <ion-item lines="none" formGroupName="ProcedureDoctor">
-    <ion-label position="stacked">Doctor Surname</ion-label>
-    <ion-input type="text" name="Surname" formControlName="Surname"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="person"></ion-icon>
-    </ion-button>
-  </ion-item>
-
-  <ion-item lines="none" formGroupName="ProcedureDoctor">
-    <ion-label position="stacked">Practice Number</ion-label>
-    <ion-input type="text" name="ContactNumber" formControlName="ContactNumber"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="id-card"></ion-icon>
-    </ion-button>
-  </ion-item>
-
-  <ion-item lines="none" formGroupName="ProcedureDoctor">
-    <ion-label position="stacked">Contact Number</ion-label>
-    <ion-input type="text" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="call"></ion-icon>
-    </ion-button>
-  </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Procedure Description or Diagnosis</ion-label>
+        <ion-textarea type="text" name="ProcedureDescription" formControlName="ProcedureDescription"></ion-textarea>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('ProcedureDescription', 'required')">Procedure
+        Description is required
+      </div>
 
 
-  <div style="background-color: #eee;" class="p-2 text-black rounded my-2 font-semibold">
-    Hospital/Facility
-  </div>
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Hospital Name</ion-label>
-    <ion-input type="text" name="HospName" formControlName="HospName"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="person"></ion-icon>
-    </ion-button>
-  </ion-item>
+      <div style="background-color: #eee;" class="p-2 text-black rounded my-2 font-semibold">
+        Doctor handling the procedure
+      </div>
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Admission Date</ion-label>
-    <ion-datetime displayFormat="MM/DD/YYYY" formControlName="AdmissionDate"></ion-datetime>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="calendar"></ion-icon>
-    </ion-button>
-  </ion-item>
+      <ion-item lines="none" formGroupName="ProcedureDoctor">
+        <ion-label position="stacked">Doctor Name</ion-label>
+        <ion-input type="text" name="Name" formControlName="Name"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person"></ion-icon>
+        </ion-button>
+      </ion-item>
+      
+
+      <ion-item lines="none" formGroupName="ProcedureDoctor">
+        <ion-label position="stacked">Doctor Surname</ion-label>
+        <ion-input type="text" name="Surname" formControlName="Surname"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item lines="none" formGroupName="ProcedureDoctor">
+        <ion-label position="stacked">Practice Number</ion-label>
+        <ion-input type="text" name="ContactNumber" formControlName="ContactNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="id-card"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item lines="none" formGroupName="ProcedureDoctor">
+        <ion-label position="stacked">Contact Number</ion-label>
+        <ion-input type="text" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="call"></ion-icon>
+        </ion-button>
+      </ion-item>
 
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Duration Of Stay</ion-label>
-    <ion-input type="number" name="HospDuration" formControlName="HospDuration"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="call"></ion-icon>
-    </ion-button>
-  </ion-item>
+      <div style="background-color: #eee;" class="p-2 text-black rounded my-2 font-semibold">
+        Hospital/Facility
+      </div>
 
-  <ion-item lines="none">
-    <ion-label position="stacked">Admission Reason</ion-label>
-    <ion-input type="number" name="AdmissionReason" formControlName="AdmissionReason"></ion-input>
-    <ion-button fill="clear" slot="end">
-      <ion-icon color="primary" name="person"></ion-icon>
-    </ion-button>
-  </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Hospital Name</ion-label>
+        <ion-input type="text" name="HospName" formControlName="HospName"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person"></ion-icon>
+        </ion-button>
+      </ion-item>
 
-  <button (click)="submitPreAuthRequest()"
+      <ion-item lines="none">
+        <ion-label position="stacked">Admission Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="AdmissionDate"></ion-datetime>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="calendar"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Duration Of Stay</ion-label>
+        <ion-input type="text" name="HospDuration" formControlName="HospDuration"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="call"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Admission Reason</ion-label>
+        <ion-input type="text" name="AdmissionReason" formControlName="AdmissionReason"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <button [disabled]="authorizationForm.invalid" (click)="submitPreAuthRequest()"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Submit
       </button>
 
-      
 
-      </form>
 
-      <div class="text-white h-40"></div>
+    </form>
+
+    <div class="text-white h-6"></div>
+  </div>
+
+
 
 
 

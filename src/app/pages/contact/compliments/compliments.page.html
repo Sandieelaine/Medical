@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/contact"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Complaints/Compliments</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="complimentsForms" (ngSubmit)='submitComplaintOrCompliment()' class="mt-2">
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Complaint/Compliment</ion-label>
+      <ion-select formControlName="CaseTypeDescription" okText="Okay" cancelText="Dismiss">
+        <ion-select-option
+          *ngFor="let title of complaintOrComplimentType"
+          [value]="title.name" name="CaseTypeDescription">
+          {{title.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('CaseTypeDescription', 'required')">Please select an option
+    </div>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Select Category</ion-label>
+      <ion-select formControlName="Category" okText="Okay" cancelText="Dismiss">
+        <ion-select-option
+          *ngFor="let title of suggestionsImprovementsCategories"
+          [value]="title" name="Category">
+          {{title.Description}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('Category', 'required')">Please select an option
+    </div>
+
+    <ion-item lines="none" *ngIf="this.complimentsForms.value.Category">
+      <ion-label position="stacked">Select Sub Category</ion-label>
+      <ion-select formControlName="SubCategory" okText="Okay" cancelText="Dismiss">
+        <ion-select-option
+          *ngFor="let title of subCategories"
+          [value]="title" name="SubCategory">
+          {{title.Description}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('SubCategory', 'required')">Please select an option
+    </div>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Comments</ion-label>
+      <ion-input type="text" name="UserInput" formControlName="UserInput"></ion-input>
+      <ion-button fill="clear" slot="end">
+        <ion-icon color="primary" name="key-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('UserInput', 'required')">Comments are required</div>
+
+    
+
+
+    <button [disabled]="complimentsForms.invalid"
+      class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-2">
+      Submit
+    </button>
+  </form>
+
+
+
+
+</ion-content>

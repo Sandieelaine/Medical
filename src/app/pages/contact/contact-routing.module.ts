@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'walk-in-centres',
     loadChildren: () => import('../centres/centres.module').then(m => m.CentresPageModule)
   },
+  {
+    path: 'compliments',
+    loadChildren: () => import('./compliments/compliments.module').then( m => m.ComplimentsPageModule)
+  },
 ];
 
 @NgModule({
