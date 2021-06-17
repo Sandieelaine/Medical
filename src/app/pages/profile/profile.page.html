@@ -41,33 +41,38 @@
   <ion-grid class="ion-no-padding benefit-slide">
     <ion-row *ngIf="profile" class="details">
       <ion-col size="3">
-        <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid" [src]="MemberImage" alt="">
+        <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid"
+          [src]="MemberImage" alt="">
       </ion-col>
       <ion-col size="9">
         <div class="rounded p-5">
-          <span class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{profile?.FullName | titlecase}}</span>
+          <span
+            class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{profile?.FullName | titlecase}}</span>
           <span class="text-white dark:text-gray-400 text-4xl font-bold block" *ngIf="dayToDayBenefits">
-            {{dayToDayBenefits[0].MaxAmount.Amount | currency: 'R'}}</span>
+            {{dayToDayBenefits[0].FreeAmount.Amount | currency: 'R'}}</span>
           <span class="text-gray-100 dark:text-gray-300 text-xs uppercase block">Balance</span>
         </div>
       </ion-col>
       <hr class="bg-gray-400 w-full opacity-40 mt-1">
 
-      <ion-col col="6" >
-        <span class="text-white dark:text-gray-400 text-xs leading-none uppercase pt-7 block">My Plan</span>
-        <span class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4 pb-4">{{profile?.Plan?.BenefitPlanName}}</span>
+      <ion-col class="ion-no-padding" col="6">
+        <span class="text-white dark:text-gray-400 text-xs leading-none uppercase pt-4 block">My Plan</span>
+        <span
+          class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4 pb-2">{{profile?.Plan?.BenefitPlanName}}</span>
       </ion-col>
 
       <ion-col col="6">
-        <span class="text-white dark:text-gray-400 text-xs leading-none uppercase pt-7 block">Member No.</span>
-        <span class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4">{{profile?.MemberNo}}</span>
+        <span class="text-white dark:text-gray-400 text-xs leading-none uppercase pt-4 block">Member No.</span>
+        <span
+          class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4">{{profile?.MemberNo}}</span>
       </ion-col>
       <div class="h-4"></div>
     </ion-row>
 
 
 
-    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-11">
+
+    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-12">
       <ion-col>
         <div joyrideStep="memberdetails" title="Member Details" text="Hello World" class="flex" style="padding: 10px;">
           <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
@@ -75,7 +80,7 @@
             <div style="height: 10px;"></div>
             <span class="dark:text-white text-xs uppercase tracking-wide">Allocated</span>
             <span
-              class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits[0].FreeAmount.Amount | currency: 'R'}}</span>
+              class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits[0].MaxAmount.Amount | currency: 'R'}}</span>
           </div>
           <div style="width: 20px;"></div>
           <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
@@ -90,15 +95,33 @@
       </ion-col>
     </ion-row>
 
-    
+    <!-- <ion-row class="bg-gems-primary-blue dark:bg-black shadow-lg rounded-lg" style="margin: 10px;">
+      <div *ngIf="profile" class="w-full">
+        <div class="w-1/2 inline-block">
+          <span class="text-white dark:text-gray-400 text-xs leading-none uppercase block">Date Registered</span>
+          <span
+            class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4">{{profile?.Plan?.RegisteredDate | date: 'mediumDate'}}</span>
+        </div>
 
-    <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0" style="margin: 10px;">
-      <div *ngIf="profile.isPrincipleMember" class="w-full flex justify-center h-16 items-center" routerLink="dependants">
+        <div class="w-1/2 inline-block">
+          <span class="text-white dark:text-gray-400 text-xs leading-none uppercase block">Benefit effective from</span>
+          <span
+            class="text-white dark:text-gray-400 text-lg font-bold leading-none uppercase pt-4">{{profile?.Plan?.EffectiveFromDate | date: 'mediumDate'}}</span>
+        </div>
+      </div>
+    </ion-row> -->
+
+
+
+    <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg" *ngIf="profile?.Dependants.length > 0"
+      style="margin: 10px;">
+      <div *ngIf="profile.isPrincipleMember" class="w-full flex justify-center h-16 items-center"
+        routerLink="dependants">
         <div class="w-1/2">
           <span class="text-gray-900 dark:text-gray-400 ml-3 font-semibold">Dependants</span>
         </div>
         <div class="w-1/2 flex justify-end mr-2">
-          <div class="dependant inline-block p-0 m-0" *ngFor="let dependant of profile?.Dependants">
+          <div class="dependant inline-block p-0 m-0" *ngFor="let dependant of profile?.Dependants |slice:0:3">
             <img class="border-4 border-solid border-white dark:border-gray-900 rounded-full w-14 h-14"
               src="https://api.gems.gov.za/api/v1/MemberImage/{{dependant.BeneficiaryID}}?counter=0" alt="">
           </div>
@@ -109,14 +132,15 @@
     <ion-row *ngIf="profile">
       <div class="w-full p-2 flex">
         <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm" routerLink="edit">
-          <span class="text-sm font-semibold">Edit My Profile</span>         
+          <span class="text-sm font-semibold">Edit My Profile</span>
         </div>
         <div class="w-2"></div>
-        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm" routerLink="request-card">
-          <span class="text-sm font-semibold">Request New Card</span> 
+        <div class="w-1/2 p-2 bg-gems-primary-blue text-gray-200 rounded text-center shadow-sm"
+          routerLink="request-card">
+          <span class="text-sm font-semibold">Request New Card</span>
         </div>
       </div>
-      
+
     </ion-row>
 
     <!-- <ion-row class="ion-padding" style="margin: 5px;">
@@ -155,15 +179,15 @@
       </ion-col>
     </ion-row> -->
 
-    <ion-row *ngIf="activity" class="ion-padding" style="margin: 5px;">
+    <ion-row *ngIf="activity" class="ion-padding" style="margin: 0px; 5px 5px 5px">
       <ion-col>
-        <div class="flex justify-between">
-          <span class="text-md font-semibold text-black dark:text-gray-400">Activity</span>
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-sm uppercase font-semibold text-black dark:text-gray-400">Activity</span>
           <span routerLink="activity" class="text-xs text-yellow-500">View All</span>
         </div>
-        
+
         <div class="mt-1">
-          <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" button detail lines="none">
+          <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" detail lines="none">
             <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
             <ion-label class="ion-text-wrap">
               <span class="block font-semibold text-md text">{{item.Header}}</span>
@@ -177,7 +201,7 @@
     </ion-row>
 
 
-    
+
 
     <!-- <ion-row>
       <ion-col>

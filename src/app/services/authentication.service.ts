@@ -43,7 +43,7 @@ export class AuthenticationService {
 
   // Simon Grimm
   public member: Observable<any>;
-  private memberData = new BehaviorSubject(null);
+  public memberData = new BehaviorSubject(null);
   // Simon Grimm
 
   constructor(
@@ -69,6 +69,7 @@ export class AuthenticationService {
 
   // Simon Grimm
   loadStoredToken() {
+    if (this.memberData.getValue() === null || undefined) {}
     let platformObs = from(this.platform.ready());
  
     this.member = platformObs.pipe(
@@ -186,7 +187,11 @@ reset() {
     });
     return from(req).pipe(
       take(1),
+      tap((res) => {
+        console.log(res, 'tap')
+      }),
       map(res => {
+        // this.memberData.next(JSON.parse(res.data));
         return res;
       }),
       switchMap(memberTokenData => {
@@ -202,11 +207,10 @@ reset() {
     return this.memberData.getValue();
   }
 
-  logMemberOut() {
-    this.storage.remove('memberToken').then(() => {
-      this.router.navigateByUrl('/', {replaceUrl: true});
-      this.memberData.next(null);
-    });
+  async logMemberOut() {
+    await this.storage.remove('memberToken');
+    await this.memberData.next(null);
+    await this.router.navigateByUrl('/', {replaceUrl: true});  
   }
 
 
@@ -219,7 +223,7 @@ reset() {
     return from(req);
   }
 
-  getMemberActivity(GUID, Token, pageNumber = 1) {
+  getMemberActivity(GUID, Token, pageNumber) {
     let req = this.httpNative.get(
       `${this.url}/api/v1/Members/${GUID}/activities?pageCount=10&pageNumber=${pageNumber}`,
       {},
@@ -864,7 +868,7 @@ reset() {
   }
 
   submitSurveyFeedback(payload, GUID, Token) {
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyMemberFeedBackkkk`,
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyMemberFeedBack`,
     payload,
     {
       'Authorization': `Bearer ${Token}`

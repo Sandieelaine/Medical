@@ -30,9 +30,11 @@ export class LoginPage implements OnInit {
     }
     this.showLoader();
     this.auth.logMemberIn(form.value.username, form.value.password).subscribe(async res => {
-      // console.log(res);
+      console.log(res, 'ponse');
       if (res) {
+
         this.loader.dismiss();
+        this.auth.memberData.next(JSON.parse(res.data));
         console.log('Logged In')
         this.router.navigateByUrl('/pre-home', {replaceUrl: true});
       } else {

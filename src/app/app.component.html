@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
+  <ion-menu mode="md" side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>Member</ion-title>
@@ -11,6 +11,12 @@
         <ion-item lines="none" routerLink="/card">
           <ion-icon name="card" slot="start"></ion-icon>
           Digital Card
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item lines="none" routerLink="/tabs/tabs/feedback">
+          <ion-icon name="megaphone" slot="start"></ion-icon>
+          Feedback
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>

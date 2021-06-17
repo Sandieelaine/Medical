@@ -23,25 +23,44 @@
 </ion-header>
 
 <ion-content>
-  <div class="px-2 pt-2">
-    <div *ngFor="let dependant of dependants" [routerLink]="['dependant', dependant.toString()]" class="bg-white border-gray-600 mb-2 rounded overflow-hidden shadow-sm">
+  <div class="px-2 pt-2" *ngIf="isLoading">
+    <div *ngFor="let dependant of [1, 2, 3, 4, 5, 6];" class="bg-white border-gray-600 mb-2 rounded overflow-hidden shadow-sm">
+      <ion-item lines="none" class="border-b" detail>
+        <ion-thumbnail slot="start" class="rounded overflow-hidden">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="px-2 pt-2" *ngIf="!isLoading">
+    <div *ngFor="let dependant of dependants; let i = index" [routerLink]="['dependant', dependant.BeneficiaryID, dependant.BeneficiaryCode]" class="bg-white border-gray-600 mb-2 rounded overflow-hidden shadow-sm">
       <ion-item lines="none" class="border-b" detail>
         <ion-thumbnail slot="start" class="rounded overflow-hidden">
           <img [src]="'https://api.gems.gov.za/api/v1/MemberImage/' + dependant.BeneficiaryID + '?counter=0'" alt="">
         </ion-thumbnail>
         <ion-label>
-          <span class="block text-lg capitalize font-semibold">{{dependant?.FullName}}</span>
+          <span class="block text-lg capitalize font-semibold">{{dependant?.FullName | titlecase}}</span>
           <span class="block text-sm capitalize font-medium">{{dependant?.MemberIDNo}}</span>
         </ion-label>
       </ion-item>
     </div>
   </div>
 
-  <div class="p-2">
+  <!-- <div class="p-2">
     <button class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
       Add Dependant
     </button>
-  </div>
+  </div> -->
 
 
 

@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class DependantsPage implements OnInit {
   member:Member;
   dependants;
+  isLoading = true;
 
   constructor(private api: AuthenticationService) { }
 
@@ -23,6 +24,7 @@ export class DependantsPage implements OnInit {
     this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
       let memberProfile:FullMember = JSON.parse(profile.data);
       this.dependants = memberProfile.Dependants;
+      this.isLoading = false;
       //this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       // console.log(this.profile);
     }, err => {

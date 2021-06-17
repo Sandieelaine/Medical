@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-claims-home',
@@ -22,7 +23,7 @@ export class ClaimsHomePage implements OnInit {
   isLoading = false;
   member:Member = null;
 
-  constructor(private api: AuthenticationService, private router: Router) { }
+  constructor(private api: AuthenticationService, private router: Router, private helper: HelpersService) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -54,6 +55,7 @@ export class ClaimsHomePage implements OnInit {
       this.isLoading = false;
     }, err => {
       console.log(err);
+      this.helper.presentToast(err.error.Message);
     })
   }
 

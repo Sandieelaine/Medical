@@ -70,13 +70,18 @@ export class AuthorisationPage implements OnInit {
     this.isLoading = true;
 
     this.api.getAuthorisations(this.member.MemberGuid, this.member.access_token).subscribe(authorisations => {
-      //this.authorisationsBackup = JSON.parse(authorisations.data);
+      console.log(authorisations);
+      this.authorisationsBackup = JSON.parse(authorisations.data);
+        this.authorisations = [...this.authorisationsBackup];
       // Load Fake Authorisations
-      this.authorisationsBackup = this.fakeAuthorisationList;
+      // this.authorisationsBackup = this.fakeAuthorisationList;
       // Load Fake Authorisations
-      this.authorisations = [...this.authorisationsBackup];
-      this.authorisations[0].open = true;
-      console.log(this.authorisations);
+      if (JSON.parse(authorisations.data).length > 0) {
+        
+        this.authorisations[0].open = true;
+        console.log(this.authorisations);
+      }
+      
       setTimeout(() => {
         this.isLoading = false;
       }, 1000);

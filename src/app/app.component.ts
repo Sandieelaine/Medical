@@ -37,6 +37,7 @@ export class AppComponent {
       this.splashScreen.hide();
       this.api.startTrackerWithId("UA-82679314-1");
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      
     });
   }
 

@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DependantsPage
   },
   {
-    path: 'dependant/:Dependant',
+    path: 'dependant/:Dependant/:DependantIndex',
     loadChildren: () => import('./dependant/dependant.module').then( m => m.DependantPageModule)
   }
 ];

@@ -2,9 +2,10 @@ import { Member } from './../../models/member.model';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FullMember } from 'src/app/models/fullmember.model';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 
 @Component({
@@ -22,12 +23,13 @@ export class ProfilePage implements OnInit {
   profile: FullMember = null;
   benefit;
   documents;
+  loadingIndicator
   slideOpt = {
     slidesPerView: 2.5,
     spaceBetween: 10
   };
 
-  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router) {
+  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private loadingCtrl:LoadingController, private helper: HelpersService) {
     
   }
 
@@ -44,12 +46,16 @@ export class ProfilePage implements OnInit {
   }
 
   getMemberProfile() {
+    this.showLoader();
     this.auth.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       // console.log(this.profile);
+      this.loadingCtrl.dismiss();
     }, err => {
       // console.log(err);
+      this.loadingCtrl.dismiss();
+      this.auth.presentToast(err.error, 5000);
     });
   }
 
@@ -67,8 +73,9 @@ export class ProfilePage implements OnInit {
     .subscribe(res => {
       this.activity = JSON.parse(res.data);
       // console.log(res);
-    }, error => {
+    }, err => {
       // console.log(error);
+      this.auth.presentToast(err.error, 5000);
     })
   }
 
@@ -89,6 +96,7 @@ export class ProfilePage implements OnInit {
       // console.log(this.documents);
     }, err => {
       // console.log(err);
+      this.auth.presentToast(err.error, 5000);
     });
   }
 
@@ -119,6 +127,10 @@ export class ProfilePage implements OnInit {
       });
       await tourAlert.present();
     //}
+  }
+
+  async showLoader() {
+    this.loadingIndicator = await this.helper.showLoader('Loading your profile');
   }
 
   

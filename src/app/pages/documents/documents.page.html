@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="text-black dark:text-dark-modegraylight">
+        <ion-icon src="./assets/img/menu.svg"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
     <ion-title>Downloads</ion-title>
@@ -22,21 +24,34 @@
   </div>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <!-- <div class="bg-white flex flex-col">
+    <img src="assets/img/pdf.png" alt="">
+  </div> -->
 
-  <span class="font-semibold text-lg ml-2 mt-3 block">Member Certificate</span>
-  <ion-card *ngIf="documents">
-    <ion-item lines="none" detail (click)="downloadMemberCertificate(documents?.MemberCertificate.Name)">
-      <ion-icon color="primary" name="cloud-download-outline" slot="start"></ion-icon>
-      <ion-label>
-        <span class="dark:text-gray-500 font-bold text-lg leading-loose">{{documents?.MemberCertificate.date | date: 'mediumDate'}}</span>
-        <!-- <h2>Emerald Value</h2> -->
-      </ion-label>
-    </ion-item>
-  </ion-card>
 
-  
-  <!-- <ion-list *ngIf="documents">
+
+
+
+  <div>
+
+
+
+
+    <span class="font-medium text-sm mt-0 mb-2 block">Member Certificate</span>
+    <div class="shadow-md rounded-md overflow-hidden">
+      <ion-item lines="none" detail (click)="downloadMemberCertificate(documents?.MemberCertificate.Name)">
+        <ion-icon class="font-bold" color="primary" src="assets/img/pdf17.svg" slot="start"></ion-icon>
+        <ion-label>
+          <span
+            class="dark:text-gray-500 font-bold text-lg leading-loose">{{documents?.MemberCertificate.date | date: 'mediumDate'}}</span>
+          <!-- <h2>Emerald Value</h2> -->
+        </ion-label>
+      </ion-item>
+    </div>
+
+
+    <!-- <ion-list *ngIf="documents">
     <ion-list-header>
       Member Certificate
     </ion-list-header>
@@ -48,7 +63,7 @@
       
     </ion-item>
   </ion-list> -->
-  <!-- <ion-list *ngIf="documents">
+    <!-- <ion-list *ngIf="documents">
     <ion-list-header>
       Tax Certificates
     </ion-list-header>
@@ -59,46 +74,58 @@
       </ion-label>
     </ion-item>
   </ion-list> -->
-  <span class="font-semibold text-lg ml-2">Tax Certificates</span>
-  <ion-card *ngFor="let document of documents?.TaxCertificates">
-    <ion-item lines="none" detail (click)="downloadTaxCertificate(document?.Name, document.YearStringValue)">
-      <ion-icon color="primary" name="cloud-download-outline" slot="start"></ion-icon>
-      <ion-label>
-        <span class="dark:text-gray-500 font-bold text-lg leading-loose">{{document?.YearStringValue | date: 'mediumDate'}}</span>
-        <!-- <h2>Emerald Value</h2> -->
-      </ion-label>
-    </ion-item>
-  </ion-card>
-
-  <div *ngIf="documents && documents?.TaxCertificates.length === 0">
-    The member does not have any tax certificates
-  </div>
-
-  <div *ngIf="isLoading">
-    <ion-list>
-      <ion-list-header>
-        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-      </ion-list-header>
-      <ion-item *ngFor="let document of [1]">
-        <ion-icon name="cloud-download-outline" slot="start"></ion-icon>
+    <span class="font-medium text-sm mt-3 mb-3 block">Tax Certificates</span>
+    <div class="shadow-md rounded-md overflow-hidden">
+      <ion-item *ngFor="let document of documents?.TaxCertificates" lines="inset" detail
+        (click)="downloadTaxCertificate(document?.Name, document.YearStringValue)">
+        <ion-icon class="font-bold" color="primary" src="assets/img/pdf17.svg" slot="start"></ion-icon>
+        <!-- <ion-avatar slot="start">
+        <img src="./assets/img/pdf.png" alt="">
+      </ion-avatar> -->
         <ion-label>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          <span
+            class="dark:text-gray-500 font-bold text-lg leading-loose">{{document?.YearStringValue | date: 'mediumDate'}}</span>
+          <!-- <h2>Emerald Value</h2> -->
         </ion-label>
       </ion-item>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>
-        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-      </ion-list-header>
-      <ion-item *ngFor="let document of [1, 2, 3, 4, 5, 6]">
-        <ion-icon name="cloud-download-outline" slot="start"></ion-icon>
-        <ion-label>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+    </div>
+
+    <div *ngIf="documents && documents?.TaxCertificates.length === 0">
+      The member does not have any tax certificates
+    </div>
+
+    <div *ngIf="isLoading">
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item *ngFor="let document of [1]">
+          <ion-icon name="cloud-download-outline" slot="start"></ion-icon>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item *ngFor="let document of [1, 2, 3, 4, 5, 6]">
+          <ion-icon name="cloud-download-outline" slot="start"></ion-icon>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+
+
+
+
   </div>
 
-  
+
+
 
 </ion-content>

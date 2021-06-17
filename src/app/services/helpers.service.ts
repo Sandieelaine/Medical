@@ -18,10 +18,10 @@ export class HelpersService {
     toast.present();
   }
 
-  async showLoader() {
+  async showLoader(message:string = 'Loading') {
     this.loader = await this.loadingCtrl.create({
       spinner: 'lines',
-      message: 'Loading',
+      message: message,
       cssClass: 'login-spinner'
     });
     this.loader.present();
