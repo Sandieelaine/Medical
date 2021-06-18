@@ -22,14 +22,14 @@
   </div>
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-white">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
 
-  <ion-grid class="ion-no-padding benefit-slide">
+  <!-- <ion-grid class="ion-no-padding benefit-slide">
     <ion-row *ngIf="profile" class="details">
       <ion-col size="3">
         <img class="rounded-full w-16 p-1 border-gray-400 border-2 border-solid" [src]="MemberImage" alt="">
@@ -39,24 +39,22 @@
           <span class="text-white text-lg font-bold block" *ngIf="profile">{{profile?.FullName | titlecase}}</span>
           <span class="text-white text-sm uppercase block">{{profile?.MemberNo}}</span>
           
-          <!-- <span class="text-white text-sm uppercase block">Balance</span> -->
         </div>
       </ion-col>
-      <!-- <hr class="bg-gray-300 w-full"> -->
-
-      <!-- <ion-col col="6" >
-        <span class="text-white text-xs leading-none uppercase pt-4 block">My Plan</span>
-        <span class="text-white text-lg font-bold leading-none uppercase pt-4 pb-4">{{profile?.Plan?.BenefitPlanName}}</span>
-      </ion-col>
-
-      <ion-col col="6">
-        <span class="text-white text-xs leading-none uppercase pt-4 block">Member No.</span>
-        <span class="text-white text-lg font-bold leading-none uppercase pt-4">{{profile?.MemberNo}}</span>
-      </ion-col> -->
-      <!-- <div class="h-4"></div> -->
     </ion-row>
 
-  </ion-grid>
+  </ion-grid> -->
+
+
+  <div *ngIf="profile" class="bg-gems-primary-blue px-4 py-8 flex items-center border-b border-solid border-gray-400">
+    <div class="text-black w-24 p-3">
+      <img class="rounded-full w-full p-1 border-gray-400 border-2 border-solid" [src]="MemberImage" alt="">
+    </div>
+    <div class="flex-grow p-3">
+      <span class="block text-lg font-bold leading-none text-white">{{profile?.FullName | titlecase}}</span>
+      <span class="text-sm text-white">{{profile?.MemberNo}}</span>
+    </div>
+  </div>
 
   <div class="p-3">
     <div class="bg-white border-gray-600 rounded-md overflow-hidden">

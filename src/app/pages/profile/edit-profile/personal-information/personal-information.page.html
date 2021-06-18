@@ -6,6 +6,19 @@
 
 <ion-content class="ion-padding">
 
+  <div *ngIf="MemberImage" class="w-full flex justify-center items-center px-4 pt-4 pb-6">
+    <div class="relative">
+      <img [src]="MemberImage" class="w-24 rounded-md" alt="">
+      <div (click)="takePicture()" style="background: #fff; padding: 4px;" class="absolute rounded -bottom-2 -right-2 w-8 h-8 shadow">
+        <div style="background: #eeeeee;" class="w-full h-full flex justify-center items-center text-gems-primary-blue">
+          <ion-icon name="camera"></ion-icon>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+
   <!-- PERSONAL DETAILS TAB-->
   <form [formGroup]="personalInformationForm" class="mt-2">
 
@@ -125,14 +138,14 @@
         
       </div> -->
       <button (click)='updateMemberPersonalInfo(personalInformationForm)' [disabled]="personalInformationForm.invalid"
-        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
-        Submit OTP
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+        Update Profile
       </button>
 
-      <button (click)='updateMemberPersonalInfo(personalInformationForm)'
+      <!-- <button (click)='updateMemberPersonalInfo(personalInformationForm)'
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Submit OTP
-      </button>
+      </button> -->
 
 
   </form>

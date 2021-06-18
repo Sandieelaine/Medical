@@ -4,6 +4,8 @@ import { FullMember } from 'src/app/models/fullmember.model';
 import { Member, MemberDropdownOptions } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
+import { Plugins, CameraResultType } from '@capacitor/core';
+const { Camera } = Plugins;
 
 @Component({
   selector: 'app-personal-information',
@@ -56,17 +58,19 @@ export class PersonalInformationPage implements OnInit {
       EmailAddress: ['', [Validators.email]],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
-      MemberTitle: this.fb.control({
-        ID: '',
-        Description: '',
-        $$hashKey: '',
-      }),
-      MemberMaritalStatus:
-        this.fb.group({
-          ID: '',
-          Description: '',
-          $$hashKey: '',
-        }),
+      MemberTitle: ['', [Validators.email]],
+      MemberMaritalStatus: ['', [Validators.email]],
+      // MemberTitle: this.fb.control({
+      //   ID: '',
+      //   Description: '',
+      //   $$hashKey: '',
+      // }),
+      // MemberMaritalStatus:
+      //   this.fb.group({
+      //     ID: '',
+      //     Description: '',
+      //     $$hashKey: '',
+      //   }),
 
     });
   };
@@ -109,6 +113,23 @@ export class PersonalInformationPage implements OnInit {
   public objectComparisonFunction(title: any, value: any): boolean {
     // console.log(title.ID)
     return title.ID === value.ID;
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64
+    });
+    console.log(image.base64String);
+    this.MemberImage = 'data:image/jpeg;base64,' + image.base64String;
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    // var imageUrl = image.webPath;
+    // Can be set to the src of an image now
+    // imageElement.src = imageUrl;
   }
 
     
