@@ -38,8 +38,8 @@
 
 
 
-    <span class="font-medium text-sm mt-0 mb-2 block">Member Certificate</span>
-    <div class="shadow-md rounded-md overflow-hidden">
+    <span *ngIf="documents" class="font-medium text-sm mt-0 mb-2 block">Member Certificate</span>
+    <div *ngIf="documents" class="shadow-md rounded-md overflow-hidden">
       <ion-item lines="none" detail (click)="downloadMemberCertificate(documents?.MemberCertificate.Name)">
         <ion-icon class="font-bold" color="primary" src="assets/img/pdf17.svg" slot="start"></ion-icon>
         <ion-label>
@@ -74,8 +74,8 @@
       </ion-label>
     </ion-item>
   </ion-list> -->
-    <span class="font-medium text-sm mt-3 mb-3 block">Tax Certificates</span>
-    <div class="shadow-md rounded-md overflow-hidden">
+    <span *ngIf="documents" class="font-medium text-sm mt-3 mb-3 block">Tax Certificates</span>
+    <div *ngIf="documents" class="shadow-md rounded-md overflow-hidden">
       <ion-item *ngFor="let document of documents?.TaxCertificates" lines="inset" detail
         (click)="downloadTaxCertificate(document?.Name, document.YearStringValue)">
         <ion-icon class="font-bold" color="primary" src="assets/img/pdf17.svg" slot="start"></ion-icon>
@@ -91,7 +91,7 @@
     </div>
 
     <div *ngIf="documents && documents?.TaxCertificates.length === 0">
-      The member does not have any tax certificates
+      You do not have any tax certificates
     </div>
 
     <div *ngIf="isLoading">

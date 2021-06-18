@@ -188,7 +188,9 @@ reset() {
     return from(req).pipe(
       take(1),
       tap((res) => {
-        console.log(res, 'tap')
+        console.log(res, 'tap');
+        // if(!("key" in obj))
+        // Get member profile and then check if the user has a member number. If not, log them out
       }),
       map(res => {
         // this.memberData.next(JSON.parse(res.data));

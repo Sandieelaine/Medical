@@ -34,15 +34,16 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.member = this.auth.getMember();
-    this.getMemberProfile();
-    this.getActivity();
-    this.loadBenefits();
+    
+    
   }
 
   ngOnInit() {
     this.auth.trackView('/', '360 View Page');
-    
+    this.member = this.auth.getMember();
+    this.getMemberProfile();
+    this.getActivity();
+    this.loadBenefits();
   }
 
   getMemberProfile() {
