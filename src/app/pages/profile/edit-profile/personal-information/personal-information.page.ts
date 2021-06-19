@@ -119,13 +119,23 @@ export class PersonalInformationPage implements OnInit {
   }
 
   async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl
-    });
-    console.log(image.dataUrl);
-    this.base64String = image.dataUrl
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+
+
+      });
+      console.log(image);
+      this.base64String = 'data:image/png;base64,' + image.base64String;
+      this.areYouSure();
+    } catch (error) {
+      console.log(error, 'hi');
+    }
+    
+
+
     
     
     // this.MemberImage = 'data:image/jpeg;base64,' + image.base64String;
@@ -161,7 +171,7 @@ export class PersonalInformationPage implements OnInit {
               .subscribe(res => {
                 console.log(res.data);
                 this.helper.presentToast('Image succesfully updated');
-                this.getMemberProfile();
+                this.MemberImage = this.base64String;
               }, err => {
                 console.log(err);
                 this.helper.presentToast('Image update failed');
