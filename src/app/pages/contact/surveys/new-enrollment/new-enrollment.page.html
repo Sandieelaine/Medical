@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/contact/surveys"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>New Enrollment</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+
+
+
+  <form [formGroup]="newEnrollmentForm" (ngSubmit)="submitFeedback()">
+
+    <div>
+      <span class="block text-black text-sm font-medium mt-2 pb-4">Were you satisfied with the service you received during the enrolment/joining process?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="areYouSatisfiedWithJoinProcess($event)" formControlName="areYouSatisfiedWithJoinProcess">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+    </div>
+
+
+    <div>
+      <span class="block text-black text-sm font-medium pb-4 mt-4">You receive enough information to make it easy to join?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="isInformationEnough($event)" formControlName="isInformationEnough">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <div>
+      <span class="block text-black text-sm font-medium pb-4 mt-4">Were your personal details on your membership card correct?</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="isCardInfoCorrect($event)" formControlName="isCardInfoCorrect"
+          class="rounded overflow-hidden bg-white">
+          <ion-item mode="md">
+            <ion-icon name="thumbs-up" color="success" slot="start"></ion-icon>
+            <ion-label>Yes</ion-label>
+            <ion-radio [value]="true"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="thumbs-down" color="danger" slot="start"></ion-icon>
+            <ion-label>No</ion-label>
+            <ion-radio [value]="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <button [disabled]="newEnrollmentForm.invalid"
+      class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+      Submit Your Feedback
+    </button>
+
+
+  </form>
+
+
+
+
+
+</ion-content>

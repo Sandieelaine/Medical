@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/contact/surveys"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Communication</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+
+
+
+  <form [formGroup]="communicationForm" (ngSubmit)="submitFeedback()">
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Communication Tool</ion-label>
+      <ion-select formControlName="CommunicationTool" okText="Okay" cancelText="Dismiss">
+        <ion-select-option *ngFor="let option of commTools" [value]="option">
+          {{option}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <div *ngIf="this.communicationForm.value.CommunicationTool">
+      <span class="block text-black text-sm font-medium pb-4 mt-4">{{this.communicationForm.value.CommunicationTool}}</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="CommunicationToolRate($event)" formControlName="CommunicationToolRate">
+          <ion-item mode="md">
+            <ion-icon color="primary" name="information-circle" slot="start"></ion-icon>
+            <ion-label>Easy to find</ion-label>
+            <ion-radio [value]="1"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon color="primary" name="information-circle" slot="start"></ion-icon>
+            <ion-label>Easy to understand</ion-label>
+            <ion-radio [value]="2"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon color="primary" name="information-circle" slot="start"></ion-icon>
+            <ion-label>Information useful</ion-label>
+            <ion-radio [value]="3"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+
+
+    <button [disabled]="communicationForm.invalid"
+      class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+      Submit Your Feedback
+    </button>
+
+
+  </form>
+
+
+
+
+
+</ion-content>

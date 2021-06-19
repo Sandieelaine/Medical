@@ -74,7 +74,10 @@
       <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
       <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!benefit.open"></ion-icon>
       <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="benefit.open"></ion-icon>
-      <ion-label class="font-semibold"><span class="text-black dark:text-dark-modegraylight">{{benefit?.Description | titlecase}}</span></ion-label>
+      <ion-label class="font-semibold">
+        <span class="text-black dark:text-dark-modegraylight block">{{benefit?.Description | titlecase}}</span>
+        <!-- <span class="text-black text-xs font-light">{{benefit?.Code}}</span> -->
+      </ion-label>
     </ion-item>
     <div *ngIf="benefit.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
       <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.FreeAmount.Amount}}</span> of <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.MaxAmount.Amount}}</span> available</span>

@@ -13,6 +13,7 @@ const { Geolocation } = Plugins;
 })
 export class ContactPage implements OnInit {
   contactOptions:Contact;
+  isCallCentreOpen;
 
   constructor(private pickerCtrl: PickerController, private api: AuthenticationService) { }
 
@@ -25,6 +26,12 @@ export class ContactPage implements OnInit {
     .subscribe(res => {
       console.log(res);
       this.contactOptions = JSON.parse(res.data);
+      if (this.contactOptions.IsOpen) {
+        this.isCallCentreOpen = "Open"
+      } else {
+        this.isCallCentreOpen = "Closed"
+      }
+      
     }, err => {
       console.log(err);
     });
@@ -75,6 +82,36 @@ export class ContactPage implements OnInit {
       }]
     });
     await picker.present();
+  }
+
+  async openContact() {
+
+    const contactPicker = await this.pickerCtrl.create({
+      buttons: [{
+        text: 'Done',
+        handler: res => {
+          console.log(res);
+          window.open(`tel:${res.status.value}`);
+        }
+      }],
+      columns: [{
+        name: 'status',
+        options: [
+          {
+            text: 'Call Centre',
+            value: '0860004367'
+          },
+          {
+          text: '24hr emergency',
+          value: '0800444367'
+        },
+        {
+          text: 'Fraud',
+          value: '0800212202'
+        }]
+      }]
+    });
+    await contactPicker.present();
   }
 
   onRatingChange(e:CustomEvent) {

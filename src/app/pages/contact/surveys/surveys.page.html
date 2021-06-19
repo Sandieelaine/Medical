@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/contact"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Surveys</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="shadow rounded-lg overflow-hidden">
+    <ion-item detail routerLink="new-enrollment">
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">New Enrollment</span>
+      </ion-label>
+    </ion-item>
+    <ion-item routerLink="claims-amendments" detail>
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">Claims & Amendments</span>
+      </ion-label>
+    </ion-item>
+    <ion-item routerLink="claims" detail>
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">Claims</span>
+      </ion-label>
+    </ion-item>
+    <ion-item routerLink="call-centre" detail>
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">Call Centre</span>
+      </ion-label>
+    </ion-item>
+    <ion-item routerLink="walk-in-centres" detail>
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">Walk-in Centres</span>
+      </ion-label>
+    </ion-item>
+    <ion-item  routerLink="communication" lines="none" detail>
+      <ion-icon class="text-gems-primary-blue" name="help-circle" slot="start"></ion-icon>
+      <ion-label>
+        <span class="font-bold block">Communication</span>
+      </ion-label>
+    </ion-item>
+  </div>
+
+</ion-content>

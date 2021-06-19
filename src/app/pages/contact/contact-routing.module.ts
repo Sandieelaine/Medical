@@ -16,6 +16,14 @@ const routes: Routes = [
     path: 'compliments',
     loadChildren: () => import('./compliments/compliments.module').then( m => m.ComplimentsPageModule)
   },
+  {
+    path: 'survey',
+    loadChildren: () => import('./surveys/survey/survey.module').then( m => m.SurveyPageModule)
+  },
+  {
+    path: 'surveys',
+    loadChildren: () => import('./surveys/surveys.module').then( m => m.SurveysPageModule)
+  },
 ];
 
 @NgModule({

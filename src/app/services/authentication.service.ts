@@ -444,6 +444,18 @@ reset() {
     );
   }
 
+  getAllWalkInCentreOptions(Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/WalkInCentreOptions/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req).pipe(
+      // timeout(10000000)
+    );
+  }
+
   // ************************************ End  New Code ************************************* //
 
   // ************************************ Authentication ************************************ //
@@ -878,6 +890,71 @@ reset() {
     );
     return from(req);
   }
+
+  submitSatisfactionSurveyNewEnrollment(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyNewEnrollment`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  submitSatisfactionSurveyChangeAndAmendments(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyChangeAndAmendments`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  submitSatisfactionSurveyClaims(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyChangeAndAmendments`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  submitSatisfactionSurveyWalkInCentre(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyWalkInCentre`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  submitSatisfactionSurveyCommunication(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyCommunication`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+  submitSatisfactionSurveyCallCentre(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/satisfactionSurveyCallCentre`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
+
+  
+
+  
 
 
 

@@ -121,8 +121,9 @@ export class PersonalInformationPage implements OnInit {
       allowEditing: false,
       resultType: CameraResultType.Base64
     });
-    console.log(image.base64String);
-    this.MemberImage = 'data:image/jpeg;base64,' + image.base64String;
+    console.log(image.dataUrl);
+    this.MemberImage = image.dataUrl;
+    // this.MemberImage = 'data:image/jpeg;base64,' + image.base64String;
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
