@@ -59,7 +59,6 @@ export class CommunicationPage implements OnInit {
     this.showLoader();
     const payload = this.communicationForm.value;
     console.log(payload);
-    return;
     this.api.submitSatisfactionSurveyCommunication(payload, this.member.MemberGuid, this.member.access_token)
     .subscribe(async res => {
       await this.loadingCtrl.dismiss();

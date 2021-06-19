@@ -5,6 +5,7 @@ import { Member, MemberDropdownOptions } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { Plugins, CameraResultType } from '@capacitor/core';
+import { AlertController } from '@ionic/angular';
 const { Camera } = Plugins;
 
 @Component({
@@ -17,6 +18,8 @@ export class PersonalInformationPage implements OnInit {
   profile: FullMember = null;
   MemberImage = null;
   personalInformationForm: FormGroup;
+  base64String;
+  loader;
 
   memberDropdownOptions!: MemberDropdownOptions;
   provincesArray!: MemberDropdownOptions['Provinces'];
@@ -24,7 +27,7 @@ export class PersonalInformationPage implements OnInit {
   maritalStatusArray!: MemberDropdownOptions['MaritalStatusOptions'];
   genderArray!: MemberDropdownOptions['GenderOptions'];
 
-  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -119,10 +122,12 @@ export class PersonalInformationPage implements OnInit {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
-      resultType: CameraResultType.Base64
+      resultType: CameraResultType.DataUrl
     });
     console.log(image.dataUrl);
-    this.MemberImage = image.dataUrl;
+    this.base64String = image.dataUrl
+    
+    
     // this.MemberImage = 'data:image/jpeg;base64,' + image.base64String;
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
@@ -131,6 +136,41 @@ export class PersonalInformationPage implements OnInit {
     // var imageUrl = image.webPath;
     // Can be set to the src of an image now
     // imageElement.src = imageUrl;
+  }
+
+  async areYouSure() {
+      let tourAlert = await this.alertCtrl.create({
+        header: 'Home Page',
+        subHeader: 'Get quick access to your claims, downloads, help and more on this page.',
+        buttons: [
+          {
+            text: 'Skip',
+            handler: async () => {
+            }
+          },
+          {
+            text: 'Continue',
+            handler: () => {
+              const payload = {
+                Base64ImageString: this.base64String,
+                MemberName: this.profile.FullName
+              };
+              console.log(payload);
+          
+              this.api.updateMemberImage(payload, this.member.MemberGuid, this.member.access_token)
+              .subscribe(res => {
+                console.log(res.data);
+                this.helper.presentToast('Image succesfully updated');
+                this.getMemberProfile();
+              }, err => {
+                console.log(err);
+                this.helper.presentToast('Image update failed');
+              })
+            }
+          }
+        ]
+      });
+      await tourAlert.present();
   }
 
     

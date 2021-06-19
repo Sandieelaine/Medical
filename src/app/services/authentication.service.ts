@@ -952,6 +952,16 @@ reset() {
   }
 
 
+  updateMemberImage(payload, GUID, Token) {
+    let req = this.httpNative.post(`${this.url}/api/v1/MemberImage/UploadImage/${GUID}`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    });
+    return from(req);
+  }
+
+
   
 
   
