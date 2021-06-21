@@ -1,0 +1,252 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/profile/edit"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Contact Information</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- MEMBER CONTACT INFORMATION TAB-->
+  <form [formGroup]="MemberContactInfoForm">
+    <ion-item lines="none">
+      <ion-label position="stacked">Tel number</ion-label>
+      <ion-input [value]='memberContactInformation?.TelNumber' type="tel" name="TelNumber" formControlName="TelNumber">
+      </ion-input>
+      <!-- <ion-button fill="clear" slot="end">
+        <ion-icon color="primary" name="person"></ion-icon>
+      </ion-button> -->
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('TelNumber', 'required')">Tel
+      Number is
+      required
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('TelNumber', 'pattern')">Tel
+      Number is
+      invalid
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('TelNumber', 'minlength')">Tel
+      Number must
+      have 10 digits
+    </div>
+
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Work number (062XXXX89)</ion-label>
+      <ion-input [value]='memberContactInformation?.WorkNumber' type="tel" name="WorkNumber"
+        formControlName="WorkNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('WorkNumber', 'required')">Work
+      Number is
+      required
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('WorkNumber', 'pattern')">Work
+      Number is
+      invalid
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('WorkNumber', 'minlength')">Work
+      Number must
+      have 10 digits
+    </div>
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Cell Number (062XXXX89)</ion-label>
+      <ion-input [value]='memberContactInformation?.CellphoneNumber' type="tel" name="CellphoneNumber"
+        formControlName="CellphoneNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('CellphoneNumber', 'required')">
+      Cell Number is
+      required
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('CellphoneNumber', 'pattern')">
+      Cell Number is
+      invalid
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('CellphoneNumber', 'minlength')">
+      Cell Number must
+      have 10 digits
+    </div>
+
+
+
+    <!-- <ion-item lines="none">
+      <ion-label position="stacked">Fax number</ion-label>
+      <ion-input [value]='memberContactInformation?.FaxNumber' type="text" name="FaxNumber" formControlName="FaxNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('FaxNumber', 'required')">Fax Number is
+      required
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('FaxNumber', 'pattern')">Fax Number is
+      invalid
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('FaxNumber', 'minlength')">Fax Number must
+      have 10 digits
+    </div> -->
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Income Tax Number</ion-label>
+      <ion-input [value]='memberContactInformation?.IncomeTaxNumber' type="number" name="IncomeTaxNumber"
+        formControlName="IncomeTaxNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('IncomeTaxNumber', 'required')">
+      Income Tax Number is
+      required
+    </div>
+
+
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Email Address</ion-label>
+      <ion-input [value]='memberContactInformation?.EmailAddress' type="email" name="EmailAddress"
+        formControlName="EmailAddress"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('EmailAddress', 'required')">Email
+      Address is
+      required
+    </div>
+    <div class="text-xs text-red-600 block" *ngIf="memberContactInfoFormErrorHandling('EmailAddress', 'email')">Email
+      Address is
+      invalid
+    </div>
+
+
+
+
+
+
+
+
+    <div class="w-full block">
+      <span class="mb-3 block font-bold text-lg mt-3">Residential Address</span>
+    </div>
+
+    <div formGroupName="ResidentialAddress">
+      <ion-item lines="none">
+        <ion-label position="stacked">Unit/ApartmentNo & Complex/Building Name</ion-label>
+        <ion-input [value]='memberContactInformation?.ResidentialAddress?.AddressLine1' type="text" name="AddressLine1"
+          formControlName="AddressLine1"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling2('ResidentialAddress','AddressLine1', 'required')">
+        Email Address is
+        required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Street name</ion-label>
+        <ion-input [value]='memberContactInformation?.ResidentialAddress?.AddressLine2' type="text" name="AddressLine2"
+          formControlName="AddressLine2"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling2('ResidentialAddress','AddressLine2', 'required')">
+        Street name is required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Suburb</ion-label>
+        <ion-input [value]='memberContactInformation?.ResidentialAddress?.AddressLine3' type="text" name="AddressLine3"
+          formControlName="AddressLine3"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine3', 'required')">
+        Suburb is required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Postal Code (xxxx)</ion-label>
+        <ion-input [value]='memberContactInformation?.ResidentialAddress?.PostalCode' type="text" name="PostalCode"
+          formControlName="PostalCode"></ion-input>
+      </ion-item>
+      <!-- <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine3', 'required')">
+        Suburb is required
+      </div> -->
+
+    </div>
+
+
+
+
+
+
+    <div class="w-full block">
+      <span class="mb-3 block font-bold text-lg mt-3">Postal Address</span>
+    </div>
+
+    <div formGroupName="PostalAddress">
+      <ion-item lines="none">
+        <ion-label position="stacked">Unit/ApartmentNo & Complex/Building Name</ion-label>
+        <ion-input [value]='memberContactInformation?.PostalAddress?.AddressLine1' type="text" name="AddressLine1"
+          formControlName="AddressLine1"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine1', 'required')">Unit/ApartmentNo & Complex/Building
+        Name is required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Street name</ion-label>
+        <ion-input [value]='memberContactInformation?.PostalAddress?.AddressLine2' type="text" name="AddressLine2"
+          formControlName="AddressLine2"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine2', 'required')">Street name is required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Unit/ApartmentNo & Complex/Building name</ion-label>
+        <ion-input [value]='memberContactInformation?.PostalAddress?.AddressLine3' type="text" name="AddressLine3"
+          formControlName="AddressLine3"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine3', 'required')">Suburb is required
+      </div>
+
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Postal Code (xxxx)</ion-label>
+        <ion-input [value]='memberContactInformation?.PostalAddress?.PostalCode' type="text" name="PostalCode"
+          formControlName="PostalCode"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('PostalCode', 'required')">Postal Code is required
+      </div>
+
+    </div>
+
+
+    <!-- <div class="w-full flex justify-end">
+      <button type="button" type="submit"
+        class="ml-auto inline-flex items-center justify-center md:mx-2  px-12 py-3 mb-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+        SAVE
+      </button>
+    </div> -->
+
+    <button (click)='updateMemberContactInformation(MemberContactInfoForm)'
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Save
+      </button>
+
+  </form>
+  <!--/ CONTACT INFORMATION TAB-->
+
+</ion-content>

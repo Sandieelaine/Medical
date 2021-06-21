@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/profile/edit"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Change Username</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="changeUsernameForm" (ngSubmit)='changeUsername()'>
+    <ion-item lines="none">
+      <ion-label position="stacked">Username</ion-label>
+      <ion-input type="text"
+        name="UserName" formControlName="UserName"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Confirm username</ion-label>
+      <ion-input type="text"
+        name="ConfirmUsername" formControlName="ConfirmUsername"></ion-input>
+    </ion-item>
+
+    <button [disabled]="changeUsernameForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Update Username
+      </button>
+  </form>
+  
+
+</ion-content>

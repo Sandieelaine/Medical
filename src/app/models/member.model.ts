@@ -58,3 +58,48 @@ export interface MemberDropdownOptions {
     ID: string
     Description: string
   }
+
+
+  // Member Contact Information model
+  export interface MemberContactInformation {
+    BeneficiaryID: string
+    TelNumber ? : string
+    WorkNumber ? : any
+    FaxNumber ? : string
+    EmailAddress: string
+    CellphoneNumber ? : string
+    IncomeTaxNumber ? : any
+    ResidentialAddress ? : ResidentialAddress
+    PostalAddress ? : PostalAddress
+    IsPostalSameAsResidential ? : any
+  }
+  
+  interface ResidentialAddress {
+    AddressID ? : number
+    AddressLine1 ? : string
+    AddressLine2 ? : string
+    AddressLine3 ? : string
+    Province ? : Province
+    PostalCode ? : string
+  }
+  
+  interface PostalAddress {
+    AddressID ? : number
+    AddressLine1 ? : string
+    AddressLine2 ? : string
+    AddressLine3 ? : string
+    Province ? : Province2
+    PostalCode ? : string
+  }
+  
+  interface Province {
+    ID: string
+    Description: string
+    $$hashKey: string
+  }
+  
+  interface Province2 {
+    ID: string
+    Description: string
+    $$hashKey: string
+  }

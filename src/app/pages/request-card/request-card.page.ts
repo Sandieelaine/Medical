@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
@@ -14,7 +15,7 @@ export class RequestCardPage implements OnInit {
   provinces;
   member:Member = null;
   
-  constructor(private fb: FormBuilder, private api: AuthenticationService, private helper: HelpersService) {
+  constructor(private fb: FormBuilder, private api: AuthenticationService, private helper: HelpersService, private loadingCtrl: LoadingController) {
     this.cardRequestForm = this.fb.group({
       AddressLine1: ['', [Validators.required]],
       PostalCode: ['', [Validators.required]],
@@ -42,13 +43,16 @@ export class RequestCardPage implements OnInit {
   }
 
   requestCard() {
+    this.helper.showLoader();
     this.cardRequestForm.value.Province.$$hashKey = "object:364";
     console.log(this.cardRequestForm.value);
 
     this.api.requestNewCard(this.cardRequestForm.value, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
+      this.loadingCtrl.dismiss();
       this.helper.presentToast('Your card will be sent to your new address');
     }, err => {
+      this.loadingCtrl.dismiss();
       this.helper.presentToast('Failed To Complete Request');
     });
 

@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/profile/edit"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Emergency Information</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- EMERGENCY INFORMATION TAB-->
+  <form [formGroup]="emergencyContactInfoForm">
+    <ion-item lines="none">
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.Name' type="text" name="Name" formControlName="Name"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('Name', 'required')">Name is
+      required
+    </div>
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Surname</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.Surname' type="text" name="Surname" formControlName="Surname">
+      </ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('Surname', 'required')">Surname is
+      required
+    </div>
+
+
+
+
+    <div formGroupName="Relationship">
+      <ion-item lines="none">
+        <ion-label position="stacked">Relationship</ion-label>
+        <ion-input [value]='memberemergencyContactInfo?.Relationship?.Description' type="text" name="Description"
+          formControlName="Description"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Description', 'required')">Description is
+        required
+      </div>
+
+    </div>
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Tel Number</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.TelNumber' type="text" name="TelNumber"
+        formControlName="TelNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('TelNumber', 'required')">Tel Number is
+      required
+    </div>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Work Number (062XXXX89)</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.WorkNumber' type="tel" name="WorkNumber"
+        formControlName="WorkNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('WorkNumber', 'required')">Work Number is
+      required
+    </div>
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Cell Number (062XXXX89)</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.CellNumber' type="tel" name="CellNumber"
+        formControlName="CellNumber"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellNumber', 'required')">Cell Number is
+      required
+    </div>
+
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Email Address</ion-label>
+      <ion-input [value]='memberemergencyContactInfo?.EmailAddress' type="email" name="EmailAddress"
+        formControlName="EmailAddress"></ion-input>
+    </ion-item>
+    <div class="text-xs text-red-600 block" *ngIf="errorHandling('EmailAddress', 'required')">Email Address is
+      required
+    </div>
+
+
+
+    <div class="w-full block">
+      <span class="mb-3 block font-bold text-lg mt-3">Family practitioner</span>
+    </div>
+
+
+
+    <div formGroupName="Doctor">
+      <ion-item lines="none">
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [value]='memberemergencyContactInfo?.Doctor?.Name' type="text" name="Name" formControlName="Name">
+        </ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Name', 'required')">Name is
+        required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Surname</ion-label>
+        <ion-input [value]='memberemergencyContactInfo?.Doctor?.Surname' type="text" name="Surname"
+          formControlName="Surname"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Surname', 'required')">Surname is
+        required
+      </div>
+
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Practice Number</ion-label>
+        <ion-input [value]='memberemergencyContactInfo?.Doctor?.PracticeNumber' type="text" name="PracticeNumber"
+          formControlName="PracticeNumber"></ion-input>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="errorHandling('PracticeNumber', 'required')">Practice Number is
+        required
+      </div>
+
+
+
+
+
+      <div formGroupName="EmegerncyContactAddress">
+        <ion-item lines="none">
+          <ion-label position="stacked">Unit/ApartmentNo & Complex/Building Name</ion-label>
+          <ion-input [value]='memberemergencyContactInfo?.Doctor?.EmegerncyContactAddress?.AddressLine1' type="text"
+            name="AddressLine1" formControlName="AddressLine1"></ion-input>
+        </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine1', 'required')">Unit/ApartmentNo &
+          Complex/Building Name is
+          required
+        </div>
+
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Street</ion-label>
+          <ion-input [value]='memberemergencyContactInfo?.Doctor?.EmegerncyContactAddress?.AddressLine2' type="text"
+            name="AddressLine2" formControlName="AddressLine2"></ion-input>
+        </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine2', 'required')">Street is required
+        </div>
+
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Suburb</ion-label>
+          <ion-input [value]='memberemergencyContactInfo?.Doctor?.EmegerncyContactAddress?.AddressLine3' type="text"
+            name="AddressLine3" formControlName="AddressLine3"></ion-input>
+        </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="errorHandling('AddressLine3', 'required')">Suburb is required
+        </div>
+
+
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Postal Code (xxxx)</ion-label>
+          <ion-input [value]='memberemergencyContactInfo?.Doctor?.EmegerncyContactAddress?.AddressLine3' type="text"
+            name="PostalCode" formControlName="PostalCode"></ion-input>
+        </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="errorHandling('PostalCode', 'required')">Suburb is required
+        </div>
+
+
+ 
+
+      </div>
+    </div>
+
+
+
+    <!-- <div class="w-full flex justify-end">
+      <button type="submit" (click)='updateEmergencyContactInfo(emergencyContactInfoForm)'
+        class="ml-auto inline-flex items-center justify-center md:mx-2  px-12 py-3 mb-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+        SAVE
+      </button>
+    </div> -->
+
+    <button type="submit" (click)='updateEmergencyContactInfo(emergencyContactInfoForm)'
+        class="bg-gems-primary-blue p-4 my-2 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Save
+      </button>
+
+
+  </form>
+</ion-content>

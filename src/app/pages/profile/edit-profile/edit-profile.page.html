@@ -29,21 +29,6 @@
   </ion-refresher>
 
 
-  <!-- <ion-grid class="ion-no-padding benefit-slide">
-    <ion-row *ngIf="profile" class="details">
-      <ion-col size="3">
-        <img class="rounded-full w-16 p-1 border-gray-400 border-2 border-solid" [src]="MemberImage" alt="">
-      </ion-col>
-      <ion-col size="9">
-        <div class="rounded p-5">
-          <span class="text-white text-lg font-bold block" *ngIf="profile">{{profile?.FullName | titlecase}}</span>
-          <span class="text-white text-sm uppercase block">{{profile?.MemberNo}}</span>
-          
-        </div>
-      </ion-col>
-    </ion-row>
-
-  </ion-grid> -->
 
 
   <div *ngIf="profile" class="bg-gems-primary-blue px-4 py-8 flex items-center border-b border-solid border-gray-400">
@@ -58,42 +43,42 @@
 
   <div class="p-3">
     <div class="bg-white border-gray-600 rounded-md overflow-hidden">
-      <ion-item routerLink="/tabs/tabs/profile/personal-information" lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item routerLink="personal-information" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="accessibility-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Personal Information
         </ion-label>
       </ion-item>
-      <ion-item lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item routerLink="contact-information" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="call-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Contact Information
         </ion-label>
       </ion-item>
-      <ion-item lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item routerLink="emergency-information" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Emergency Information
         </ion-label>
       </ion-item>
-      <ion-item lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item routerLink="change-username" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Change Username
         </ion-label>
       </ion-item>
-      <ion-item lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item routerLink="change-password" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="key-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Change Password
         </ion-label>
       </ion-item>
-      <ion-item lines="none" class="rounded overflow-hidden" detail>
+      <!-- <ion-item routerLink="communication-preferences" lines="none" class="rounded overflow-hidden" detail>
         <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
         <ion-label class="text-sm font-medium">
           Communication Preferences
         </ion-label>
-      </ion-item>
+      </ion-item> -->
     </div>
   </div>
   

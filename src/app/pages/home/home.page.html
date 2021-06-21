@@ -94,11 +94,11 @@
 
   <!-- This example requires Tailwind CSS v2.0+ -->
   <div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly"
-    class="rounded-md p-4 mx-4 my-4 bg-white dark:bg-black shadow-md" routerLink="/tabs/tabs/option-change">
+    class="rounded-md p-4 mx-4 my-4 bg-gems-primary-blue dark:bg-black shadow-md" routerLink="/tabs/tabs/option-change">
     <div class="flex">
       <div class="flex-shrink-0">
         <!-- Heroicon name: solid/check-circle -->
-        <svg class="h-5 w-5 text-black dark:text-dark-modegraylight" xmlns="http://www.w3.org/2000/svg"
+        <svg class="h-5 w-5 text-white dark:text-dark-modegraylight" xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -106,11 +106,15 @@
         </svg>
       </div>
       <div class="ml-3">
-        <p class="text-sm font-bold text-dark-modegray dark:text-dark-modegraylight">
-          GEMS 2021 EVO Switch is now open for members on Emerald. Make your switch to EVO before 31 July 2021 and
-          continue enjoying the same rich benefits, but at a more affordable rate!
-          <!-- <span class="text-yellow-500 block bg-white p-2 text-center rounded-full mt-1"> Change Option</span> -->
-        </p>
+        <span class="text-sm font-bold text-white dark:text-dark-modegraylight block">
+          GEMS 2021 EVO Switch is now open for members on Emerald.
+          
+        </span>
+
+        <div class="flex justify-end">
+          <span class="text-white block bg-gems-secondary-blue p-2 text-center rounded-md mt-1 text-xs font-bold shadow-md"> Change Option</span>
+        </div>
+        
         
         
       </div>
