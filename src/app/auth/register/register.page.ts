@@ -95,22 +95,23 @@ export class RegisterPage implements OnInit {
   submitOTP = () => {
     console.log(this.otpForm.value);
     this.registrationResponse.OTPPin = this.otpForm.value.OTPPin;
-    // console.log(this.registrationResponse);
+    console.log(this.registrationForm.value);
 
     //this.isLoading = true;
     this.api.submitOTP(this.registrationResponse)
       .subscribe(res => {
         // console.log(res);
-        if (res.data === 'valid') {
+        if (JSON.parse(res.data) === 'valid') {
+          console.log('Valid confirmed');
           this.api.register(this.registrationForm.value)
             .subscribe(response => {
               console.log(res);
               this.registrationResponse = JSON.parse(response.data);
               this.helper.presentToast('Account Created! Please log into your new account using your username and password.');
-              this.router.navigateByUrl('/');
+              this.router.navigateByUrl('/login');
             }, error => {
               console.log(error);
-              this.helper.presentToast(error.error.Message);
+              this.helper.presentToast(JSON.parse(error.error).Message);
               this.screenMode = RegistrationStatus.REG_SCREEN;
             });
 

@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Observable, ReplaySubject } from 'rxjs';
+import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
@@ -14,25 +16,28 @@ export class SubmitClaimPage implements OnInit {
   docName;
   claimFile;
   base64Doc;
-  title = 'MR';
-  firstName = 'John';
-  lastName = 'Doie';
-  DOB = '02/10/2001';
-  memberNo = '1234567';
+  profile:FullMember;
+  title;
+  firstName;
+  lastName;
+  DOB;
+  memberNo;
   baseURL;
   DocURLUpload
 
   member:Member = null;
 
-  constructor(private api: AuthenticationService, private helper: HelpersService) {
+  constructor(private api: AuthenticationService, private helper: HelpersService, private loadingCtrl: LoadingController) {
     this.baseURL = this.api.url;
   }
 
   ngOnInit() {
     this.member = this.api.getMember();
+    this.getMemberProfile();
   }
 
   submitClaim() {
+    this.helper.showLoader();
     console.log(this.claimFile);
     if (this.claimFile !== undefined) {
         this.docName = this.claimFile.name;
@@ -46,17 +51,19 @@ export class SubmitClaimPage implements OnInit {
             reader = realFileReader;
         }
         reader.onloadend = (e) => {
-          console.log(e);
+          // console.log(e);
             let b64 = e.target.result.toString().split("base64,")[1];
             this.base64Doc = b64;
-            console.log(this.base64Doc);
+            // console.log(this.base64Doc);
             this.api.submitClaim(this.docName, this.base64Doc, this.member.MemberGuid, this.member.access_token)
             .subscribe(res => {
+              this.loadingCtrl.dismiss();
               console.log(res);
               this.helper.presentToast('Claim Submitted Successfully');
             }, err => {
-              console.log(err);
-              this.helper.presentToast('Claim Submission Failed');
+              this.loadingCtrl.dismiss();
+              console.log(JSON.parse(err.error).Message);
+              this.helper.presentToast(JSON.parse(err.error).Message);
             })
 
             
@@ -77,6 +84,21 @@ uploadFileEvt(event) {
     }
     this.claimFile = event.target.files[0];
   }
+}
+
+
+getMemberProfile() {
+  this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
+    this.profile = JSON.parse(profile.data);
+    console.log(this.profile);
+    this.title = this.profile.MemberTitle.Description;
+    this.firstName = this.profile.FirstName;
+    this.lastName = this.profile.LastName;
+    this.DOB = this.profile.DOB.substring(0, 10);
+    this.memberNo = this.profile.MemberNo;
+  }, err => {
+    // console.log(err);
+  });
 }
 
 }

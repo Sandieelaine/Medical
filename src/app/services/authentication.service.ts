@@ -464,7 +464,7 @@ reset() {
     let req = this.httpNative.post(`${this.url}/api/otp/send`,
     registrationData,
     {
-      "Content-Type": "application/x-www-form-urlencoded"
+      // "Content-Type": "application/x-www-form-urlencoded"
     })
     return from(req);
   }
@@ -473,7 +473,7 @@ reset() {
     let req = this.httpNative.post(`${this.url}/api/v1/Auth/Register`,
     registrationData,
     {
-      "Content-Type": "application/x-www-form-urlencoded"
+      // "Content-Type": "application/x-www-form-urlencoded"
     })
     return from(req);
   }
@@ -482,7 +482,7 @@ reset() {
     let req = this.httpNative.post(`${this.url}/api/otp/validate`,
     otp,
     {
-      "Content-Type": "application/x-www-form-urlencoded"
+      // "Content-Type": "application/x-www-form-urlencoded"
     })
     return from(req);
   }
@@ -491,7 +491,7 @@ reset() {
     let req = this.httpNative.post(`${this.url}/api/otp/send`,
     payload,
     {
-      "Content-Type": "application/x-www-form-urlencoded"
+      // "Content-Type": "application/x-www-form-urlencoded"
     })
     return from(req);
   }

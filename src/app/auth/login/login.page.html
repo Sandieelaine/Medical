@@ -25,30 +25,24 @@
     <div class="bottom">
       <div id="content">
 
-        <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+        <form  [formGroup]="loginForm" (ngSubmit)='onLogin()'>
           <ion-item lines="none">
-            <ion-input name="username" ngModel placeholder="Enter Username" type="text" #usernameInput="ngModel"
-              required username></ion-input>
+            <ion-input placeholder="User Name" name="UserName" formControlName="UserName"></ion-input>
             <ion-button slot="end" fill="clear">
               <ion-icon color="primary" name="person-outline"></ion-icon>
             </ion-button>
           </ion-item>
 
-          <span class="error-msg text-xs" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
+          <!-- <span class="error-msg text-xs" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
             a valid username</span>
-          <div style="height: 5px"></div>
+          <div style="height: 5px"></div> -->
 
           <ion-item lines="none">
-            <ion-input name="password" ngModel placeholder="Enter Password" type="password" #passwordInput="ngModel"
-              required></ion-input>
-            <ion-button fill="clear" slot="end">
+            <ion-input placeholder="Password" name="Password" formControlName="Password"></ion-input>
+            <ion-button slot="end" fill="clear">
               <ion-icon color="primary" name="key-outline"></ion-icon>
             </ion-button>
           </ion-item>
-
-
-          <span class="error-msg text-xs" style="color: red" *ngIf="passwordInput.invalid && passwordInput.touched">Please
-            enter a valid password</span>
 
           <button [disabled]="loginForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
             Sign In

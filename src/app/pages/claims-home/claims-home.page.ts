@@ -55,7 +55,7 @@ export class ClaimsHomePage implements OnInit {
       this.isLoading = false;
     }, err => {
       console.log(err);
-      this.helper.presentToast(err.error.Message);
+      this.helper.presentToast(JSON.parse(err.error).Message);
     })
   }
 

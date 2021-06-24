@@ -50,6 +50,10 @@ const routes: Routes = [
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'login/:username',
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
     path: 'card',
     loadChildren: () => import('./pages/card/card.module').then( m => m.CardPageModule),
     canLoad: [AuthGuard]

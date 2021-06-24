@@ -136,7 +136,8 @@ export class SelectedOptionPage implements OnInit {
     .subscribe(res => {
       this.loader.dismiss();
       this.helper.presentToast(
-        'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
+        'Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.',
+        // 'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
         5000
       )
     }, err => {
@@ -164,6 +165,7 @@ export class SelectedOptionPage implements OnInit {
       }
     }
 
+
     if (this.optionChangeForm.value.Doyouwanttoapplythispractitionertoall === true) {
       for (var DEP of this.profile.Dependants) {
         console.log(dependant);
@@ -180,6 +182,11 @@ export class SelectedOptionPage implements OnInit {
     }
 
     //this.showLoader();
+
+    // var key = "Cow";
+    // delete thisIsObject[key];
+
+    delete this.optionChangePayload.Dependants;
     
     
     //console.log(this.optionChangeForm.status)
@@ -197,10 +204,11 @@ export class SelectedOptionPage implements OnInit {
     }
 
     console.log(selectedOption);
+    console.log(this.optionChangePayload);
 
     this.api.changeToEVOOption(this.optionChangePayload, selectedOption, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
-      console.log(res.data);
+      console.log(res);
       this.loader.dismiss();
       this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.');
     }, err => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { ResetPasswordStatus } from 'src/app/enums/enums';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
@@ -18,10 +19,11 @@ export class ForgotPasswordPage implements OnInit {
   otpForm!: FormGroup;
   registrationResponse!: any;
 
-  constructor(private router: Router, private api: AuthenticationService, private fb: FormBuilder, public helper: HelpersService) { }
+  constructor(private router: Router, private api: AuthenticationService, private fb: FormBuilder, public helper: HelpersService, private loadingCtrl:LoadingController) { }
 
   ngOnInit() {
     this.initializeForms();
+    this.onUserNameChanges();
   }
 
   initializeForms = () => {
@@ -31,7 +33,7 @@ export class ForgotPasswordPage implements OnInit {
      */
     this.resetPasswordForm = this.fb.group({
       UserName: ['', [Validators.required, Validators.minLength(5)]],
-      GEMSMemberNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(13)]],
+      GEMSMemberNumber: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(13)]],
     });
 
     /*
@@ -42,7 +44,7 @@ export class ForgotPasswordPage implements OnInit {
       Password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')]],
       ConfirmPassword: ['', [Validators.required]],
     }, {
-      validator: this.helper.confirmedValidator('Password', 'ConfirmPassword')
+      // validator: this.helper.confirmedValidator('Password', 'ConfirmPassword')
     });
 
     /*
@@ -58,6 +60,8 @@ export class ForgotPasswordPage implements OnInit {
     console.log()
     this.isLoading = true;
 
+    // this.submitNewPasswordForm.patchValue({UserName: form.UserName});
+
     const payload: any = {
       UserName: form.UserName,
       GEMSMemberNumber: form.GEMSMemberNumber
@@ -68,7 +72,6 @@ export class ForgotPasswordPage implements OnInit {
         res => {
           this.isLoading = false;
           if (res) {
-            
 
             this.api.genericRequestOTP(payload)
               .subscribe(res => {
@@ -95,15 +98,16 @@ export class ForgotPasswordPage implements OnInit {
 
   submitOTP = () => {
     // console.log(this.otpForm.value);
-    // this.registrationResponse.OTPPin = this.otpForm.value.OTPPin;
     // console.log(this.registrationResponse);
+    this.registrationResponse.OTPPin = this.otpForm.value.OTPPin;
+    
 
     this.isLoading = true;
 
     this.api.submitOTP(this.registrationResponse)
       .subscribe(res => {
         console.log(res);
-        if (res.data == 'valid') {
+        if (JSON.parse(res.data) === 'valid') {
           this.isLoading = false;
           this.screenMode = ResetPasswordStatus.SUBMITNEWPASSWORD;
 
@@ -128,14 +132,21 @@ export class ForgotPasswordPage implements OnInit {
         //   this.registrationResponse = res;
         this.helper.presentToast('Your password has been changed for username');
         // alertService.add("success","Your password has been changed for username:" + vm.User.UserName);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/login');
       }, error => {
         this.isLoading = false;
         console.log(error);
-        this.helper.presentToast(error.error.Message);
+        this.helper.presentToast(JSON.parse(error.error).Message);
         this.screenMode = ResetPasswordStatus.RESET_PASSWORD;
       });
   };
+
+  onUserNameChanges(): void {
+    this.resetPasswordForm.get('UserName').valueChanges.subscribe(val => {
+      console.log(val);
+      this.submitNewPasswordForm.patchValue({UserName: val});
+    });
+  }
 
   onSubmithandler(): void {
     this.postForm(this.resetPasswordForm.value);

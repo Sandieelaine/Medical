@@ -42,7 +42,7 @@
       </span>
 
     </div>
-    <button
+    <button (click)="changeToNonEVOOption()"
       class="bg-gems-primary-blue p-4 mt-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
       Change Benefit Option
     </button>
@@ -177,6 +177,7 @@
       </button> -->
 
       <button [disabled]="optionChangeForm.invalid"
+      (click)="changeToEVOOption()"
         class="bg-gems-primary-blue p-4 mt-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Change Benefit Option
       </button>

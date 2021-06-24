@@ -1,7 +1,7 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ToastController, LoadingController } from '@ionic/angular';
 
@@ -12,24 +12,47 @@ import { ToastController, LoadingController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loader;
+  loginForm:FormGroup;
+  text;
 
   constructor(
     private auth: AuthenticationService,
     private router: Router,
     private storage: Storage,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController
-    ) { }
+    private loadingCtrl: LoadingController,
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+    ) {
+      
+    }
 
   ngOnInit() {
+    this.initializeForm();
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      console.log(paramMap);
+      const username = paramMap.get('username');
+      console.log(username);
+      if (username) {
+        this.loginForm.patchValue({UserName: username});
+      }
+      
+    });
   }
 
-  onLogin(form: NgForm) {
-    if (form.invalid) {
-      return;
-    }
+  initializeForm() {
+    this.loginForm = this.fb.group({
+      UserName: ['', [Validators.required, Validators.minLength(5)]],
+      Password: ['', [Validators.required, Validators.minLength(5)]],
+    })
+  }
+
+  onLogin() {
     this.showLoader();
-    this.auth.logMemberIn(form.value.username, form.value.password).subscribe(async res => {
+    const username = this.loginForm.value.UserName;
+    const password = this.loginForm.value.Password;
+    console.log(username);
+    this.auth.logMemberIn(username, password).subscribe(async res => {
       console.log(res, 'ponse');
         this.loadingCtrl.dismiss();
         this.auth.memberData.next(JSON.parse(res.data));
@@ -85,7 +108,7 @@ export class LoginPage implements OnInit {
 
   async showLoader() {
     this.loader = await this.loadingCtrl.create({
-      spinner: 'lines',
+      spinner: 'circular',
       message: 'Loading',
       cssClass: 'login-spinner'
     });

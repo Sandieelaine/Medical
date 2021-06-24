@@ -28,7 +28,7 @@ export class RetrieveUsernamePage implements OnInit {
   initializeForms() {
     //Screen Mode 1
     this.checkUsernameExistsForm = this.fb.group({
-      GEMSMemberNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(13)]],
+      GEMSMemberNumber: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(13)]],
     });
     //Screen Mode 2
     this.otpForm = this.fb.group({
@@ -53,7 +53,7 @@ export class RetrieveUsernamePage implements OnInit {
       .subscribe(
         res => {
           this.isLoading = false;
-          if (res.data === true) {
+          if (JSON.parse(res.data) === true) {
 
             this.api.genericRequestOTP(payload)
               .subscribe(res => {
@@ -82,8 +82,8 @@ export class RetrieveUsernamePage implements OnInit {
     this.api.submitOTP(this.requestOTPResponse)
       .subscribe(res => {
         console.log(res);
-        if (res.data == 'valid') {
-          this.screenMode = CheckUsernameExistsStatus.GETUSERNAME;
+        if (JSON.parse(res.data) == 'valid') {
+          //this.screenMode = CheckUsernameExistsStatus.GETUSERNAME;
           this.getUsername();
         } else {
           this.helper.presentToast('OTP is invalid');
@@ -107,8 +107,7 @@ export class RetrieveUsernamePage implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.yourUserName = JSON.parse(res.data);
-        //    this.helpers.openSnackBar('Your password has been changed for username', 'Close');
-        //    this.router.navigateByUrl('/');
+        this.router.navigate(['/', 'login', this.yourUserName]);
       }, error => {
         console.log(error);
         // this.helpers.openSnackBar(error.error.Message, 'Close');
