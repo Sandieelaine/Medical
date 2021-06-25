@@ -134,14 +134,13 @@ export class SelectedOptionPage implements OnInit {
     this.showLoader();
     this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
-      this.loader.dismiss();
+      // this.loader.dismiss();
       this.helper.presentToast(
-        'Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.',
-        // 'Thank you, a service request has been created to change your Benefit Option from Ruby to Beryl To avoid duplication of work please do not submit these details more than once.',
+        `Thank you, a service request has been created to change your Benefit Option from ${this.plan} to ${this.optionTitle}. To avoid duplication of work please do not submit these details more than once.`,
         5000
       )
     }, err => {
-      this.loader.dismiss();
+      // this.loader.dismiss();
       this.helper.presentToast(
         'Failed To Change Option. Please try again!',
         5000
