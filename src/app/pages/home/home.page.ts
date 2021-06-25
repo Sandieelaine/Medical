@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
     spaceBetween: 8
   }
   testData;
+  posts;
   constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
 
 
@@ -30,7 +31,18 @@ export class HomePage implements OnInit {
     this.member = this.auth.getMember();
     console.log(this.member);
     this.loadProfile();
+    this.getNews();
     // this.startTour();
+  }
+
+  getNews() {
+    this.auth.loadNews()
+    .subscribe(res => {
+      console.log(res);
+      this.posts = res;
+    }, err => {
+      console.log(err);
+    })
   }
 
 
@@ -82,6 +94,15 @@ export class HomePage implements OnInit {
       });
       await tourAlert.present();
     //}
+  }
+
+  navigateToPost(post) {
+    if (post) {
+      this.auth.selectedNewsPost = post;
+      this.router.navigate(['/', 'home','hello'])
+    }
+    
+
   }
 
 

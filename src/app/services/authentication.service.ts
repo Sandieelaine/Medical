@@ -28,6 +28,7 @@ export class AuthenticationService {
   // url = 'http://qa.api.gems.gov.za';
   // url = 'http://qa.member.gems.local';
   selectedMember: Member;
+  selectedNewsPost;
   token: string;
   authenticationState = new BehaviorSubject(false);
   public user: Observable<any>;
@@ -333,10 +334,10 @@ reset() {
       'Authorization': `Bearer ${Token}`
     }
     );
-    return from(req).pipe(
-      // timeout(10000000)
-    );
+    return from(req);
   }
+
+  
 
   getClaimsByDate(dateFrom, dateTill, GUID, Token) {
     let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/claims?dateFrom=${dateFrom}&dateTill=${dateTill}`,
@@ -772,6 +773,10 @@ reset() {
 
   loadPreloginInformation() {
     return this.http.get('assets/json/pre-login.json')
+  }
+
+  loadNews(): Observable<any[]> {
+    return this.http.get<any[]>('assets/json/news.json')
   }
 
 

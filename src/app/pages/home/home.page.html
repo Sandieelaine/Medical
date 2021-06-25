@@ -188,7 +188,7 @@
       <ion-row>
         <ion-col col-12 class="ion-no-padding">
           <ion-slides [options]="exploreOpt">
-            <ion-slide>
+            <ion-slide *ngFor="let post of posts" (click)="navigateToPost(post)">
               <div class="shadow-md bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">
                   <div class="rainbow" style="width: 70%; bottom: 0px;">
@@ -203,18 +203,18 @@
                     <div></div>
                     <div></div>
                   </div>
-                  <div style="height: 150px width: 100%; position: relative;">
-                    <img class="object-cover w-full" src="assets/img/tanzanite1.png" alt="">
+                  <div>
+                    <img style="height: 100px;" class="object-cover w-full" [src]="'assets/img/_' + post?.id +'.jpg'" alt="">
                   </div>
 
                 </div>
                 <div class="text-gray-800 dark:text-dark-modegraylight flex p-2">
-                  <span class="font-semibold text-sm">News</span>
+                  <span class="font-semibold text-sm">{{post?.title}}</span>
                 </div>
               </div>
             </ion-slide>
 
-            <ion-slide>
+            <!-- <ion-slide>
               <div class="shadow-sm bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">
                   <div class="rainbow" style="width: 70%; bottom: 0px;">
@@ -265,7 +265,7 @@
                   <span class="font-semibold text-sm">News</span>
                 </div>
               </div>
-            </ion-slide>
+            </ion-slide> -->
 
 
 
