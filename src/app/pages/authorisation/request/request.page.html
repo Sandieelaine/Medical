@@ -60,9 +60,9 @@
           <ion-icon color="primary" name="person"></ion-icon>
         </ion-button>
       </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('ProcedureDescription', 'required')">Procedure
+      <!-- <div class="text-xs text-red-600 block" *ngIf="errorHandling('ProcedureDescription', 'required')">Procedure
         Description is required
-      </div>
+      </div> -->
 
 
 
@@ -88,21 +88,27 @@
           </ion-button>
         </ion-item>
   
+  
         <ion-item lines="none">
           <ion-label position="stacked">Practice Number</ion-label>
+          <ion-input type="number" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="call"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Contact Number</ion-label>
           <ion-input type="text" name="ContactNumber" formControlName="ContactNumber"></ion-input>
           <ion-button fill="clear" slot="end">
             <ion-icon color="primary" name="id-card"></ion-icon>
           </ion-button>
         </ion-item>
-  
-        <ion-item lines="none">
-          <ion-label position="stacked">Contact Number</ion-label>
-          <ion-input type="text" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
-          <ion-button fill="clear" slot="end">
-            <ion-icon color="primary" name="call"></ion-icon>
-          </ion-button>
-        </ion-item>
+        <!-- <div class="text-xs text-red-600 block" *ngIf="errorHandling('ContactNumber', 'required')">Cell Number is
+          required</div>
+        <div class="text-xs text-red-600 block" *ngIf="errorHandling('ContactNumber', 'minlength')">Please enter a valid
+          cell number</div> -->
       </div>
 
       
@@ -131,7 +137,7 @@
 
       <ion-item lines="none">
         <ion-label position="stacked">Duration Of Stay</ion-label>
-        <ion-input type="text" name="HospDuration" formControlName="HospDuration"></ion-input>
+        <ion-input type="number" name="HospDuration" formControlName="HospDuration"></ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="call"></ion-icon>
         </ion-button>
@@ -145,7 +151,7 @@
         </ion-button>
       </ion-item>
 
-      <button (click)="submitPreAuthRequest()"
+      <button [disabled]="authorizationForm.invalid" (click)="submitPreAuthRequest()"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Submit
       </button>

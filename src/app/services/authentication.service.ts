@@ -857,7 +857,7 @@ reset() {
   }
 
   requestAuthorisation(payload, GUID, Token) {
-    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/Authorisations/RequestAuthorisation`,
+    let req = this.httpNative.post(`${this.url}/api/v1/Members/${GUID}/Authorisations/RequestAuthorisation`,
     payload,
     {
       'Authorization': `Bearer ${Token}`

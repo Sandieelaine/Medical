@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -16,7 +17,7 @@ export class RequestPage implements OnInit {
   profile:FullMember = null;
   MemberImage;
 
-  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService) { }
+  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -30,13 +31,13 @@ export class RequestPage implements OnInit {
       HospName: ['', Validators.required],
       HospDuration: ['', Validators.required],
       AdmissionDate: ['', Validators.required],
-      AdmissionReason: '',
+      AdmissionReason: ['', Validators.required],
       ProcedureDescription: [''],
       ProcedureDoctor: this.fb.group({
-        Name:  [''],
-        Surname:  [''],
-        ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-        PracticeNumber: [''],
+        Name:  ['', Validators.required],
+        Surname:  ['', Validators.required],
+        ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
+        PracticeNumber: ['', Validators.required],
       })
     });
   }
@@ -64,16 +65,45 @@ export class RequestPage implements OnInit {
   };
 
   public errorHandling = (control: string, error: string) => {
-    console.log(this.authorizationForm.controls[control]);
-    if (this.authorizationForm.controls[control].touched && this.authorizationForm.controls[control].dirty) {
+    if (this.authorizationForm.touched && this.authorizationForm.dirty) {
       return this.authorizationForm.controls[control].hasError(error);
     }
   }
 
   submitPreAuthRequest() {
     console.log(this.authorizationForm.value);
-    return;
+    this.showLoader();
     this.api.requestAuthorisation(this.authorizationForm.value, this.member.MemberGuid, this.member.access_token)
+    .subscribe(res => {
+      this.checkAndCloseLoader();
+      if(JSON.parse(res.data) === true) {
+        console.log(true);
+        this.helpers.presentToast('Authorisation submitted successfully.');
+      }
+      console.log(res);
+    }, err => {
+      this.checkAndCloseLoader();
+      this.helpers.presentToast('Authorisation submission failed.');
+      console.log(err)
+    })
+  }
+
+  async checkAndCloseLoader() {
+    // Use getTop function to find the loader and dismiss only if loader is present.
+    const loader = await this.loadingCtrl.getTop();
+    // if loader present then dismiss
+     if(loader !== undefined) { 
+       await this.loadingCtrl.dismiss();
+     }
+   }
+
+   async showLoader() {
+    let loaderFunc = await this.loadingCtrl.create({
+      spinner: 'circular',
+      message: 'Loading',
+      cssClass: 'login-spinner'
+    });
+    await loaderFunc.present();
   }
 
 }
