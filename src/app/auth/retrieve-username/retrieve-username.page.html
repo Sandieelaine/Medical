@@ -22,7 +22,7 @@
   style="position: absolute; width: 100%; top: 55px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
 </div>
 
-<ion-content>
+<ion-content class="ion-padding">
   <!-- SCREEM MODE 1-->
   <div *ngIf="screenMode === 0">
 
@@ -46,7 +46,7 @@
 
       <button [disabled]="checkUsernameExistsForm.invalid"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
-        Reset Password
+        Retrieve Username
       </button>
 
     </form>

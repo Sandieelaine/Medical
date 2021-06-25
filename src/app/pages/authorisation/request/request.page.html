@@ -70,38 +70,42 @@
         Doctor handling the procedure
       </div>
 
-      <ion-item lines="none" formGroupName="ProcedureDoctor">
-        <ion-label position="stacked">Doctor Name</ion-label>
-        <ion-input type="text" name="Name" formControlName="Name"></ion-input>
-        <ion-button fill="clear" slot="end">
-          <ion-icon color="primary" name="person"></ion-icon>
-        </ion-button>
-      </ion-item>
+      <div formGroupName="ProcedureDoctor">
+        <ion-item lines="none">
+          <ion-label position="stacked">Doctor Name</ion-label>
+          <ion-input type="text" name="Name" formControlName="Name"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="person"></ion-icon>
+          </ion-button>
+        </ion-item>
+        
+  
+        <ion-item lines="none">
+          <ion-label position="stacked">Doctor Surname</ion-label>
+          <ion-input type="text" name="Surname" formControlName="Surname"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="person"></ion-icon>
+          </ion-button>
+        </ion-item>
+  
+        <ion-item lines="none">
+          <ion-label position="stacked">Practice Number</ion-label>
+          <ion-input type="text" name="ContactNumber" formControlName="ContactNumber"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="id-card"></ion-icon>
+          </ion-button>
+        </ion-item>
+  
+        <ion-item lines="none">
+          <ion-label position="stacked">Contact Number</ion-label>
+          <ion-input type="text" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="call"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+
       
-
-      <ion-item lines="none" formGroupName="ProcedureDoctor">
-        <ion-label position="stacked">Doctor Surname</ion-label>
-        <ion-input type="text" name="Surname" formControlName="Surname"></ion-input>
-        <ion-button fill="clear" slot="end">
-          <ion-icon color="primary" name="person"></ion-icon>
-        </ion-button>
-      </ion-item>
-
-      <ion-item lines="none" formGroupName="ProcedureDoctor">
-        <ion-label position="stacked">Practice Number</ion-label>
-        <ion-input type="text" name="ContactNumber" formControlName="ContactNumber"></ion-input>
-        <ion-button fill="clear" slot="end">
-          <ion-icon color="primary" name="id-card"></ion-icon>
-        </ion-button>
-      </ion-item>
-
-      <ion-item lines="none" formGroupName="ProcedureDoctor">
-        <ion-label position="stacked">Contact Number</ion-label>
-        <ion-input type="text" name="PracticeNumber" formControlName="PracticeNumber"></ion-input>
-        <ion-button fill="clear" slot="end">
-          <ion-icon color="primary" name="call"></ion-icon>
-        </ion-button>
-      </ion-item>
 
 
       <div style="background-color: #eee;" class="p-2 text-black rounded my-2 font-semibold">
@@ -141,7 +145,7 @@
         </ion-button>
       </ion-item>
 
-      <button [disabled]="authorizationForm.invalid" (click)="submitPreAuthRequest()"
+      <button (click)="submitPreAuthRequest()"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Submit
       </button>

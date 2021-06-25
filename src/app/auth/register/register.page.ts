@@ -80,11 +80,9 @@ export class RegisterPage implements OnInit {
     this.registrationForm.value.Platform = 'Member Portal';
     // @TODO Refractor code below
     this.registrationForm.value.Referral = this.registrationForm.value.Referrals;
-    //this.isLoading = true;
     this.api.sendOTP(this.registrationForm.value)
       .subscribe(res => {
         console.log(res);
-        // this.isLoading = false;
         this.registrationResponse = JSON.parse(res.data);
         this.screenMode = RegistrationStatus.VERIFICATION;
       }, error => {
@@ -97,12 +95,14 @@ export class RegisterPage implements OnInit {
     this.registrationResponse.OTPPin = this.otpForm.value.OTPPin;
     console.log(this.registrationForm.value);
 
-    //this.isLoading = true;
     this.api.submitOTP(this.registrationResponse)
       .subscribe(res => {
         // console.log(res);
         if (JSON.parse(res.data) === 'valid') {
           console.log('Valid confirmed');
+          
+          // const fakeValue = {"UserName":"kevin2021","CellphoneNumber":"0622037228","Password":"Password@1","ConfirmPassword":"Password@1","GEMSMemberNumber":"721316","MemberIDNumber":"7407030854087","Referrals":{"ID":"a2d2d100-8885-ea11-8143-00155d04d419","Description":"GEMS Website","$$hashKey":"object:143"},"Platform":"Member Portal","Referral":{"ID":"a2d2d100-8885-ea11-8143-00155d04d419","Description":"GEMS Website","$$hashKey":"object:143"}};
+          // this.api.register(fakeValue)
           this.api.register(this.registrationForm.value)
             .subscribe(response => {
               console.log(res);

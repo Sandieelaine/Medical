@@ -470,10 +470,11 @@ reset() {
   }
 
   register(registrationData: RegisterMember) {
+    this.httpNative.setDataSerializer("json");
     let req = this.httpNative.post(`${this.url}/api/v1/Auth/Register`,
     registrationData,
     {
-      // "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/json"
     })
     return from(req);
   }
@@ -960,6 +961,16 @@ reset() {
     {
       'Authorization': `Bearer ${Token}`
     });
+    return from(req);
+  }
+
+  updateMemberPersonalInfo(payload, GUID, Token) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
     return from(req);
   }
 

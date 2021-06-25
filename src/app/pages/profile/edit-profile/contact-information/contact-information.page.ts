@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { Member, MemberContactInformation } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
@@ -14,7 +15,7 @@ export class ContactInformationPage implements OnInit {
   member:Member = null;
   memberContactInformation:MemberContactInformation;
 
-  constructor(private api: AuthenticationService, private fb: FormBuilder, private helpers:HelpersService) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder, private helpers:HelpersService, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -27,20 +28,23 @@ export class ContactInformationPage implements OnInit {
   }
 
   getMemberContactInformation = () => {
+    // this.showLoadingIndicator();
     this.api.getMemberContactInformation(this.member.MemberGuid, this.member.access_token)
       .subscribe(res => {
+        // this.loadingCtrl.dismiss();
         console.log(res);
         this.memberContactInformation = JSON.parse(res.data);
         // console.log(res);
       }, err => {
+        // this.loadingCtrl.dismiss();
         console.log(err);
       });
   };
 
   initializeMemberContactInfo = () => {
     this.MemberContactInfoForm = this.fb.group({
-      BeneficiaryID: ['', [Validators.required]],
-      WorkNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      BeneficiaryID: [''],
+      WorkNumber: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       CellphoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       TelNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       FaxNumber: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
@@ -66,12 +70,15 @@ export class ContactInformationPage implements OnInit {
   updateMemberContactInformation = (form: any) => {
     this.MemberContactInfoForm.value.BeneficiaryID = this.member.MemberGuid;
     const payload = this.MemberContactInfoForm.value;
+    this.showLoadingIndicator();
     this.api.updateMemberContactInformation(payload, this.member.MemberGuid, this.member.access_token)
       .subscribe(
         res => {
+          this.loadingCtrl.dismiss();
           this.helpers.presentToast('Profile updated successfully. Thank you, a service request has been created to update your delivery address. To avoid duplication of work please do not submit these details more than once. Your updated details will be available within 48 hours.');
 
         }, err => {
+          this.loadingCtrl.dismiss();
           console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
           this.helpers.presentToast('Please review all highlighted fields.');
         }
@@ -108,6 +115,10 @@ export class ContactInformationPage implements OnInit {
     // console.log(this.MemberContactInfoForm.controls)
     // return this.MemberContactInfoForm.controls[control].hasError(error);
   };
+
+  showLoadingIndicator() {
+    this.helpers.showLoader();
+  }
 
 
 }

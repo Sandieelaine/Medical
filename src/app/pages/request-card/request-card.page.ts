@@ -26,6 +26,7 @@ export class RequestCardPage implements OnInit {
   }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.getOptions();
   }
 

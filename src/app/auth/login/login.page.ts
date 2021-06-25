@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
   initializeForm() {
     this.loginForm = this.fb.group({
       UserName: ['', [Validators.required, Validators.minLength(5)]],
-      Password: ['', [Validators.required, Validators.minLength(5)]],
+      Password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')]]
     })
   }
 
@@ -54,22 +54,31 @@ export class LoginPage implements OnInit {
     console.log(username);
     this.auth.logMemberIn(username, password).subscribe(async res => {
       console.log(res, 'ponse');
-        this.loadingCtrl.dismiss();
+      this.checkAndCloseLoader();
+        // this.loadingCtrl.dismiss();
         this.auth.memberData.next(JSON.parse(res.data));
         console.log('Logged In')
         this.router.navigateByUrl('/pre-home', {replaceUrl: true});
 
     }, err => {
+      this.checkAndCloseLoader();
+      // this.loadingCtrl.dismiss();
       console.log(err.error);
-      this.loadingCtrl.dismiss();
-      if (err.error.length > 40) {
-        this.showToast('Failed to login')
-      } else if (err.error.length > 40) {
+      // this.loadingCtrl.dismiss();
         this.showToast(JSON.parse(err.error).error_description, 5000);
-      }
+
       
     });
   }
+
+  async checkAndCloseLoader() {
+    // Use getTop function to find the loader and dismiss only if loader is present.
+    const loader = await this.loadingCtrl.getTop();
+    // if loader present then dismiss
+     if(loader !== undefined) { 
+       await this.loadingCtrl.dismiss();
+     }
+   }
 
   // Login(form: NgForm) {
   //   if (form.invalid) {
@@ -114,5 +123,11 @@ export class LoginPage implements OnInit {
     });
     this.loader.present();
   }
+
+  public errorHandling = (control: string, error: string) => {
+    if(this.loginForm.get(control).touched) {
+      return this.loginForm.controls[control].hasError(error);
+    } 
+  };
 
 }

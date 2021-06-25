@@ -31,12 +31,12 @@ export class RequestPage implements OnInit {
       HospDuration: ['', Validators.required],
       AdmissionDate: ['', Validators.required],
       AdmissionReason: '',
-      ProcedureDescription: ['', Validators.required],
+      ProcedureDescription: [''],
       ProcedureDoctor: this.fb.group({
-        Name:  ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
-        Surname:  ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
+        Name:  [''],
+        Surname:  [''],
         ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-        PracticeNumber: ['', Validators.required],
+        PracticeNumber: [''],
       })
     });
   }

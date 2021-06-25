@@ -5,7 +5,7 @@ import { Member, MemberDropdownOptions } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { Plugins, CameraResultType } from '@capacitor/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 const { Camera } = Plugins;
 
 @Component({
@@ -27,7 +27,7 @@ export class PersonalInformationPage implements OnInit {
   maritalStatusArray!: MemberDropdownOptions['MaritalStatusOptions'];
   genderArray!: MemberDropdownOptions['GenderOptions'];
 
-  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService, private alertCtrl: AlertController) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -37,22 +37,25 @@ export class PersonalInformationPage implements OnInit {
   }
 
   getMemberProfile() {
+    this.showLoadingIndicator();
     this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
+      this.loadingCtrl.dismiss();
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       // console.log(this.profile);
     }, err => {
+      this.loadingCtrl.dismiss();
       // console.log(err);
     });
   }
 
   initializePersonalInfo = () => {
     this.personalInformationForm = this.fb.group({
-      isChangePlanAvailable: [true, [Validators.required]],
-      optionChangeEvoOnly: [false, [Validators.required]],
+      isChangePlanAvailable: [true],
+      optionChangeEvoOnly: [false],
       ProgramName: null,
       MemberStateCode: [''],
-      BeneficiaryID: ['', [Validators.required]],
+      BeneficiaryID: [''],
       MemberIDNo: ['', [Validators.minLength(13), Validators.maxLength(13)]],
       Gender: '',
       DOB: '',
@@ -61,8 +64,8 @@ export class PersonalInformationPage implements OnInit {
       EmailAddress: ['', [Validators.email]],
       FirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
       LastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]],
-      MemberTitle: ['', [Validators.email]],
-      MemberMaritalStatus: ['', [Validators.email]],
+      MemberTitle: ['', [Validators.required]],
+      MemberMaritalStatus: ['', [Validators.required]],
       // MemberTitle: this.fb.control({
       //   ID: '',
       //   Description: '',
@@ -79,19 +82,22 @@ export class PersonalInformationPage implements OnInit {
   };
 
   updateMemberPersonalInfo = (form: any) => {
+    this.showLoadingIndicator();
     // this.personalInformationForm.value.BeneficiaryID = this.memberGUID;
 
     const payload = this.personalInformationForm.value;
-    // this.api.updateMemberPersonalInfo(payload)
-    //   .subscribe(
-    //     res => {
-    //       this.helper.presentToast('Profile updated successfully. Thank you, a service request has been created to update your delivery address. To avoid duplication of work please do not submit these details more than once. Your updated details will be available within 48 hours.');
+    this.api.updateMemberPersonalInfo(payload, this.member.MemberGuid, this.member.access_token)
+      .subscribe(
+        res => {
+          this.loadingCtrl.dismiss();
+          this.helper.presentToast('Profile updated successfully. Thank you, a service request has been created to update your delivery address. To avoid duplication of work please do not submit these details more than once. Your updated details will be available within 48 hours.');
 
-    //     }, err => {
-    //       console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
-    //       this.helper.presentToast('Please review all highlighted fields.');
-    //     }
-    //   );
+        }, err => {
+          this.loadingCtrl.dismiss();
+          console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
+          this.helper.presentToast('Please review all highlighted fields.');
+        }
+      );
   };
 
   public personalInformationFormErrorHandling = (control: string, error: string) => {
@@ -124,8 +130,6 @@ export class PersonalInformationPage implements OnInit {
         quality: 90,
         allowEditing: false,
         resultType: CameraResultType.Base64,
-
-
       });
       console.log(image);
       this.base64String = 'data:image/png;base64,' + image.base64String;
@@ -181,6 +185,10 @@ export class PersonalInformationPage implements OnInit {
         ]
       });
       await tourAlert.present();
+  }
+
+  showLoadingIndicator() {
+    this.helper.showLoader();
   }
 
     

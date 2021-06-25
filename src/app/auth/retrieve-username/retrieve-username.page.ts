@@ -117,15 +117,21 @@ export class RetrieveUsernamePage implements OnInit {
   };
 
   public checkUsernameExistsFormErrorHandling = (control: string, error: string) => {
-    return this.checkUsernameExistsForm.controls[control].hasError(error);
+    if(this.checkUsernameExistsForm.touched) {
+      return this.checkUsernameExistsForm.controls[control].hasError(error);
+    }
   };
 
   public otpErrorHandling = (control: string, error: string) => {
-    return this.otpForm.controls[control].hasError(error);
+    if(this.otpForm.touched) {
+      return this.otpForm.controls[control].hasError(error);
+    }
   };
 
   public getUsernameErrorHandling = (control: string, error: string) => {
-    return this.getUsernameForm.controls[control].hasError(error);
+    if(this.getUsernameForm.touched) {
+      return this.getUsernameForm.controls[control].hasError(error);
+    }
   };
 
 

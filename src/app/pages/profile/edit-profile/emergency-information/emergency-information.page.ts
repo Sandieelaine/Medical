@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { Member } from 'src/app/models/member.model';
 import { MemberEmergencyContactInfo } from 'src/app/models/update_profile.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -15,7 +16,7 @@ export class EmergencyInformationPage implements OnInit {
   emergencyContactInfoForm!: FormGroup;
   member:Member;
 
-  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService) { }
+  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -65,11 +66,14 @@ export class EmergencyInformationPage implements OnInit {
 
   updateEmergencyContactInfo = (form: any) => {
     const payload = this.emergencyContactInfoForm.value;
+    this.showLoadingIndicator();
     this.api.updateMemberEmergencyContactInfo(payload, this.member.MemberGuid, this.member.access_token)
       .subscribe(
         res => {
-          this.helpers.presentToast('Emergency Contact Information successfully');
+          this.loadingCtrl.dismiss();
+          this.helpers.presentToast('Emergency Contact Information updated successfully');
         }, err => {
+          this.loadingCtrl.dismiss();
           console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
           this.helpers.presentToast('Please review all highlighted fields.');
         }
@@ -85,5 +89,9 @@ export class EmergencyInformationPage implements OnInit {
     // console.log(this.MemberContactInfoForm.controls)
     // return this.MemberContactInfoForm.controls[control].hasError(error);
   };
+
+  showLoadingIndicator() {
+    this.helpers.showLoader();
+  }
 
 }

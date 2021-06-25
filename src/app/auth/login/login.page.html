@@ -33,30 +33,33 @@
             </ion-button>
           </ion-item>
 
+          <div class="text-red-600 text-xs mb-1" *ngIf="errorHandling('UserName', 'required')">Username is required</div>
+
+          
+
           <!-- <span class="error-msg text-xs" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter
             a valid username</span>
           <div style="height: 5px"></div> -->
 
           <ion-item lines="none">
-            <ion-input placeholder="Password" name="Password" formControlName="Password"></ion-input>
+            <ion-input type="password" placeholder="Password" name="Password" formControlName="Password"></ion-input>
             <ion-button slot="end" fill="clear">
               <ion-icon color="primary" name="key-outline"></ion-icon>
             </ion-button>
           </ion-item>
 
+          <div class="text-red-600 text-xs mb-1" *ngIf="errorHandling('Password', 'required')">Password is required</div>
+          <div class="text-red-600 text-xs mb-1" *ngIf="errorHandling('Password', 'pattern')">Password must be at least 8 characters containing a
+            least a capital letter, a number and a special character (e.g #,!,@).
+          </div>
+
           <button [disabled]="loginForm.invalid" class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
             Sign In
           </button>
 
-          <!-- <ion-button id="signIn" [disabled]="loginForm.invalid" shape="round" type="submit" color="primary" expand="full">Sign In</ion-button> -->
         </form>
 
-        <!-- <div id="signFooterLinks">
-          <span routerLink="/forgot-password" class="text-xs">Forgot Password</span>
-          <span>|</span>
-          <span routerLink="/register" class="text-xs">Register</span>
-          <span routerLink="/retrieve-username" class="text-xs">Retrieve Username</span>
-        </div> -->
+
 
         <div class="flex mt-4 px-2">
           <div class="w-1/2 flex justify-start">
