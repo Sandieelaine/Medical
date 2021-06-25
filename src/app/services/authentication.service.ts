@@ -418,16 +418,15 @@ reset() {
   }
 
   changeToEVOOption(payload, option, GUID, Token) {
-    // http://dev.api.gems.local/api/v1/Members/e9f66d2f-ea15-e611-80d0-00155d8ec705/TanzaniteChangeOptionInfo
+    this.httpNative.setDataSerializer("json");
     let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/${option}`,
     payload,
     {
-      'Authorization': `Bearer ${Token}`
+      "Authorization": `Bearer ${Token}`,
+      "Content-Type": "application/json"
     }
     );
-    return from(req).pipe(
-      // timeout(10000)
-    );
+    return from(req);
   }
 
   // ************************************  Change Option *******************************//

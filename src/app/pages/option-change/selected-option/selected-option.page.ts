@@ -181,12 +181,12 @@ export class SelectedOptionPage implements OnInit {
       }
     }
 
-    //this.showLoader();
+    
 
     // var key = "Cow";
     // delete thisIsObject[key];
 
-    delete this.optionChangePayload.Dependants;
+    // delete this.optionChangePayload.Dependants;
     
     
     //console.log(this.optionChangeForm.status)
@@ -206,14 +206,16 @@ export class SelectedOptionPage implements OnInit {
     console.log(selectedOption);
     console.log(this.optionChangePayload);
 
+    this.showLoader();
+
     this.api.changeToEVOOption(this.optionChangePayload, selectedOption, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
+      this.checkAndCloseLoader();
       console.log(res);
-      this.loader.dismiss();
-      this.helper.presentToast('Thank you, a service request has been created to change your Benefit Option. To avoid duplication of work please do not submit these details more than once.');
+      this.helper.presentToast(`Thank you, a service request has been created to change your Benefit Option from ${this.plan} to ${this.optionTitle}. To avoid duplication of work please do not submit these details more than once.`);
     }, err => {
+      this.checkAndCloseLoader();
       console.log(err);
-      this.loader.dismiss();
       this.helper.presentToast('Failed To Change Option. Please Try Again');
     });
   }
@@ -331,13 +333,23 @@ selectDependantPractitioner(data, index) {
 }
 
 
-async showLoader() {
-  this.loader = await this.loadingCtrl.create({
-    spinner: 'lines',
+async checkAndCloseLoader() {
+  // Use getTop function to find the loader and dismiss only if loader is present.
+  const loader = await this.loadingCtrl.getTop();
+  // if loader present then dismiss
+   if(loader !== undefined) { 
+     await this.loadingCtrl.dismiss();
+   }
+ }
+
+ async showLoader() {
+  let loaderFunc = await this.loadingCtrl.create({
+    spinner: 'circular',
     message: 'Loading',
-    cssClass: 'login-spinner'
+    cssClass: 'login-spinner',
+    duration: 3000
   });
-  this.loader.present();
+  await loaderFunc.present();
 }
 
 async showAlert() {
