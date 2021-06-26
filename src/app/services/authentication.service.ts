@@ -991,22 +991,22 @@ reset() {
   }
 
 
-  
+  getMemberCommunicationPreferences(GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/CommunicationPreferences/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    });
+    return from(req);
+  }
 
-  
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
+  getStandardCommunicationPreferences(Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/GetCommumicationPreferenceOptions/`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    });
+    return from(req);
+  }
 
 }

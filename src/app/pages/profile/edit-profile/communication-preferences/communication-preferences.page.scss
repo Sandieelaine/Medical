@@ -1,0 +1,30 @@
+ion-content {
+    --background: transparent;
+    background: #f4f4f4;
+}
+.input-area {
+    ion-item {
+        margin-bottom: 5px;
+        border-radius: 10px;
+        border: 1px solid #eeeeee;
+    }
+    
+    ion-input {
+        --padding-top: 15px;
+        --padding-bottom: 15px;
+    }
+    
+    ion-button {
+        height: 60px;
+    }
+}
+
+
+// Dark Mode Styling
+@media (prefers-color-scheme: dark) {
+    ion-item {
+        margin-bottom: 5px;
+        border-radius: 10px;
+        border: 1px solid #000 !important;
+    }
+}

@@ -23,5 +23,131 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- COMMUNICATION INFORMATION TAB-->
+  <form [formGroup]="communicationPreferencesForm" class="mt-2">
 
+    <div class="input-area" formGroupName="Language">
+      <ion-item lines="none">
+        <ion-label position="stacked">Language</ion-label>
+        <ion-select [selectedText]="communicationPreferencesForm.value.Language.Description" [value]='memberCommunicationPreferences?.Language' formControlName="Description" okText="Okay"
+          cancelText="Dismiss">
+          <ion-select-option *ngFor="let language of languagesArray" [value]="language.Description" name="Referrals">
+            {{language.Description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(communicationPreferencesFormControl.Language.get('Description').dirty || communicationPreferencesFormControl.Language.get('Description').touched) && communicationPreferencesFormControl.Language.get('Description').errors?.required">
+        Language is required</div>
+    </div>
+
+    <div>
+      <span class="block text-black text-sm font-semibold pb-2">Statements</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateStatements($event)" formControlName="Statements">
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Email</ion-label>
+            <ion-radio [value]="'Email'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-icon name="mail-open-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>SMS</ion-label>
+            <ion-radio [value]="'SMS'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Post</ion-label>
+            <ion-radio [value]="'Post'"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+    </div>
+
+
+    <div>
+      <span class="block text-black text-sm font-semibold pb-2 pt-2">Claim Information</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateClaimInformation($event)" formControlName="ClaimInformation">
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Email</ion-label>
+            <ion-radio [value]="'Email'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-icon name="mail-open-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>SMS</ion-label>
+            <ion-radio [value]="'SMS'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Post</ion-label>
+            <ion-radio [value]="'Post'"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <div>
+      <span class="block text-black text-sm font-semibold pb-2 pt-2">Annual Option Change</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateAnnualOptionChange($event)" formControlName="AnnualOptionChange">
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Email</ion-label>
+            <ion-radio [value]="'Email'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-icon name="mail-open-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>SMS</ion-label>
+            <ion-radio [value]="'SMS'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Post</ion-label>
+            <ion-radio [value]="'Post'"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <div>
+      <span class="block text-black text-sm font-semibold pb-2 pt-2">Newsletter</span>
+      <div class="rounded overflow-hidden bg-white">
+        <ion-radio-group (ionChange)="onUpdateNewsletter($event)" formControlName="Newsletter">
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Email</ion-label>
+            <ion-radio [value]="'Email'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md">
+            <ion-icon name="mail-open-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>SMS</ion-label>
+            <ion-radio [value]="'SMS'"></ion-radio>
+          </ion-item>
+          <ion-item mode="md" lines="none">
+            <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
+            <ion-label>Post</ion-label>
+            <ion-radio [value]="'Post'"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    </div>
+
+
+    <!-- <div class="w-full flex justify-end">
+      <button type="submit" (click)='updateCommunicationPreferences(communicationPreferencesForm)'
+        class="ml-auto inline-flex items-center justify-center md:mx-2  px-12 py-3 mb-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+        SAVE
+      </button>
+    </div> -->
+
+    <button (click)='updateCommunicationPreferences(communicationPreferencesForm)' [disabled]="communicationPreferencesForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+        Save
+      </button>
+  </form>
+  <!--/ COMMUNICATION INFORMATION TAB-->
 </ion-content>

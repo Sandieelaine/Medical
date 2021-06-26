@@ -32,14 +32,18 @@ export class RequestPage implements OnInit {
       HospDuration: ['', Validators.required],
       AdmissionDate: ['', Validators.required],
       AdmissionReason: ['', Validators.required],
-      ProcedureDescription: [''],
+      ProcedureDescription: ['', Validators.required],
       ProcedureDoctor: this.fb.group({
         Name:  ['', Validators.required],
         Surname:  ['', Validators.required],
-        ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
+        ContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)]],
         PracticeNumber: ['', Validators.required],
       })
     });
+  }
+
+  get authorizationFormControl() {
+    return this.authorizationForm.controls;
   }
 
   loadProfile() {

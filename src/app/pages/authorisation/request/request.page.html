@@ -52,6 +52,9 @@
             {{title.name}}</ion-select-option>
         </ion-select>
       </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.AuthType.dirty || authorizationFormControl.AuthType.touched) && authorizationFormControl.AuthType.errors?.required">Auth Type is
+        required</div>
 
       <ion-item lines="none">
         <ion-label position="stacked">Procedure Description or Diagnosis</ion-label>
@@ -63,6 +66,9 @@
       <!-- <div class="text-xs text-red-600 block" *ngIf="errorHandling('ProcedureDescription', 'required')">Procedure
         Description is required
       </div> -->
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.ProcedureDescription.dirty || authorizationFormControl.ProcedureDescription.touched) && authorizationFormControl.ProcedureDescription.errors?.required">Procedure Description or Diagnosis is
+        required</div>
 
 
 
@@ -78,6 +84,8 @@
             <ion-icon color="primary" name="person"></ion-icon>
           </ion-button>
         </ion-item>
+        <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.ProcedureDoctor.get('Name').dirty || authorizationFormControl.ProcedureDoctor.get('Name').touched) && authorizationFormControl.ProcedureDoctor.get('Name').errors?.required">Doctor Name is required</div>
         
   
         <ion-item lines="none">
@@ -87,6 +95,7 @@
             <ion-icon color="primary" name="person"></ion-icon>
           </ion-button>
         </ion-item>
+        <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(authorizationFormControl.ProcedureDoctor.get('Surname').dirty || authorizationFormControl.ProcedureDoctor.get('Surname').touched) && authorizationFormControl.ProcedureDoctor.get('Surname').errors?.required">Doctor Surname is required</div>
   
   
         <ion-item lines="none">
@@ -96,6 +105,7 @@
             <ion-icon color="primary" name="call"></ion-icon>
           </ion-button>
         </ion-item>
+        <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(authorizationFormControl.ProcedureDoctor.get('PracticeNumber').dirty || authorizationFormControl.ProcedureDoctor.get('PracticeNumber').touched) && authorizationFormControl.ProcedureDoctor.get('PracticeNumber').errors?.required">Practice Number is required</div>
 
 
         <ion-item lines="none">
@@ -105,10 +115,8 @@
             <ion-icon color="primary" name="id-card"></ion-icon>
           </ion-button>
         </ion-item>
-        <!-- <div class="text-xs text-red-600 block" *ngIf="errorHandling('ContactNumber', 'required')">Cell Number is
-          required</div>
-        <div class="text-xs text-red-600 block" *ngIf="errorHandling('ContactNumber', 'minlength')">Please enter a valid
-          cell number</div> -->
+        <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(authorizationFormControl.ProcedureDoctor.get('ContactNumber').dirty || authorizationFormControl.ProcedureDoctor.get('ContactNumber').touched) && authorizationFormControl.ProcedureDoctor.get('ContactNumber').errors?.required">Contact Number is required</div>
+        <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(authorizationFormControl.ProcedureDoctor.get('ContactNumber').dirty || authorizationFormControl.ProcedureDoctor.get('ContactNumber').touched) && authorizationFormControl.ProcedureDoctor.get('ContactNumber').errors?.minlength">Please enter a valid cell number</div>
       </div>
 
       
@@ -125,6 +133,9 @@
           <ion-icon color="primary" name="person"></ion-icon>
         </ion-button>
       </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.HospName.dirty || authorizationFormControl.HospName.touched) && authorizationFormControl.HospName.errors?.required">Hospital Name is
+        required</div>
 
       <ion-item lines="none">
         <ion-label position="stacked">Admission Date</ion-label>
@@ -133,6 +144,9 @@
           <ion-icon color="primary" name="calendar"></ion-icon>
         </ion-button>
       </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.AdmissionDate.dirty || authorizationFormControl.AdmissionDate.touched) && authorizationFormControl.AdmissionDate.errors?.required">Admission Date is
+        required</div>
 
 
       <ion-item lines="none">
@@ -142,6 +156,9 @@
           <ion-icon color="primary" name="call"></ion-icon>
         </ion-button>
       </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.HospDuration.dirty || authorizationFormControl.HospDuration.touched) && authorizationFormControl.HospDuration.errors?.required">Hospital Duration is
+        required</div>
 
       <ion-item lines="none">
         <ion-label position="stacked">Admission Reason</ion-label>
@@ -150,6 +167,9 @@
           <ion-icon color="primary" name="person"></ion-icon>
         </ion-button>
       </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(authorizationFormControl.AdmissionReason.dirty || authorizationFormControl.AdmissionReason.touched) && authorizationFormControl.AdmissionReason.errors?.required">Admission Reason is
+        required</div>
 
       <button [disabled]="authorizationForm.invalid" (click)="submitPreAuthRequest()"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
