@@ -886,6 +886,18 @@ reset() {
     return from(req);
   }
 
+  submitSuggestionsOrImprovements(payload, GUID, Token) {
+    this.httpNative.setDataSerializer("json");
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/suggestionsOrImprovements`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`,
+      "Content-Type": "application/json"
+    }
+    );
+    return from(req);
+  }      
+
   
 
   submitSurveyFeedback(payload, GUID, Token) {

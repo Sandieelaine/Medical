@@ -43,14 +43,15 @@ export class RegisterPage implements OnInit {
 
     this.registrationForm = this.fb.group({
       UserName: ['', [Validators.required, Validators.minLength(6)]], // Username must not contain any spaces
-      CellphoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
-      Password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')]],
-      ConfirmPassword: ['', [Validators.required], Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')],
+      CellphoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      // Password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')]],
+      Password: ['', Validators.compose([Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w+\\s+]).{8,}$')])],
+      ConfirmPassword: ['', [Validators.required]],
       GEMSMemberNumber: ['', Validators.required],
       MemberIDNumber: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       Referrals: ['', Validators.required],
     }, {
-      //validator: this.helper.confirmedValidator('Password', 'ConfirmPassword')
+      validator: this.helper.MatchPassword('Password', 'ConfirmPassword')
     });
 
     /*
@@ -138,6 +139,10 @@ export class RegisterPage implements OnInit {
 
   async showLoader() {
     this.loadingIndicator = await this.helper.showLoader();
+  }
+
+  get registerFormControl() {
+    return this.registrationForm.controls;
   }
 
 }

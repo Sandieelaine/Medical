@@ -33,10 +33,10 @@
     <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center">
       <div class="card shadow-lg rounded-md" (click)="cardClicked()" [@cardFlip]="state">
         <div class="face back">
-          <img class="h-full" src="assets/img/sapphire.jpg" />
+          <img class="h-full" [src]="digitalCardImagePath" />
         </div>
         <div class="face front">
-          <img class="h-full opacity-0" src="assets/img/sapphire.jpg" />
+          <img class="h-full opacity-0" [src]="digitalCardImagePath" />
           <div class="absolute top-0 h-full bg-white dark:bg-black overflow-hidden p-2 rounded-md">
             <div class="w-full">
               <div class="w-full inline-block">

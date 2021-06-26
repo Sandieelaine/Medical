@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contact, suggestionsOrImprovements } from 'src/app/models/contact.model';
+import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ComplimentsPage implements OnInit {
   complimentsForms:FormGroup;
   suggestionsImprovementsCategories:suggestionsOrImprovements;
   subCategories;
+  member:Member;
   complaintOrComplimentType = [
     {
       name: 'Compliment'
@@ -25,6 +27,7 @@ export class ComplimentsPage implements OnInit {
   constructor(private api: AuthenticationService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.member = this.api.getMember();
     this.loadContactOptions();
     this.loadSuggestionsImprovementsCategories();
     this.initializeForm();
@@ -62,6 +65,16 @@ export class ComplimentsPage implements OnInit {
 
   submitComplaintOrCompliment() {
     console.log(this.complimentsForms.value);
+    let finalObj = this.complimentsForms.value;
+    finalObj.Category['$$hashKey'] = "object:858";
+    finalObj.SubCategory['$$hashKey'] = "object:858";
+    console.log(finalObj);
+    this.api.submitSuggestionsOrImprovements(this.complimentsForms.value, this.member.MemberGuid, this.member.access_token)
+    .subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
   }
 
   public errorHandling = (control: string, error: string) => {

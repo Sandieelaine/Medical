@@ -26,76 +26,104 @@
   <div *ngIf="screenMode === 0">
     <form [formGroup]="registrationForm" (ngSubmit)='register()' class="mt-2">
       <ion-item lines="none">
-        <ion-input autocomplete="off" placeholder="User Name" type="text" name="UserName" formControlName="UserName"></ion-input>
+        <ion-input autocomplete="off" placeholder="User Name" type="text" name="UserName" formControlName="UserName">
+        </ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="person-outline"></ion-icon>
         </ion-button>
       </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('UserName', 'required')">Name is required</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.UserName.dirty || registerFormControl.UserName.touched) && registerFormControl.UserName.errors?.required">User Name is
+        required</div>
+
 
       <ion-item lines="none">
-        <ion-input type="text" name="MemberIDNumber" placeholder="ID Number" formControlName="MemberIDNumber"></ion-input>
+        <ion-input type="text" name="MemberIDNumber" placeholder="ID Number" formControlName="MemberIDNumber">
+        </ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="id-card-outline"></ion-icon>
         </ion-button>
       </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'required')">ID Number is required
+
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.MemberIDNumber.dirty || registerFormControl.MemberIDNumber.touched) && registerFormControl.MemberIDNumber.errors?.maxlength">ID
+        number should be
+        13 characters long</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.MemberIDNumber.dirty || registerFormControl.MemberIDNumber.touched) && registerFormControl.MemberIDNumber.errors?.minlength">ID
+        number should be
+        13 characters long</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.MemberIDNumber.dirty || registerFormControl.MemberIDNumber.touched) && registerFormControl.MemberIDNumber.errors?.required">ID
+        Number is required
       </div>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'minlength')">ID number should be
-        13 characters long</div>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('MemberIDNumber', 'maxlength')">ID number should be
-        13 characters long</div>
+
 
       <ion-item lines="none">
         <ion-input type="password" position="stacked" placeholder="Password" name="Password" formControlName="Password"
           autocomplete="new-password"></ion-input>
-          <ion-button fill="clear" slot="end">
-            <ion-icon color="primary" name="key-outline"></ion-icon>
-          </ion-button>
-      </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'required')">Password is required</div>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Password', 'pattern')">Password must be at least 8
-        characters containing a
-        least a capital letter, a number and a special character (e.g #,!,@).
-      </div>
-
-      <ion-item lines="none">
-        <ion-input type="password" position="stacked" placeholder="Confirm Password" name="ConfirmPassword" formControlName="ConfirmPassword"
-          autocomplete="new-password"></ion-input>
-          <ion-button fill="clear" slot="end">
-            <ion-icon color="primary" name="key-outline"></ion-icon>
-          </ion-button>
-      </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('ConfirmPassword', 'required')">This field is
-        required.</div>
-      <!-- <div class="text-xs text-red-600 block"
-        *ngIf="registrationForm.get('ConfirmPassword').touched && helper.confirmedValidator">Passwords do not match
-      </div> -->
-
-      <div class="w-full px-3 inline-block">
-        <p class="text-xs flex items-center py-2" style="color:#949494; position: relative;top: -9px;">Password must
-          be at least 8 characters containing a least a
-          capital letter, a number and a special character (e.g #,!,@).</p>
-      </div>
-
-      <ion-item lines="none">
-        <ion-input type="tel" name="CellphoneNumber" placeholder="Cell Number (062XXXX89)" formControlName="CellphoneNumber"></ion-input>
-        <ion-button fill="clear" slot="end">
-          <ion-icon color="primary" name="call-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'required')">Cell Number is
-        required</div>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('CellphoneNumber', 'minlength')">Please enter a valid
-        cell number</div>
-
-      <ion-item lines="none">
-        <ion-input type="text" name="GEMSMemberNumber" placeholder="Member Number" formControlName="GEMSMemberNumber"></ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="key-outline"></ion-icon>
         </ion-button>
       </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('GEMSMemberNumber', 'required')">GEMS Member Number
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.Password.dirty || registerFormControl.Password.touched) && registerFormControl.Password.errors?.required">Password is
+        required</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.Password.dirty || registerFormControl.Password.touched) && registerFormControl.Password.errors?.pattern">Password must be
+        at least 8
+        characters containing a
+        least a capital letter, a number and a special character (e.g #,!,@).
+      </div>
+
+
+
+      <ion-item lines="none">
+        <ion-input type="password" position="stacked" placeholder="Confirm Password" name="ConfirmPassword"
+          formControlName="ConfirmPassword" autocomplete="new-password"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="key-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(registerFormControl.ConfirmPassword.dirty || registerFormControl.ConfirmPassword.touched) && registerFormControl.ConfirmPassword.errors?.required">This field is
+        required.</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.ConfirmPassword.dirty || registerFormControl.ConfirmPassword.touched) && registerFormControl.ConfirmPassword.errors?.passwordMismatch">
+        Passwords do not match
+      </div>
+
+      <!-- <div class="w-full px-3 inline-block">
+        <p class="text-xs flex items-center py-2" style="color:#949494; position: relative;top: -9px;">Password must
+          be at least 8 characters containing a least a
+          capital letter, a number and a special character (e.g #,!,@).</p>
+      </div> -->
+
+      <ion-item lines="none">
+        <ion-input type="tel" name="CellphoneNumber" placeholder="Cell Number (062XXXX89)"
+          formControlName="CellphoneNumber"></ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="call-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.CellphoneNumber.dirty || registerFormControl.CellphoneNumber.touched) && registerFormControl.CellphoneNumber.errors?.required">
+        Cell Number is
+        required</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.CellphoneNumber.dirty || registerFormControl.CellphoneNumber.touched) && registerFormControl.CellphoneNumber.errors?.minlength">
+        Cell Phone Number cannot be less than 10 digits long</div>
+      <div class="text-xs text-red-600 block mb-1 px-3"
+        *ngIf="(registerFormControl.CellphoneNumber.dirty || registerFormControl.CellphoneNumber.touched) && registerFormControl.CellphoneNumber.errors?.maxlength">
+        Cell Phone Number cannot be more than 10 digits long</div>
+
+      <ion-item lines="none">
+        <ion-input type="text" name="GEMSMemberNumber" placeholder="Member Number" formControlName="GEMSMemberNumber">
+        </ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="key-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(registerFormControl.GEMSMemberNumber.dirty || registerFormControl.GEMSMemberNumber.touched) && registerFormControl.GEMSMemberNumber.errors?.required">GEMS Member Number
         is required</div>
 
       <ion-item lines="none">
@@ -105,7 +133,7 @@
             {{refferalOption.Description}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <div class="text-xs text-red-600 block" *ngIf="errorHandling('Referrals', 'required')">Please select an option
+      <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(registerFormControl.Referrals.dirty || registerFormControl.Referrals.touched) && registerFormControl.Referrals.errors?.required">Please select an option
       </div>
       <!-- <ion-button fill="solid" expand="block" shape="round" color="primary" type="submit"
         [disabled]="registrationForm.invalid">Register</ion-button> -->
