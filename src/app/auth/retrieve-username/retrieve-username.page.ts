@@ -49,18 +49,23 @@ export class RetrieveUsernamePage implements OnInit {
       MemberIDNumber: this.checkUsernameExistsForm.value.GEMSMemberNumber
     };
 
+    this.helper.presentLoadingIndicator();
+
     this.api.checkUsernameExistsRetrieveUsername(payload)
       .subscribe(
         res => {
           this.isLoading = false;
           if (JSON.parse(res.data) === true) {
+            
 
             this.api.genericRequestOTP(payload)
               .subscribe(res => {
+                this.helper.hideLoadingIndicator();
                 console.log(res);
                 this.requestOTPResponse = JSON.parse(res.data);
                 this.screenMode = CheckUsernameExistsStatus.VERIFICATION;
               }, err => {
+                this.helper.hideLoadingIndicator();
                 console.log(err);
                 console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
               });
@@ -70,7 +75,7 @@ export class RetrieveUsernamePage implements OnInit {
           this.screenMode = CheckUsernameExistsStatus.CHECKUSERNAME_EXISTS;
           this.isLoading = false;
           console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
-          this.helper.presentToast(err.error.Message);
+          this.helper.presentToast(JSON.parse(err.error).Message);
         }
       );
   };

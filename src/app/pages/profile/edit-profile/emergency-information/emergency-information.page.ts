@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Member } from 'src/app/models/member.model';
 import { MemberEmergencyContactInfo } from 'src/app/models/update_profile.model';
@@ -15,11 +16,17 @@ export class EmergencyInformationPage implements OnInit {
   memberemergencyContactInfo!: MemberEmergencyContactInfo;
   emergencyContactInfoForm!: FormGroup;
   member:Member;
+  GUID;
 
-  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService, private loadingCtrl: LoadingController) { }
+  constructor(private fb: FormBuilder, private api: AuthenticationService, private helpers: HelpersService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
+    this.activatedRoute.paramMap
+    .subscribe(paramMap => {
+      this.GUID = paramMap.get('guid');
+      console.log(this.GUID)
+    });
     this.getMemberEmergencyContactInfo();
     this.initializeMemberEmergencyContactInfo();
   }
@@ -54,26 +61,29 @@ export class EmergencyInformationPage implements OnInit {
     });
   };
 
-  getMemberEmergencyContactInfo = () => {
-    this.api.getMemberEmergencyContactInfo(this.member.MemberGuid, this.member.access_token)
+  getMemberEmergencyContactInfo() {
+    // this.helpers.presentLoadingIndicator();
+    this.api.getMemberEmergencyContactInfo(this.GUID, this.member.access_token)
       .subscribe(res => {
+        // this.helpers.hideLoadingIndicator();
         this.memberemergencyContactInfo = JSON.parse(res.data);
         console.log(JSON.parse(res.data));
       }, err => {
+        // this.helpers.hideLoadingIndicator();
         console.log(err);
       });
   };
 
   updateEmergencyContactInfo = (form: any) => {
     const payload = this.emergencyContactInfoForm.value;
-    this.showLoadingIndicator();
-    this.api.updateMemberEmergencyContactInfo(payload, this.member.MemberGuid, this.member.access_token)
+    this.helpers.presentLoadingIndicator();
+    this.api.updateMemberEmergencyContactInfo(payload, this.GUID, this.member.access_token)
       .subscribe(
         res => {
-          this.loadingCtrl.dismiss();
+          this.helpers.hideLoadingIndicator();
           this.helpers.presentToast('Emergency Contact Information updated successfully');
         }, err => {
-          this.loadingCtrl.dismiss();
+          this.helpers.hideLoadingIndicator();
           console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
           this.helpers.presentToast('Please review all highlighted fields.');
         }
@@ -90,8 +100,6 @@ export class EmergencyInformationPage implements OnInit {
     // return this.MemberContactInfoForm.controls[control].hasError(error);
   };
 
-  showLoadingIndicator() {
-    this.helpers.showLoader();
-  }
+
 
 }

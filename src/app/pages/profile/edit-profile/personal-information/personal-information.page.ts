@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 const { Camera } = Plugins;
 
 @Component({
@@ -20,6 +21,7 @@ export class PersonalInformationPage implements OnInit {
   personalInformationForm: FormGroup;
   base64String;
   loader;
+  GUID;
 
   memberDropdownOptions!: MemberDropdownOptions;
   provincesArray!: MemberDropdownOptions['Provinces'];
@@ -27,24 +29,29 @@ export class PersonalInformationPage implements OnInit {
   maritalStatusArray!: MemberDropdownOptions['MaritalStatusOptions'];
   genderArray!: MemberDropdownOptions['GenderOptions'];
 
-  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
+    this.activatedRoute.paramMap
+    .subscribe(paramMap => {
+      this.GUID = paramMap.get('guid');
+      console.log(this.GUID)
+    });
     this.getMemberProfile();
     this.getOptionsFromCRM();
     this.initializePersonalInfo();
   }
 
   getMemberProfile() {
-    this.showLoadingIndicator();
-    this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
-      this.loadingCtrl.dismiss();
+    this.helper.presentLoadingIndicator();
+    this.api.getMemberProfile(this.GUID, this.member.access_token).subscribe(profile => {
+      this.helper.hideLoadingIndicator();
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       // console.log(this.profile);
     }, err => {
-      this.loadingCtrl.dismiss();
+      this.helper.hideLoadingIndicator();
       // console.log(err);
     });
   }
@@ -82,18 +89,18 @@ export class PersonalInformationPage implements OnInit {
   };
 
   updateMemberPersonalInfo = (form: any) => {
-    this.showLoadingIndicator();
+    this.helper.presentLoadingIndicator();
     // this.personalInformationForm.value.BeneficiaryID = this.memberGUID;
 
     const payload = this.personalInformationForm.value;
-    this.api.updateMemberPersonalInfo(payload, this.member.MemberGuid, this.member.access_token)
+    this.api.updateMemberPersonalInfo(payload, this.GUID, this.member.access_token)
       .subscribe(
         res => {
-          this.loadingCtrl.dismiss();
+          this.helper.hideLoadingIndicator();
           this.helper.presentToast('Profile updated successfully. Thank you, a service request has been created to update your delivery address. To avoid duplication of work please do not submit these details more than once. Your updated details will be available within 48 hours.');
 
         }, err => {
-          this.loadingCtrl.dismiss();
+          this.helper.hideLoadingIndicator();
           console.error(`%c ${err.error.toString()}`, `background: #222; color: #bada55`);
           this.helper.presentToast('Please review all highlighted fields.');
         }
@@ -171,7 +178,7 @@ export class PersonalInformationPage implements OnInit {
               };
               console.log(payload);
           
-              this.api.updateMemberImage(payload, this.member.MemberGuid, this.member.access_token)
+              this.api.updateMemberImage(payload, this.GUID, this.member.access_token)
               .subscribe(res => {
                 console.log(res.data);
                 this.helper.presentToast('Image succesfully updated');

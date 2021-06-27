@@ -15,20 +15,33 @@ import { JoyrideOptions } from 'ngx-joyride/lib/models/joyride-options.class';
 })
 export class HomePage implements OnInit {
   member:Member = null;
-  profile: FullMember;
+  profile: FullMember = null;
   exploreOpt = {
     slidesPerView: 2.1,
     spaceBetween: 8
   }
   testData;
   posts;
+  showOptionChangeMessage = true;
   constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
 
+  // ionViewDidEnter() {
+  //   this.member = this.auth.getMember();
+  //   console.log(this.auth.loggedInMember);
+  //   console.log(this.member);
+  // }
+
+  // ionViewWillEnter() {
+  //   this.member = this.auth.getMember();
+  //   console.log(this.auth.loggedInMember);
+  //   console.log(this.member);
+  // }
 
   ngOnInit() {
     this.auth.trackEvent('Documents', 'Play', 'Member Certificate')
     this.auth.trackView('/', 'Home Page');
     this.member = this.auth.getMember();
+    console.log(this.auth.loggedInMember);
     console.log(this.member);
     this.loadProfile();
     this.getNews();
@@ -63,6 +76,9 @@ export class HomePage implements OnInit {
     this.auth.getMemberProfile(this.member.MemberGuid, this.member.access_token)
     .subscribe(profile => {
       this.profile = JSON.parse(profile.data);
+      if ((this.profile.isChangePlanAvailable && this.profile.optionChangeEvoOnly && this.profile.Plan.BenefitPlanName !== 'EMERALD') || this.profile.isChangePlanAvailable === false) {
+        this.showOptionChangeMessage = false;
+      }
     })
   }
 

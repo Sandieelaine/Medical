@@ -66,6 +66,7 @@ export class ForgotPasswordPage implements OnInit {
       UserName: form.UserName,
       GEMSMemberNumber: form.GEMSMemberNumber
     };
+    this.helper.presentLoadingIndicator();
 
     this.api.CheckUsernameExists(payload)
       .subscribe(
@@ -75,20 +76,24 @@ export class ForgotPasswordPage implements OnInit {
 
             this.api.genericRequestOTP(payload)
               .subscribe(res => {
+                this.helper.hideLoadingIndicator();
                 console.log(res);
                 this.registrationResponse = JSON.parse(res.data);
                 this.screenMode = ResetPasswordStatus.VERIFICATION;
               }, error => {
+                this.helper.hideLoadingIndicator();
                 console.log(error);
               });
 
             // this.helpers.openSnackBar('Your password has been successfully reset.', 'Close');
+          } else {
+            this.helper.hideLoadingIndicator();
           }
 
         }, err => {
           this.screenMode = ResetPasswordStatus.RESET_PASSWORD;
           this.isLoading = false;
-
+          this.helper.hideLoadingIndicator();
           // Fixed. Update Kevin
           console.log(JSON.parse(err.error).Message);
           this.helper.presentToast(JSON.parse(err.error).Message);

@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
   {
+    path: 'edit/:guid',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
     path: 'request-card',
     loadChildren: () => import('../request-card/request-card.module').then( m => m.RequestCardPageModule)
   },

@@ -40,7 +40,9 @@ export class AuthenticationService {
   lastPing?: Date = null;
   secondsLeft = 1;
   idleTimer:HTMLIonAlertElement;
-  count = 25
+  count = 25;
+
+  loggedInMember;
 
   // Simon Grimm
   public member: Observable<any>;
@@ -61,6 +63,7 @@ export class AuthenticationService {
     ) {
     // Simon Grimm
       this.loadStoredToken();
+      
       
     // Simon Grimm
 

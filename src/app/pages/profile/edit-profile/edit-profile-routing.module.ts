@@ -9,27 +9,27 @@ const routes: Routes = [
     component: EditProfilePage
   },
   {
-    path: 'personal-information',
+    path: 'personal-information/:guid',
     loadChildren: () => import('./personal-information/personal-information.module').then( m => m.PersonalInformationPageModule)
   },
   {
-    path: 'contact-information',
+    path: 'contact-information/:guid',
     loadChildren: () => import('./contact-information/contact-information.module').then( m => m.ContactInformationPageModule)
   },
   {
-    path: 'emergency-information',
+    path: 'emergency-information/:guid',
     loadChildren: () => import('./emergency-information/emergency-information.module').then( m => m.EmergencyInformationPageModule)
   },
   {
-    path: 'change-username',
+    path: 'change-username/:guid',
     loadChildren: () => import('./change-username/change-username.module').then( m => m.ChangeUsernamePageModule)
   },
   {
-    path: 'change-password',
+    path: 'change-password/:guid',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
   {
-    path: 'communication-preferences',
+    path: 'communication-preferences/:guid',
     loadChildren: () => import('./communication-preferences/communication-preferences.module').then( m => m.CommunicationPreferencesPageModule)
   }
 ];

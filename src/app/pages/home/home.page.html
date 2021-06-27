@@ -93,7 +93,7 @@
   </div>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly"
+  <div *ngIf="profile?.isPrincipleMember && profile?.isChangePlanAvailable && profile?.optionChangeEvoOnly && profile.Plan.BenefitPlanName === 'EMERALD'"
     class="rounded-md p-4 mx-4 my-4 bg-gems-primary-blue dark:bg-black shadow-md" routerLink="/tabs/tabs/option-change">
     <div class="flex">
       <div class="flex-shrink-0">

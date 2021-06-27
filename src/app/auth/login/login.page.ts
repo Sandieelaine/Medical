@@ -56,6 +56,7 @@ export class LoginPage implements OnInit {
       console.log(res, 'ponse');
       this.checkAndCloseLoader();
         // this.loadingCtrl.dismiss();
+        this.auth.loggedInMember = JSON.parse(res.data);
         this.auth.memberData.next(JSON.parse(res.data));
         console.log('Logged In')
         this.router.navigateByUrl('/pre-home', {replaceUrl: true});

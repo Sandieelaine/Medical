@@ -6,6 +6,7 @@ import { EvoOptionPage } from './evo-option/evo-option.page';
 import { NonevoOptionPage } from './nonevo-option/nonevo-option.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FullMember } from 'src/app/models/fullmember.model';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-option-change',
@@ -16,7 +17,7 @@ export class OptionChangePage implements OnInit {
   member: Member = null;
   profile:FullMember = null;
 
-  constructor(private router: Router, private api: AuthenticationService) { }
+  constructor(private router: Router, private api: AuthenticationService, private helpers:HelpersService) { }
 
   ngOnInit() {
     this.api.trackView('/', 'Option Change Landing Page');
@@ -32,11 +33,16 @@ export class OptionChangePage implements OnInit {
   }
 
   loadProfile() {
+    this.helpers.presentLoadingIndicator();
     this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token)
     .subscribe(profile => {
+      this.helpers.hideLoadingIndicator();
       this.profile = JSON.parse(profile.data);
       console.log(this.profile);
-    })
+    }, err => {
+      this.helpers.hideLoadingIndicator();
+      this.router.navigateByUrl('/tabs/tabs/home');
+    });
   }
 
 }

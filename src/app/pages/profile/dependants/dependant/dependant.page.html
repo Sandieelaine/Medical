@@ -27,11 +27,13 @@
   <ion-grid class="ion-no-padding benefit-slide">
     <ion-row *ngIf="dependantProfile" class="details">
       <ion-col size="3">
-        <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid" [src]="DependantImage" alt="">
+        <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid"
+          [src]="DependantImage" alt="">
       </ion-col>
       <ion-col size="9">
         <div class="rounded p-5">
-          <span class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{dependantProfile?.FullName | titlecase}}</span>
+          <span
+            class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{dependantProfile?.FullName | titlecase}}</span>
           <span class="text-white dark:text-gray-400 text-4xl font-bold block" *ngIf="dayToDayBenefits">
             {{dayToDayBenefits.FreeAmount.Amount | currency: 'R'}}</span>
           <span class="text-gray-100 dark:text-gray-300 text-xs uppercase block">Balance</span>
@@ -63,37 +65,40 @@
 
       </ion-col>
     </ion-row>
-    </ion-grid>
+  </ion-grid>
 
-    <div class="p-2" *ngIf="dependantProfile">
-      <div class="text-black w-full bg-white p-4 shadow-md rounded">
-        <div class="w-1/2 inline-block">
-          <span class="text-xs block">Date of Birth</span>
-          <span class="text-sm font-bold">{{dependantProfile?.DOB | date: 'mediumDate'}}</span>
-        </div>
-
-        <div class="w-1/2 inline-block">
-          <span class="text-xs block">ID Number</span>
-          <span class="text-sm font-bold">{{dependantProfile?.MemberIDNo| date: 'mediumDate'}}</span>
-        </div>
-
-        <div class="w-1/2 inline-block mt-4">
-          <span class="text-xs block">Email Address</span>
-          <span class="text-sm font-bold">{{dependantProfile?.EmailAddress || 'N/A'}}</span>
-        </div>
-
-        <div class="w-1/2 inline-block mt-4">
-          <span class="text-xs block">Gender</span>
-          <span class="text-sm font-bold">{{dependantProfile?.Gender}}</span>
-        </div>
-
-
+  <div class="p-2" *ngIf="dependantProfile">
+    <div class="text-black w-full bg-white p-4 shadow-md rounded">
+      <div class="w-1/2 inline-block">
+        <span class="text-xs block">Date of Birth</span>
+        <span class="text-sm font-bold">{{dependantProfile?.DOB | date: 'mediumDate'}}</span>
       </div>
-    </div>
 
-    <!-- <div class="p-2">
-      <button class="bg-red-700 p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
-        Remove Dependant
-      </button>
-    </div> -->
+      <div class="w-1/2 inline-block">
+        <span class="text-xs block">ID Number</span>
+        <span class="text-sm font-bold">{{dependantProfile?.MemberIDNo| date: 'mediumDate'}}</span>
+      </div>
+
+      <div class="w-1/2 inline-block mt-4">
+        <span class="text-xs block">Email Address</span>
+        <span class="text-sm font-bold">{{dependantProfile?.EmailAddress || 'N/A'}}</span>
+      </div>
+
+      <div class="w-1/2 inline-block mt-4">
+        <span class="text-xs block">Gender</span>
+        <span class="text-sm font-bold">{{dependantProfile?.Gender}}</span>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="px-2">
+    <button [routerLink]="['/', 'tabs', 'tabs', 'profile', 'edit', dependantProfile?.BeneficiaryID]"
+    class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+    Update Profile
+  </button>
+  </div>
+  
 </ion-content>
