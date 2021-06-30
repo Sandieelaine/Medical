@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   testData;
   posts;
   showOptionChangeMessage = true;
-  constructor(private auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
+  constructor(public auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
 
   // ionViewDidEnter() {
   //   this.member = this.auth.getMember();

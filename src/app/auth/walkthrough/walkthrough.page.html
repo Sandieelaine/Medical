@@ -30,7 +30,7 @@
           </ion-text>
 
           <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
-          <span class="block mt-1 text-sm text-gray-700" routerLink="/onboard">Skip this step</span>
+          <span class="block mt-1 text-sm text-gray-700" (click)="continueToApp()">Skip this step</span>
         </div>
       </ion-slide>
 
@@ -47,7 +47,7 @@
 
           <ion-button color="primary" fill="solid" shape="round" (click)='goToSlide()'>Next</ion-button>
 
-          <span class="block mt-1 text-sm text-gray-700" routerLink="/onboard">Skip this step</span>
+          <span class="block mt-1 text-sm text-gray-700" (click)="continueToApp()">Skip this step</span>
         </div>
       </ion-slide>
 

@@ -1,10 +1,16 @@
 import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IntroGuard } from './guards/intro.guard';
 
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/onboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'intro',
     loadChildren: () => import('./auth/walkthrough/walkthrough.module').then( m => m.WalkthroughPageModule)
   },
   {
@@ -47,7 +53,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule),
+    canLoad: [IntroGuard]
   },
   {
     path: 'login/:username',

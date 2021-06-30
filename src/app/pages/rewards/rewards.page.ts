@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -9,12 +10,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class RewardsPage implements OnInit {
   count = 25
 
-  constructor(public api: AuthenticationService) {
+  constructor(public api: AuthenticationService, public modalController: ModalController) {
     console.log(this.count);
   }
 
   ngOnInit() {
-    this.countDown();
+    // this.countDown();
   }
 
   countDown() {
@@ -23,10 +24,16 @@ export class RewardsPage implements OnInit {
       console.log(this.count);
       if (this.count > 0) {
         this.countDown();
-      } else {
-        // this.api.modal.dismiss();
+      } else { 
+        this.modalController.dismiss();
+        this.api.logMemberOut();
       }
     }, 1000);
+  }
+
+  resetAndContinue() {
+    this.api.reset();
+    this.modalController.dismiss();
   }
 
 

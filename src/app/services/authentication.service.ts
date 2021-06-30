@@ -33,6 +33,7 @@ export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
+  public timeLeftBeforeAppCloses = new BehaviorSubject(null);
   selectedPreLoginContent;
 
   idleState = 'Not started.';
@@ -108,7 +109,7 @@ export class AuthenticationService {
 
 setIdleTimeout() {
   // sets an idle timeout of 5 seconds, for testing purposes.
-  this.idle.setIdle(50000);
+  this.idle.setIdle(15);
   // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
   this.idle.setTimeout(25);
   // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
@@ -116,20 +117,31 @@ setIdleTimeout() {
 
   this.idle.onIdleEnd.subscribe(() => this.idleState = 'No longer idle.');
   this.idle.onTimeout.subscribe(() => {
+
     this.idleState = 'Timed out!';
     this.timedOut = true;
     this.idle.stop();
-    this.idleTimer.dismiss();
-    this.logout();
+    this.logMemberOut();
+    this.modalController.getTop().then(res => {
+      res.dismiss();
+      this.modalController.getTop().then(res => {
+        res.dismiss();
+      })
+    })
   });
-  this.idle.onIdleStart.subscribe(() => this.idleState = 'You\'ve gone idle!');
+  this.idle.onIdleStart.subscribe(() => {
+    this.idleState = 'You\'ve gone idle!';
+    this.presentModal();
+  });
   this.idle.onTimeoutWarning.subscribe((countdown) => {
     if(countdown === 25) {
-      this.showAlert(this.secondsLeft);
+      // this.showAlert(this.secondsLeft);
+      
     }
     this.secondsLeft = countdown;
     //this.secondsLeft = countdown;
     this.idleState = 'You will time out in ' + countdown + ' seconds!';
+    this.timeLeftBeforeAppCloses.next(countdown);
     console.log('You will time out in ' + countdown + ' seconds!')
   });
 
@@ -177,6 +189,11 @@ reset() {
   this.timedOut = false;
 }
 
+stopAndStartAllOver() {
+  this.idle.stop();
+  this.setIdleTimeout();
+}
+
   logMemberIn(username: string, password: string) {
     const body = {
       grant_type: 'password',
@@ -216,6 +233,7 @@ reset() {
   async logMemberOut() {
     await this.storage.remove('memberToken');
     await this.memberData.next(null);
+    await this.idle.stop();
     await this.router.navigateByUrl('/', {replaceUrl: true});  
   }
 

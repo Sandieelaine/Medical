@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-walkthrough',
@@ -27,7 +29,8 @@ export class WalkthroughPage implements OnInit {
     this.slides.slideNext();
   }
 
-  continueToApp() {
+  async continueToApp() {
+    await Storage.set({key: 'intro-seen', value: 'true'});
     this.router.navigateByUrl('/onboard', {replaceUrl: true});
   }
 
