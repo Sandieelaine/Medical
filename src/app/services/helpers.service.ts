@@ -27,10 +27,11 @@ export class HelpersService {
     this.loader.present();
   }
 
-  presentLoadingIndicator(message:string = 'Loading') {
+  presentLoadingIndicator(message:string = 'Loading', backdropDismiss = false) {
     this.loadingCtrl.create({
       message: message,
       spinner: 'lines',
+      backdropDismiss: backdropDismiss
     }).then((res) => {
       res.present();
     });

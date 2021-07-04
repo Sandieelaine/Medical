@@ -1,0 +1,80 @@
+<div style="position: relative; top:0; left:0; display: block;">
+  <div class="backgound">
+    <div class="left"></div>
+    <div class="right">
+      <div class="strip-bottom"></div>
+      <div class="strip-top"></div>
+    </div>
+  </div>
+    <div class="card">
+      <div class="flip">
+          <div class="front bg-gradient-to-r from-emerald  to-emerald">
+          
+          <div>
+            <img src="/assets/svg/gems-symbol.png" class="opacity-10 w-1/2 -mt-3">
+
+            <div class="logo-with-white-bg rounded-md">
+              <img src="/assets/img/card_logo.png" class="px-3 py-2">
+            </div>
+            <div class="logo">
+              <div class="bg-emerald w-40 border-solid border-4 border-white rounded-full p-3">
+                <img src="/assets/svg/gems-symbol.png" class="opacity-20 w-30">
+              </div>
+            </div>
+
+            <div class="end">
+              <span class="end-text">
+                Private Bag X782, Cape Town, 8000<br>Call Centre: 0860 00 4367 or
+                enquiries@gems.gov.za<br>
+                HIV Aids Helpline: 0860 4367 36<br>
+                Emergency Assistance: 0800 44 4367<br>
+                Website: www.gems.gov.za
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="back">
+          <div class="ccv">
+           <div><strong>Member</strong> <span class="ml-2">{{member?.FullName}}</span></div>
+           <div><strong>Option</strong> <span class="ml-2">{{member?.Plan?.BenefitPlanName}}</span> <span><strong class="ml-2">Gender</strong> <span class="ml-2">{{member?.Gender}}</span> </span></div>
+           <div><strong>Member No</strong> <span class="ml-2">{{member?.MemberNo}}</span> <span><strong class="ml-2">Benefit Date</strong> <span class="ml-2">  {{member?.Plan?.EffectiveFromDate | date: 'shortDate'}}</span> </span></div>
+           <div><strong>DOB/ID No</strong> <span class="ml-2">{{member?.DOB | date: 'shortDate'}}</span></div>
+           <div><br><strong>Dependants</strong><br></div>
+           <div class="grid grid-cols-4">
+             <div>
+              <strong>Name</strong>
+             </div>
+             <div>
+              <strong>Gender</strong>
+             </div>
+             <div>
+              <strong>DOB/ID No</strong>
+             </div>
+             <div>
+              <strong>Benefit Date</strong>
+             </div>
+
+             <div *ngIf="member?.Dependants" class="col-span-4">
+             <div *ngFor='let dependant of member.Dependants' class="col-span-4 grid grid-cols-4 dependants">
+               
+              <div>
+                {{dependant?.FirstName}}
+              </div>
+              <div>
+                {{dependant?.Gender}}
+              </div>
+              <div>
+                {{dependant?.DOB | date: 'shortDate'}}
+              </div>
+              <div>
+                {{dependant?.Plan?.EffectiveFromDate | date: 'shortDate'}}
+              </div>
+            </div>
+             </div>
+          
+           </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+</div>

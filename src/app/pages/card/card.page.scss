@@ -3,6 +3,7 @@
     perspective: 600px;
   }
   
+  
   .card {
     height: 100%;
     width: 70vw;
@@ -29,7 +30,22 @@
   
   .front {
     transform: rotateY(180deg);
+    height: calc(100vh - 3rem);
+    border-radius: 10px;
   }
+
+  @media screen and (max-width: 69em) {
+
+    .front, .face, .back {
+        height: 400px
+    }
+    #card-container-ipad {
+      padding-top: 200px;
+    }
+    #close-button {
+      margin-top: 1em;
+    }
+}
 
   @media (prefers-color-scheme: dark) {
     ion-content {

@@ -6,7 +6,7 @@ import { IntroGuard } from './guards/intro.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/onboard',
+    redirectTo: '/intro',
     pathMatch: 'full'
   },
   {
@@ -15,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'onboard',
-    loadChildren: () => import('./auth/onboard/onboard.module').then( m => m.OnboardPageModule)
+    loadChildren: () => import('./auth/onboard/onboard.module').then( m => m.OnboardPageModule),
+    // canLoad: [IntroGuard]
   },
   {
     path: 'tabs',

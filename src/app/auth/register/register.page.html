@@ -26,17 +26,17 @@
   <div *ngIf="screenMode === 0">
     <form [formGroup]="registrationForm" (ngSubmit)='register()' class="mt-2">
       <ion-item lines="none">
-        <ion-input autocomplete="off" placeholder="User Name" type="text" name="UserName" formControlName="UserName">
+        <ion-input autocomplete="off" placeholder="Username" type="text" name="UserName" formControlName="UserName">
         </ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="person-outline"></ion-icon>
         </ion-button>
       </ion-item>
       <div class="text-xs text-red-600 block mb-1 px-3"
-        *ngIf="(registerFormControl.UserName.touched) && registerFormControl.UserName.errors?.required">User Name is
+        *ngIf="(registerFormControl.UserName.touched) && registerFormControl.UserName.errors?.required">Username is
         required</div>
         <div class="text-xs text-red-600 block mb-1 px-3"
-        *ngIf="(registerFormControl.UserName.touched) && registerFormControl.UserName.errors?.minlength">User Name cannot be less than 6 characters long</div>
+        *ngIf="(registerFormControl.UserName.touched) && registerFormControl.UserName.errors?.minlength">Username cannot be less than 6 characters long</div>
 
 
       <ion-item lines="none">

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contact, suggestionsOrImprovements } from 'src/app/models/contact.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-compliments',
@@ -24,7 +25,7 @@ export class ComplimentsPage implements OnInit {
     }
   ];
 
-  constructor(private api: AuthenticationService, private fb: FormBuilder) { }
+  constructor(private api: AuthenticationService, private fb: FormBuilder, private helper: HelpersService) { }
 
   ngOnInit() {
     this.member = this.api.getMember();
@@ -72,7 +73,9 @@ export class ComplimentsPage implements OnInit {
     this.api.submitSuggestionsOrImprovements(this.complimentsForms.value, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       console.log(res);
+      this.helper.presentToast('Thank you for taking part in our survey.');
     }, err => {
+      this.helper.presentToast('There was a failure trying to submit your survey.');
       console.log(err);
     });
   }

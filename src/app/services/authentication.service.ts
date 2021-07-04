@@ -109,7 +109,7 @@ export class AuthenticationService {
 
 setIdleTimeout() {
   // sets an idle timeout of 5 seconds, for testing purposes.
-  this.idle.setIdle(15);
+  this.idle.setIdle(50000);
   // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
   this.idle.setTimeout(25);
   // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
@@ -234,7 +234,7 @@ stopAndStartAllOver() {
     await this.storage.remove('memberToken');
     await this.memberData.next(null);
     await this.idle.stop();
-    await this.router.navigateByUrl('/', {replaceUrl: true});  
+    await this.router.navigateByUrl('/login', {replaceUrl: true});  
   }
 
 

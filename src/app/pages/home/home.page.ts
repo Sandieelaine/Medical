@@ -1,13 +1,13 @@
 import { Member } from './../../models/member.model';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FullMember } from 'src/app/models/fullmember.model';
 import { JoyrideService } from 'ngx-joyride';
 import { JoyrideOptions } from 'ngx-joyride/lib/models/joyride-options.class';
-
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -17,13 +17,13 @@ export class HomePage implements OnInit {
   member:Member = null;
   profile: FullMember = null;
   exploreOpt = {
-    slidesPerView: 2.1,
+    slidesPerView: 3,
     spaceBetween: 8
   }
   testData;
   posts;
   showOptionChangeMessage = true;
-  constructor(public auth: AuthenticationService, private storage: Storage, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
+  constructor(public auth: AuthenticationService, private zone: NgZone, private alertCtrl: AlertController, private router: Router, private readonly joyrideService: JoyrideService) {}
 
   // ionViewDidEnter() {
   //   this.member = this.auth.getMember();
@@ -41,6 +41,7 @@ export class HomePage implements OnInit {
     this.auth.trackEvent('Documents', 'Play', 'Member Certificate')
     this.auth.trackView('/', 'Home Page');
     this.member = this.auth.getMember();
+    // this.showGuide();
     console.log(this.auth.loggedInMember);
     console.log(this.member);
     this.loadProfile();
@@ -61,15 +62,12 @@ export class HomePage implements OnInit {
 
   async startTour() {
     const options: JoyrideOptions = {
-      steps: ['welcome','claims', 'benefits', 'profile', 'downloads', 'help', 'authorisations', 'bottomtabs', 'hometab', 'profiletab@tabs/tabs/profile', 'memberdetails'],
+      steps: ['welcome','claims', 'benefits', 'profile'],
       // waitingTime: 2,
       themeColor:'#174575'
     };
 
-    const stored = await this.storage.get('hasSeenGEMSTour');
-    if (stored || stored !== undefined || null) {
       this.joyrideService.startTour(options);
-    }
   }
 
   loadProfile() {
@@ -82,34 +80,13 @@ export class HomePage implements OnInit {
     })
   }
 
-  async showAlert() {
-    // let tour = await this.storage.get('hasSeenTour');
-    //console.warn(tour, 'tour');
-    // if (tour == null) {
-      let tourAlert = await this.alertCtrl.create({
-        header: 'Home Page',
-        // tslint:disable-next-line: max-line-length
-        subHeader: 'Get quick access to your claims, downloads, help and more on this page.',
-        buttons: [
-          {
-            text: 'Skip',
-            handler: async () => {
-              // let disableTour = await this.storage.set('hasSeenTour', true);
-            }
-          },
-          {
-            text: 'Continue',
-            handler: () => {
-              this.zone.run(async () => {
-                this.router.navigateByUrl('/tabs/tabs/profile');
-                return false;
-              });
-            }
-          }
-        ]
-      });
-      await tourAlert.present();
-    //}
+  async showGuide() {
+    const hasSeenGuide = await Storage.get({key: 'guide-seen'});
+    if (hasSeenGuide && (hasSeenGuide.value === 'true')) {
+      console.log('guide seen');
+    } else {
+      this.startTour();
+    }
   }
 
   navigateToPost(post) {

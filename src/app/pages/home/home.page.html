@@ -1,4 +1,4 @@
-<ion-header joyrideStep="welcome" title="Page Title" [text]="'Welcome, ' + profile?.FirstName">
+<ion-header joyrideStep="welcome" title="Welcome to the new GEMS Member Portal." [text]="'We’ve designed the new Member Portal with You in mind, creating a modernised and personalised member experience just for you. Click next to go through the new features.'">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button class="text-black dark:text-dark-modegraylight">
@@ -28,7 +28,7 @@
 </div>
 
 <ion-content>
-  <div>{{this.auth.timeLeftBeforeAppCloses.getValue()}}</div>
+  <!-- <div>{{this.auth.timeLeftBeforeAppCloses.getValue()}}</div> -->
   <div class="header-area">
     <ion-grid class="ion-no-padding">
       <ion-row>
@@ -50,20 +50,20 @@
     <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="claims" title="Claims" text="Welcome To Benefits and the rest of the text is just to see how this would look if there was a lot of text. We could actually even have lots of more text and it would not look bad at all. Now we need contant!" routerLink="/tabs/tabs/claims-home"
+          <div joyrideStep="claims" title="Filter Your Claims" text="We\'ve taken away all of the clutter from the dashboard so you can focus on what matters most to you." routerLink="/tabs/tabs/claims-home"
             class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Claims</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="benefits" title="Benefits" text="Welcome To Benefits and the rest of the text is just to see how this would look if there was a lot of text. We could actually even have lots of more text and it would not look bad at all. Now we need contant!" routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
+          <div joyrideStep="benefits" title="Benefit Management" text="Manage and view your Benefit usage, Access your documents (Member certificate/ Tax certificate), Request a new card,  and View your Option and Dependant info here." routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
             <img class="svg-icon" src="assets/img/home/benefits_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Benefits</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="profile" title="360&deg; View" text="Welcome To Benefits and the rest of the text is just to see how this would look if there was a lot of text. We could actually even have lots of more text and it would not look bad at all. Now we need contant!" routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
+          <div joyrideStep="profile" title="Improved 360 View" text="We\'ve taken away all of the clutter from the dashboard so you can focus on what matters most to you." routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/360_white.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">360&deg; View</span>
           </div>
@@ -72,7 +72,7 @@
 
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="downloads" title="Downloads" text="Welcome To Benefits and the rest of the text is just to see how this would look if there was a lot of text. We could actually even have lots of more text and it would not look bad at all. Now we need contant!" routerLink="/tabs/tabs/documents" class="icon-box right-5 bg-white dark:bg-black">
+          <div routerLink="/tabs/tabs/documents" class="icon-box right-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/download_white.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Downloads</span>
           </div>
@@ -84,7 +84,7 @@
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="authorisations" title="Authorisations" text="Welcome To Benefits and the rest of the text is just to see how this would look if there was a lot of text. We could actually even have lots of more text and it would not look bad at all. Now we need contant!" routerLink="/tabs/tabs/authorisation" class="icon-box bg-white dark:bg-black">
+          <div routerLink="/tabs/tabs/authorisation" class="icon-box bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/authorisation.png" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Authorisations</span>
           </div>
@@ -204,13 +204,13 @@
                     <div></div>
                     <div></div>
                   </div>
-                  <div>
-                    <img style="height: 100px;" class="object-cover w-full" [src]="'assets/img/_' + post?.id +'.jpg'" alt="">
+                  <div class="w-full bg-red-300">
+                    <img style="height: 100px; width: 100%" class="object-cover w-full" [src]="'assets/img/_' + post?.id +'.jpg'" alt="">
                   </div>
 
                 </div>
-                <div class="text-gray-800 dark:text-dark-modegraylight flex p-2">
-                  <span class="font-semibold text-sm">{{post?.title}}</span>
+                <div class="text-gray-800 dark:text-dark-modegraylight flex justify-center p-2">
+                  <span class="font-semibold text-sm" [innerHTML]="post.title"></span>
                 </div>
               </div>
             </ion-slide>

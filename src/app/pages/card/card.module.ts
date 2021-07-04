@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { CardPageRoutingModule } from './card-routing.module';
 import { CardPage } from './card.page';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { DigitalMemberCardComponent } from 'src/app/components/digital-member-card/digital-member-card.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     IonicModule,
     CardPageRoutingModule
   ],
-  declarations: [CardPage],
+  declarations: [CardPage, DigitalMemberCardComponent],
   providers: [ScreenOrientation]
 })
 export class CardPageModule {}

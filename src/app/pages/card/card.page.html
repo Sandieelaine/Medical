@@ -29,14 +29,15 @@
     
   </div> -->
 
-  <div class="bg-gray-300 text-black dark:text-gray-500 dark:bg-dark-modegray w-screen" style="height: 100vh">
-    <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center">
-      <div class="card shadow-lg rounded-md" (click)="cardClicked()" [@cardFlip]="state">
-        <div class="face back">
-          <img class="h-full" [src]="digitalCardImagePath" />
+  <div class="bg-gray-300 text-black dark:text-gray-500 dark:bg-dark-modegray w-screen" style="height: 100vh;">
+    <div class="w-full h-full rounded-lg p-6 overflow-hidden flex flex-col items-center justify-center" id="card-container-ipad">
+      <div class="card" (click)="cardClicked()" [@cardFlip]="state">
+        <div class="face back shadow-lg">
+          <!-- <img class="h-full" [src]="digitalCardImagePath" /> -->
+          <digital-member-card [member]='profile' [planName]='"emerald"'></digital-member-card>
         </div>
-        <div class="face front">
-          <img class="h-full opacity-0" [src]="digitalCardImagePath" />
+        <div class="face front bg-white">
+          <!-- <img class="h-full opacity-0" [src]="digitalCardImagePath" /> -->
           <div class="absolute top-0 h-full bg-white dark:bg-black overflow-hidden p-2 rounded-md">
             <div class="w-full">
               <div class="w-full inline-block">
@@ -104,9 +105,11 @@
   </div>
 
 
+  
+
 
   <!-- fab placed to the bottom end -->
-  <ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab id="close-button" vertical="top" horizontal="start" slot="fixed">
     <ion-fab-button (click)="closePage()">
       <ion-icon name="close"></ion-icon>
     </ion-fab-button>

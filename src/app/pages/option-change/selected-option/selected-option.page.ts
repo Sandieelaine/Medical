@@ -134,6 +134,8 @@ export class SelectedOptionPage implements OnInit {
     this.showLoader();
     this.api.changeOption(this.optionTitle, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
+      this.optionChangeForm.reset();
+      console.log(res, 'here');
       // this.loader.dismiss();
       this.helper.presentToast(
         `Thank you, a service request has been created to change your Benefit Option from ${this.plan} to ${this.optionTitle}. To avoid duplication of work please do not submit these details more than once.`,
@@ -210,7 +212,7 @@ export class SelectedOptionPage implements OnInit {
     this.api.changeToEVOOption(this.optionChangePayload, selectedOption, this.member.MemberGuid, this.member.access_token)
     .subscribe(res => {
       this.checkAndCloseLoader();
-      console.log(res);
+      console.log(res, 'heres');
       this.helper.presentToast(`Thank you, a service request has been created to change your Benefit Option from ${this.plan} to ${this.optionTitle}. To avoid duplication of work please do not submit these details more than once.`);
     }, err => {
       this.checkAndCloseLoader();

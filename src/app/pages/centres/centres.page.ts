@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Plugins } from '@capacitor/core';
 import { Member } from 'src/app/models/member.model';
+import { HelpersService } from 'src/app/services/helpers.service';
 const { Geolocation } = Plugins;
 
 declare var google;
@@ -24,23 +25,30 @@ export class CentresPage implements OnInit {
     speed: 400,
     spaceBetween: 15
   };
+  infoWindow;
 
-  constructor(private api: AuthenticationService) { }
+  constructor(private api: AuthenticationService, private helpers: HelpersService) { }
+
+  ionViewWillEnter() {
+    this.getCentres();
+  }
 
   ngOnInit() {
     this.member = this.api.getMember();
     this.getCurrentPosition();
-    this.getCentres();
     this.api.trackView('/', 'Walk In Centres');
   }
 
   getCentres() {
+    this.helpers.presentLoadingIndicator('Loading', true);
     this.api.getAllWalkInCentres(this.member.access_token)
     .subscribe(centres => {
+      this.helpers.hideLoadingIndicator();
       this.centres = JSON.parse(centres.data);
       console.log(this.centres);
-      this.getMarkers();
-    })
+    }, err => {
+      this.helpers.hideLoadingIndicator();
+    });
   }
 
   displayGoogleMap() {
@@ -61,7 +69,7 @@ export class CentresPage implements OnInit {
     };
 
     this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
-    
+    this.getMarkers();
     
   }
 
@@ -107,11 +115,14 @@ export class CentresPage implements OnInit {
   }
 
   addInfoWindow(marker, content) {
-    const infoWindow = new google.maps.InfoWindow({
+    if (this.infoWindow) {
+      this.infoWindow.close();
+  }
+    this.infoWindow = new google.maps.InfoWindow({
       content
     });
     google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
+      this.infoWindow.open(this.map, marker);
     });
   }
 
