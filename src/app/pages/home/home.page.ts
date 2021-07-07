@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   member:Member = null;
   profile: FullMember = null;
   exploreOpt = {
-    slidesPerView: 3,
+    slidesPerView: 2.1,
     spaceBetween: 8
   }
   testData;

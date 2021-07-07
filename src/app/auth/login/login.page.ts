@@ -14,6 +14,8 @@ export class LoginPage implements OnInit {
   loader;
   loginForm:FormGroup;
   text;
+  showPassword = false;
+  passwordToggleIcon = "eye-outline";
 
   constructor(
     private auth: AuthenticationService,
@@ -130,5 +132,15 @@ export class LoginPage implements OnInit {
       return this.loginForm.controls[control].hasError(error);
     } 
   };
+
+  togglePassword():void {
+    this.showPassword = !this.showPassword;
+
+    if (this.passwordToggleIcon === 'eye-outline') {
+      this.passwordToggleIcon = 'eye-off-outline'
+    } else {
+      this.passwordToggleIcon = 'eye-outline'
+    }
+  }
 
 }

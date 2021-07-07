@@ -50,6 +50,7 @@ export class CardPage implements OnInit, OnDestroy {
   state = 'default';
   MemberImage;
   digitalCardImagePath;
+  planName;
 
   constructor(private screenOrientation: ScreenOrientation, private router: Router, private api: AuthenticationService) { }
 
@@ -70,8 +71,8 @@ export class CardPage implements OnInit, OnDestroy {
       this.profile = JSON.parse(profile.data);
       this.MemberImage = `https://api.gems.gov.za/api/v1/MemberImage/${this.profile.BeneficiaryID}?counter=0`;
       // console.log(this.profile);
-      const planName = this.profile.Plan.BenefitPlanName.toLowerCase().replace(' ', '_');
-        this.digitalCardImagePath = `assets/img/digital-card/${planName}.jpg`;
+      this.planName = this.profile.Plan.BenefitPlanName.toLowerCase().replace(' ', '_');
+        this.digitalCardImagePath = `assets/img/digital-card/${this.planName}.jpg`;
     }, err => {
       // console.log(err);
     });

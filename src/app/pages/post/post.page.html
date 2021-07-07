@@ -4,7 +4,7 @@
       <ion-back-button class="text-black dark:text-gray-400" defaultHref="/tabs/tabs/home"></ion-back-button>
     </ion-buttons>
     <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
-    <ion-title>{{selectedPost?.title}}</ion-title>
+    <ion-title [innerHTML]="selectedPost?.heading"></ion-title>
   </ion-toolbar>
   <div class="gems-border">
     <div class="rainbow">

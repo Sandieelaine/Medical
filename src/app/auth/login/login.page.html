@@ -42,9 +42,9 @@
           <div style="height: 5px"></div> -->
 
           <ion-item lines="none">
-            <ion-input type="password" placeholder="Password" name="Password" formControlName="Password"></ion-input>
-            <ion-button slot="end" fill="clear">
-              <ion-icon color="primary" name="key-outline"></ion-icon>
+            <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Password" name="Password" formControlName="Password"></ion-input>
+            <ion-button slot="end" fill="clear" (click)="togglePassword()">
+              <ion-icon color="primary" [name]="passwordToggleIcon"></ion-icon>
             </ion-button>
           </ion-item>
 

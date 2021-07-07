@@ -30,7 +30,9 @@
     height: calc(100vh - 3rem);
   }
 
-  @media screen and (max-width: 69em) {
+  @media only screen 
+  and (min-device-width: 768) 
+  and (max-device-width: 1366px) {
       .card {
           height: 400px
       }

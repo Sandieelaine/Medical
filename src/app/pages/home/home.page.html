@@ -1,4 +1,4 @@
-<ion-header joyrideStep="welcome" title="Welcome to the new GEMS Member Portal." [text]="'We’ve designed the new Member Portal with You in mind, creating a modernised and personalised member experience just for you. Click next to go through the new features.'">
+<ion-header joyrideStep="welcome" title="Welcome to the new GEMS Member App." [text]="'We’ve designed the new Member App with you in mind, creating a savvy and personalised experience just for you. Click next to go through the new features.'">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button class="text-black dark:text-dark-modegraylight">
@@ -50,20 +50,20 @@
     <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="claims" title="Filter Your Claims" text="We\'ve taken away all of the clutter from the dashboard so you can focus on what matters most to you." routerLink="/tabs/tabs/claims-home"
+          <div joyrideStep="claims" title="Filter Your Claims" text="We've taken away all of the clutter from the menu options, so you can focus on what matters to you most." routerLink="/tabs/tabs/claims-home"
             class="bg-white dark:bg-black icon-box right-5 bottom-5 ion-activatable ripple-parent">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Claims</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="benefits" title="Benefit Management" text="Manage and view your Benefit usage, Access your documents (Member certificate/ Tax certificate), Request a new card,  and View your Option and Dependant info here." routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
+          <div joyrideStep="benefits" title="Benefit Management" text="Manage and view your benefit usage, access your documents (member certificate or tax certificate), request a new card, and view your option and dependant info here." routerLink="/tabs/tabs/benefits" class="bg-white dark:bg-black icon-box right-5 bottom-5">
             <img class="svg-icon" src="assets/img/home/benefits_fill.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">Benefits</span>
           </div>
         </ion-col>
         <ion-col col-4 class="ion-no-padding">
-          <div joyrideStep="profile" title="Improved 360 View" text="We\'ve taken away all of the clutter from the dashboard so you can focus on what matters most to you." routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
+          <div joyrideStep="profile" title="Improved 360&deg; View" text="Enjoy a personalised experience on the GEMS Member App." routerLink="/tabs/tabs/profile" class="icon-box bottom-5 bg-white dark:bg-black">
             <img class="svg-icon" src="assets/img/home/360_white.svg" alt="">
             <span class="title text-black dark:text-dark-modegraylight">360&deg; View</span>
           </div>
@@ -189,6 +189,31 @@
       <ion-row>
         <ion-col col-12 class="ion-no-padding">
           <ion-slides [options]="exploreOpt">
+            <ion-slide *ngFor="let post of posts" (click)="navigateToPost(post)">
+              <div class="shadow-md bg-white dark:bg-black rounded-lg">
+                <div style="position: relative">
+                  <div class="rainbow" style="width: 70%; bottom: 0px;">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="w-full bg-red-300">
+                    <img style="height: 100px; width: 100%" class="object-cover w-full" [src]="'assets/img/_' + post?.id +'.jpg'" alt="">
+                  </div>
+
+                </div>
+                <div class="text-gray-800 dark:text-dark-modegraylight flex justify-center p-2">
+                  <span class="font-semibold text-sm" [innerHTML]="post.title"></span>
+                </div>
+              </div>
+            </ion-slide>
             <ion-slide *ngFor="let post of posts" (click)="navigateToPost(post)">
               <div class="shadow-md bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">

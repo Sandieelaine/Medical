@@ -34,7 +34,7 @@
       <div class="card" (click)="cardClicked()" [@cardFlip]="state">
         <div class="face back shadow-lg">
           <!-- <img class="h-full" [src]="digitalCardImagePath" /> -->
-          <digital-member-card [member]='profile' [planName]='"emerald"'></digital-member-card>
+          <digital-member-card [member]='profile' [planName]='planName'></digital-member-card>
         </div>
         <div class="face front bg-white">
           <!-- <img class="h-full opacity-0" [src]="digitalCardImagePath" /> -->

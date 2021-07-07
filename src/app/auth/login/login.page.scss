@@ -1,4 +1,10 @@
 
+@media(orientation: portrait) {
+  ion-content {
+   padding-top: constant(safe-area-inset-top); //ios 11.2
+   padding-top: env(safe-area-inset-top); //ios 11.1
+}
+}
 
 // Normal Mode Styling
 .login-wrapper {

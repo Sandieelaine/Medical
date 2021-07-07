@@ -34,7 +34,9 @@
     border-radius: 10px;
   }
 
-  @media screen and (max-width: 69em) {
+  @media only screen 
+  and (min-device-width: 768) 
+  and (max-device-width: 1366px) {
 
     .front, .face, .back {
         height: 400px
