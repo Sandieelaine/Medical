@@ -1,16 +1,6 @@
-<div id="strip">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-<div style="position: absolute; width: 100%; top: 0; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px"></div>
+<div style="position: absolute; top: 0; height: constant(safe-area-inset-top); height: env(safe-area-inset-top); z-index: 1; width: 100%; background-color: #fff;"></div>
+<div style="position: absolute; width: 100%; top: constant(safe-area-inset-top); top: env(safe-area-inset-top); top: var(--ion-safe-area-top); z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 6px"></div>
+
 <ion-content>
   <div class="wrapper">
     <div class="top">
