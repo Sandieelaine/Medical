@@ -8,7 +8,7 @@
 
 // Normal Mode Styling
 .login-wrapper {
-    height: 100vh;
+    height: calc(100vh - 100px);
     display: flex;
     flex-direction: column;
     background: #eeeeee;
@@ -27,7 +27,7 @@
     background: url('../../../assets/img/login/bg_landscape.png');
     background-position: center;
     background-size: cover;
-    max-height: calc(60vh + 20px);
+    max-height: calc(40vh + 20px);
   }
   
   .rainbow {
@@ -36,7 +36,7 @@
   }
   
   .logo {
-    padding: 40px 0;
+    padding: 20px 0;
   }
   
   .bottom {

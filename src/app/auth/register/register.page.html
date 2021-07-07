@@ -5,22 +5,22 @@
     </ion-buttons>
     <ion-title>Register</ion-title>
   </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </ion-header>
-<div id="strip">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-<div
-  style="position: absolute; width: 100%; top: 55px; z-index: 1; background: url('assets/img/strip.png'); background-size: cover; height: 8px">
-</div>
+
 
 <ion-content class="ion-padding">
   <div *ngIf="screenMode === 0">
@@ -101,7 +101,7 @@
       </div> -->
 
       <ion-item lines="none">
-        <ion-input type="tel" name="CellphoneNumber" placeholder="Cell Number (062XXXX89)"
+        <ion-input type="tel" name="CellphoneNumber" placeholder="Cell Number"
           formControlName="CellphoneNumber"></ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon color="primary" name="call-outline"></ion-icon>
