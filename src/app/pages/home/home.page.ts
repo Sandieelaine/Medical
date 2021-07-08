@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
 
   async startTour() {
     const options: JoyrideOptions = {
-      steps: ['welcome','claims', 'benefits', 'profile'],
+      steps: ['welcome','claims', 'benefits', 'profile', 'authorisations'],
       // waitingTime: 2,
       themeColor:'#174575'
     };

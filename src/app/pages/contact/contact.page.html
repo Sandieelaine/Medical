@@ -59,7 +59,7 @@
     </div>
     <div class="shadow rounded-lg overflow-hidden">
       <div [ngClass]="{'bg-emerald_value': contactOptions?.IsOpen, 'bg-ruby': contactOptions?.IsOpen === false}" class="text-white px-4 py-3 flex justify-between items-center">
-        <span class="text-sm font-semibold">Currently {{isCallCentreOpen}}</span>
+        <span class="text-sm font-semibold">{{isCallCentreOpen | titlecase}} Today</span>
         <span *ngIf="contactOptions?.IsOpen" class="text-xs">{{contactOptions?.OpenHoursToday}}</span>
       </div>
       <ion-item>

@@ -84,13 +84,13 @@ export class CentresPage implements OnInit {
       const position = new google.maps.LatLng(latitude, longitude);
       const centresMarker = new google.maps.Marker({ position, title: `${centre.AddressLine1}, ${centre.AddressLine4}`, icon: '/assets/img/marker.png' });
       this.addInfoWindow(centresMarker,
-        `<span class="font-bold text-sm block">${centre.AddressLine1}</span>
+        `<span class="dark:text-dark-modegray"><span class="font-bold text-sm block">${centre.AddressLine1}</span>
         <span class="font-bold">Address: </span>
         <span>${centre.AddressLine1},${centre.AddressLine2},${centre.AddressLine3},${centre.AddressLine4}</span>
         <span class="font-bold block">Operating Hours:</span>
         <span class="block"><b>Midweek:  </b>${centre.OperatingHours.MidWeek}</span>
         <span class="block"><b>Saturday:  </b>${centre.OperatingHours.Saturday}</span>
-        <div onclick="window.open('https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}', '_blank')" class="text-xs p-2 bg-gems-primary-blue flex items-center text-white font-bold mt-2 rounded-full justify-center">GET DIRECTIONS</div>
+        <div onclick="window.open('https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}', '_blank')" class="text-xs p-2 bg-gems-primary-blue flex items-center text-white font-bold mt-2 rounded-full justify-center">GET DIRECTIONS</div></span>
         `
         );
       console.log(position);

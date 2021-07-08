@@ -35,11 +35,11 @@
   }
 
   @media only screen 
-  and (min-device-width: 768) 
+  and (min-device-width: 768px) 
   and (max-device-width: 1366px) {
 
     .front, .face, .back {
-        height: 400px
+        height: 400px !important
     }
     #card-container-ipad {
       padding-top: 200px;
