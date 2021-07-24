@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/claims-home"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Claim</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngFor="let claimItem of claim">
+    <div class="bg-white dark:bg-black p-4 flex">
+              <div class="w-1/2">
+                <span class="text-xs block">Member Number</span>
+                <span class="text-sm font-semibold">{{claimItem?.membershipNumber || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Service Provider</span>
+                <span class="text-sm font-semibold">{{claimItem?.payee || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Member's Portion</span>
+                <span class="text-sm font-semibold">{{claimItem?.memberPortion?.Amount | currency:'ZAR' || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Medicine</span>
+                <span class="text-sm font-semibold">{{claimItem?.PharmaceuticalProduct?.description || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Date Assessed</span>
+                <span class="text-sm font-semibold">{{claimItem?.dateAssessed | date: 'longDate' || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Message</span>
+                <span *ngFor='let msg of claimItem?.message' class="text-sm font-semibold">
+                  {{msg?.Message || 'N\/A'}}
+                </span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Diagnosis</span>
+                <span class="text-sm font-semibold">{{claimItem?.Diagnosis?.description || 'N\/A'}}</span>
+              
+              </div>
+
+              <div class="w-1/2">
+                <span class="text-xs block">Patient</span>
+                <span class="text-sm font-semibold">{{claimItem?.PatientName || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Benefit Allowed</span>
+                <span class="text-sm font-semibold">{{claimItem?.benefitAmount?.Amount | currency:'R' || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Payee</span>
+                <span class="text-sm font-semibold">{{claimItem?.payee || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Reference</span>
+                <span class="text-sm font-semibold">{{claimItem?.referenceNumber || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">Claim Status</span>
+                <span class="text-sm font-semibold">{{claimItem?.Status || 'N\/A'}}</span>
+                <div style="height: 10px;"></div>
+                <span class="text-xs block">ICD10 Code</span>
+                <span class="text-sm font-semibold">{{claimItem?.Diagnosis?.icd10Code || 'N\/A'}}</span>
+              </div>
+
+            </div>
+  </div>
+  
+
+</ion-content>

@@ -56,7 +56,7 @@
 
   <ion-item lines="none">
     <ion-label position="stacked">Upload File</ion-label>
-    <input class="my-2" type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
+    <input accept="application/pdf" class="my-2" type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile">
   </ion-item>
 
   <!-- <ion-button (click)="submitClaim()" expand="block" color="primary" fill="solid">Submit Claim</ion-button> -->

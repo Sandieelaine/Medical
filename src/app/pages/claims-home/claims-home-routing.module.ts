@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ClaimsHomePage
+  },
+  {
+    path: ':claimID',
+    loadChildren: () => import('./claim/claim.module').then( m => m.ClaimPageModule)
   }
 ];
 

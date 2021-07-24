@@ -172,6 +172,11 @@
                 <div style="height: 10px;"></div>
                 <span class="text-xs block">Member Portion</span>
                 <span class="text-sm font-semibold">{{claim.memberPortion.Amount | currency: 'R'}}</span>
+
+                <div style="height: 10px;"></div>
+                <button [routerLink]="[claim.referenceNumber]"  class="bg-gems-primary-blue py-1 px-3 text-gray-200 font-normal text-sm w-auto rounded-md disabled:opacity-50">
+        View Claim
+      </button>
               
               </div>
 

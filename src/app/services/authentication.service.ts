@@ -372,6 +372,16 @@ stopAndStartAllOver() {
     );
   }
 
+  getClaimByReferenceNumber(referenceNumber, GUID, Token) {
+    let req = this.httpNative.get(`${this.url}/api/v1/Members/${GUID}/claims/${referenceNumber}`,
+    {},
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+
   submitClaim(DocName, DocURLUpload, GUID, Token) {
     const body = {
       DocName,
