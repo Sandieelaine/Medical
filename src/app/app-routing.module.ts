@@ -6,7 +6,7 @@ import { IntroGuard } from './guards/intro.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/intro',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {

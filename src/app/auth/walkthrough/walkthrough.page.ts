@@ -19,6 +19,17 @@ export class WalkthroughPage implements OnInit {
 
   constructor(private router: Router) { }
 
+  // async ionViewWillEnter() {
+  //   const hasSeenIntro = await Storage.get({key: 'intro-seen'});
+  //   console.log(hasSeenIntro);
+  //   if (hasSeenIntro && (hasSeenIntro.value === 'true')) {
+  //     return true;
+  //   } else {
+  //     this.router.navigateByUrl('/intro');
+  //     return true;
+  //   }
+  // }
+
   ngOnInit() {
   }
 

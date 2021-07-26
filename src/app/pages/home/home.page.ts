@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
     this.auth.trackEvent('Documents', 'Play', 'Member Certificate')
     this.auth.trackView('/', 'Home Page');
     this.member = this.auth.getMember();
-    // this.showGuide();
+    this.showGuide();
     console.log(this.auth.loggedInMember);
     console.log(this.member);
     this.loadProfile();
@@ -87,6 +87,11 @@ export class HomePage implements OnInit {
     } else {
       this.startTour();
     }
+  }
+
+  async onTourGuideComplete() {
+    console.log('Walkthrough Completed');
+    await Storage.set({key: 'guide-seen', value: 'true'});
   }
 
   navigateToPost(post) {

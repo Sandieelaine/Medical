@@ -57,11 +57,24 @@ export class LoginPage implements OnInit {
     this.auth.logMemberIn(username, password).subscribe(async res => {
       console.log(res, 'ponse');
       this.checkAndCloseLoader();
-        // this.loadingCtrl.dismiss();
-        this.auth.loggedInMember = JSON.parse(res.data);
-        this.auth.memberData.next(JSON.parse(res.data));
-        console.log('Logged In')
-        this.router.navigateByUrl('/pre-home', {replaceUrl: true});
+
+        
+
+        if (JSON.parse(res.data).MemberGuid == null || JSON.parse(res.data).MemberGuid.length == 0) {
+          if (JSON.parse(res.data).MemberApplicationGuid === null || JSON.parse(res.data).MemberApplicationGuid.length === 0) {
+              console.log("No application guid or member guid received from the api. This is a critical error and the application can't continue.")
+          } else {
+              return;
+          }
+      } else {
+          //this.router.navigateByUrl('/home');
+          // console.log(`Welcome ${response.UserName}`);
+      }
+
+      this.auth.loggedInMember = JSON.parse(res.data);
+      this.auth.memberData.next(JSON.parse(res.data));
+      console.log('Logged In')
+      this.router.navigateByUrl('/pre-home', {replaceUrl: true});
 
     }, err => {
       this.checkAndCloseLoader();
