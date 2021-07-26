@@ -32,5 +32,6 @@ npm-debug.log*
 /android
 /android-ish
 /ios
+/ios_old
 /www_old
 /android_old
