@@ -167,6 +167,10 @@ const routes: Routes = [
   {
     path: 'post',
     loadChildren: () => import('./pages/post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'term-of-use',
+    loadChildren: () => import('./pages/term-of-use/term-of-use.module').then( m => m.TermOfUsePageModule)
   }
 ];
 @NgModule({

@@ -81,10 +81,7 @@ export class AuthorisationPage implements OnInit {
         this.authorisations[0].open = true;
         console.log(this.authorisations);
       }
-      
-      setTimeout(() => {
         this.isLoading = false;
-      }, 1000);
     }, error => {
       console.log(error);
       this.isLoading = false;

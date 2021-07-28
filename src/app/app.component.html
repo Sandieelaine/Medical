@@ -25,6 +25,20 @@
           Log Out
         </ion-item>
       </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item lines="inset" [routerLink]="['/term-of-use']">
+          <ion-icon name="book" slot="start"></ion-icon>
+          Terms Of Use
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item lines="full">
+          <!-- <ion-icon name="download" slot="start"></ion-icon> -->
+          ICT support desk: (012) 366 4618
+        </ion-item>
+      </ion-menu-toggle>
+      
+
       <!-- <ion-menu-toggle>
         <ion-item lines="none" routerLink="/tabs/tabs/documents">
           <ion-icon name="download" slot="start"></ion-icon>
@@ -45,12 +59,14 @@
       </ion-menu-toggle> -->
 
 
-      
+
 
     </ion-content>
     <ion-footer>
-      Hello
-      </ion-footer>
+      <div class="h-20 bg-gray-200">
+
+      </div>
+    </ion-footer>
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

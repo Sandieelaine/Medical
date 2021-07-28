@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'request',
     loadChildren: () => import('./request/request.module').then( m => m.RequestPageModule)
+  },
+  {
+    path: 'change-delivery-address',
+    loadChildren: () => import('./change-delivery-address/change-delivery-address.module').then( m => m.ChangeDeliveryAddressPageModule)
   }
 ];
 

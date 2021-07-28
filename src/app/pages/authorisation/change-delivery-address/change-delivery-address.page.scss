@@ -1,0 +1,17 @@
+ion-content {
+    --background: transparent;
+    background: #f4f4f4;
+  }
+  ion-item {
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: 1px solid #eeeeee;
+    margin-bottom: 15px !important;
+  }
+  ion-input {
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+  }
+  ion-button {
+      height: 60px;
+    }

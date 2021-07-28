@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button class="text-black dark:text-gray-400" defaultHref="/tabs/tabs/authorisation"></ion-back-button>
+    </ion-buttons>
+    <img slot="start" style="width: 30px" src="assets/img/logo.png" alt="">
+    <ion-title>Change Delivery Address</ion-title>
+  </ion-toolbar>
+  <div class="gems-border">
+    <div class="rainbow">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="chronicMedicationDeliveryForm" (ngSubmit)='postChronicMedicationDeliveryForm()' class="mt-2">
+    <span class="font-semibold text-1xl mt-4 mb-6 block">Please enter the Delivery Address below:</span>
+
+    <div>
+      <div>
+        <div>
+          <div>
+            
+            
+
+            <ion-item>
+              <ion-label position="stacked">Street Address</ion-label>
+              <ion-input type="text" name="DeliveryAddressLine1" formControlName="DeliveryAddressLine1"></ion-input>
+            </ion-item>
+
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressLine1.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressLine1.errors?.required">Street Address is required</div>
+            
+
+            <ion-item>
+              <ion-label position="stacked">Suburb</ion-label>
+              <ion-input type="text" name="DeliveryAddressLine2" formControlName="DeliveryAddressLine2"></ion-input>
+            </ion-item>
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressLine2.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressLine2.errors?.required">Suburb is required</div>
+
+
+            <ion-item>
+              <ion-label position="stacked">City / Town</ion-label>
+              <ion-input type="text" name="DeliveryAddressLine3" formControlName="DeliveryAddressLine3"></ion-input>
+            </ion-item>
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressLine3.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressLine3.errors?.required">City / Town is required</div>
+
+
+
+            <ion-item lines="none">
+              <ion-label position="stacked">Province</ion-label>
+              <ion-select formControlName="DeliveryAddressLine4" okText="Okay" cancelText="Dismiss">
+                <ion-select-option *ngFor="let province of staticprovincesArray" [value]="province" name="DeliveryAddressLine4">
+                  {{province}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="text-xs text-red-600 block mb-1 px-3" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressLine4.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressLine4.errors?.required">Please select an option</div>
+
+
+            <ion-item>
+              <ion-label position="stacked">Postal Code</ion-label>
+              <ion-input type="text" name="DeliveryAddressPostalCode" formControlName="DeliveryAddressPostalCode"></ion-input>
+            </ion-item>
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.errors?.required">City / Town is required</div>
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.errors?.minlength">Postal Code has a minimum of 3 characters</div>
+            <div class="text-xs text-red-600 block" *ngIf="(chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.touched) && chronicMedicationDeliveryFormControl.DeliveryAddressPostalCode.errors?.maxlength">Postal Code has a maximum of 4 characters</div>
+
+            
+
+
+            <button [disabled]="chronicMedicationDeliveryForm.invalid"
+              class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</ion-content>

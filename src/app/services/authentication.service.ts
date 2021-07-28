@@ -432,7 +432,21 @@ stopAndStartAllOver() {
       // timeout(10000)
     );
   }
+
+
   // ************************************  Request New Card *******************************//
+
+  // ************************************  Update Chronic Medicine Delivery Address *******************************//
+  updateChronicMedicationDeliveryAddress(GUID, Token, payload) {
+    let req = this.httpNative.put(`${this.url}/api/v1/Members/${GUID}/Authorisations/UpdateAddress/`,
+    payload,
+    {
+      'Authorization': `Bearer ${Token}`
+    }
+    );
+    return from(req);
+  }
+  // ************************************  Update Chronic Medicine Delivery Address  *******************************//
 
 
   // ************************************  Change Option *******************************//
@@ -1039,5 +1053,7 @@ stopAndStartAllOver() {
     });
     return from(req);
   }
+
+  
 
 }
