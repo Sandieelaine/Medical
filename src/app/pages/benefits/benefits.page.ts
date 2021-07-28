@@ -2,6 +2,7 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
+import { FullMember } from 'src/app/models/fullmember.model';
 
 @Component({
   selector: 'app-benefits',
@@ -16,7 +17,9 @@ export class BenefitsPage implements OnInit {
   automaticClose = true;
   isLoading = false;
 
+
   member:Member = null;
+  profile:FullMember = null
 
   constructor(private api: AuthenticationService, private router: Router) {
     
@@ -27,6 +30,7 @@ export class BenefitsPage implements OnInit {
     this.member = this.api.getMember();
     console.log(this.member);
     this.loadBenefits();
+    this.getMemberProfile();
   }
 
   doRefresh(e?) {
@@ -73,6 +77,16 @@ export class BenefitsPage implements OnInit {
         this.benefits = [...this.benefitsBackup];
       }
     })
+  }
+
+  getMemberProfile() {
+    this.api.getMemberProfile(this.member.MemberGuid, this.member.access_token).subscribe(profile => {
+      this.profile = JSON.parse(profile.data);
+      console.log(this.profile);
+    }, err => {
+      // console.log(err);
+      this.api.presentToast(err.error, 5000);
+    });
   }
 
 

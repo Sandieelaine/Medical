@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'activity',
     loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule)
+  },
+  {
+    path: 'adding-dependants',
+    loadChildren: () => import('./adding-dependants/adding-dependants.module').then( m => m.AddingDependantsPageModule)
   }
 ];
 
