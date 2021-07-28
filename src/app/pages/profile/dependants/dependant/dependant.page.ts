@@ -1,8 +1,11 @@
+import { RemoveDependantStatus } from './../../../../enums/enums';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dependant',
@@ -16,8 +19,10 @@ export class DependantPage implements OnInit {
   DependantImage = null;
   dayToDayBenefits = null;
   DependantIndex = null;
+  screenMode = RemoveDependantStatus.DEPENDANT_PROFILE;
+  otpForm!: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService) {
+  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private alertCtrl: AlertController, private fb: FormBuilder) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       console.log(paramMap);
       const dependant = paramMap.get('Dependant');
@@ -37,6 +42,7 @@ export class DependantPage implements OnInit {
     this.getDependantProfile();
     this.loadBenefits();
   }
+
 
   getDependantProfile() {
     console.log('fired');
@@ -68,8 +74,48 @@ export class DependantPage implements OnInit {
     });
   }
 
-  removeDependant() {
-    // this.api.removeDependant()
+  async removeDependant() {
+    let confirmRemoval = await this.alertCtrl.create({
+      header: 'Remove Dependant',
+      message: `Are you sure you want to remove ${this.dependantProfile.FirstName} from your dependants`,
+      buttons: [
+        {
+          text: 'Yes',
+          handler: async () => {
+            this.initializeForms();
+            console.log(this.dependantProfile);
+            this.api.genericRequestOTP(this.member)
+            .subscribe(res => {
+              console.log(res);
+              this.screenMode = RemoveDependantStatus.VERIFICATION
+            })
+            // this.api.removeDependant()
+          }
+        },
+        {
+          text: 'No',
+        }
+      ]
+    })
+    confirmRemoval.present();
+    
+  }
+
+  initializeForms() {
+    //Screen Mode 2
+    this.otpForm = this.fb.group({
+      OTPPin: ['', [Validators.required, Validators.minLength(5)]],
+    });
+  };
+
+  public otpErrorHandling = (control: string, error: string) => {
+    if(this.otpForm.touched) {
+      return this.otpForm.controls[control].hasError(error);
+    }
+  };
+
+  submitOTP() {
+
   }
 
 }

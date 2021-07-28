@@ -14,3 +14,9 @@ export enum CheckUsernameExistsStatus {
   VERIFICATION,
   GETUSERNAME
 }
+
+export enum RemoveDependantStatus {
+  DEPENDANT_PROFILE,
+  VERIFICATION,
+  REMOVAL
+}

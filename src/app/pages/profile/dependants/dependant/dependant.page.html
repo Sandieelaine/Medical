@@ -24,81 +24,126 @@
 
 
 <ion-content>
-  <ion-grid class="ion-no-padding benefit-slide">
-    <ion-row *ngIf="dependantProfile" class="details">
-      <ion-col size="3">
-        <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid"
-          [src]="DependantImage" alt="">
-      </ion-col>
-      <ion-col size="9">
-        <div class="rounded p-5">
-          <span
-            class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{dependantProfile?.FullName | titlecase}}</span>
-          <span class="text-white dark:text-gray-400 text-4xl font-bold block" *ngIf="dayToDayBenefits">
-            {{dayToDayBenefits.FreeAmount.Amount | currency: 'R'}}</span>
-          <span class="text-gray-100 dark:text-gray-300 text-xs uppercase block">Balance</span>
-        </div>
-      </ion-col>
-
-      <div class="h-4"></div>
-    </ion-row>
-
-    <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-11">
-      <ion-col>
-        <div joyrideStep="memberdetails" title="Member Details" text="Hello World" class="flex" style="padding: 10px;">
-          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
-            <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="height: 10px;"></div>
-            <span class="dark:text-white text-xs uppercase tracking-wide">Allocated</span>
+  <div *ngIf="screenMode === 0">
+    <ion-grid class="ion-no-padding benefit-slide">
+      <ion-row *ngIf="dependantProfile" class="details">
+        <ion-col size="3">
+          <img class="rounded-full w-20 border-gray-100 dark:border-gray-400 border-2 p-1 border-solid"
+            [src]="DependantImage" alt="">
+        </ion-col>
+        <ion-col size="9">
+          <div class="rounded p-5">
             <span
-              class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits.MaxAmount.Amount | currency: 'R'}}</span>
+              class="text-gray-100 dark:text-gray-300  text-xs uppercase block">{{dependantProfile?.FullName | titlecase}}</span>
+            <span class="text-white dark:text-gray-400 text-4xl font-bold block" *ngIf="dayToDayBenefits">
+              {{dayToDayBenefits.FreeAmount.Amount | currency: 'R'}}</span>
+            <span class="text-gray-100 dark:text-gray-300 text-xs uppercase block">Balance</span>
           </div>
-          <div style="width: 20px;"></div>
-          <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
-            <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
-            <div style="height: 10px;"></div>
-            <span class="dark:text-white text-xs uppercase tracking-wide">Used</span>
-            <span
-              class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits.UsedAmount.Amount | currency: 'R'}}</span>
+        </ion-col>
+  
+        <div class="h-4"></div>
+      </ion-row>
+  
+      <ion-row *ngIf="dayToDayBenefits" class="ion-no-padding -mt-11">
+        <ion-col>
+          <div joyrideStep="memberdetails" title="Member Details" text="Hello World" class="flex" style="padding: 10px;">
+            <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
+              <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
+              <div style="height: 10px;"></div>
+              <span class="dark:text-white text-xs uppercase tracking-wide">Allocated</span>
+              <span
+                class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits.MaxAmount.Amount | currency: 'R'}}</span>
+            </div>
+            <div style="width: 20px;"></div>
+            <div class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-start py-8 px-5">
+              <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
+              <div style="height: 10px;"></div>
+              <span class="dark:text-white text-xs uppercase tracking-wide">Used</span>
+              <span
+                class="font-bold text-3xl tracking-tighter text-black dark:text-gray-400">{{dayToDayBenefits.UsedAmount.Amount | currency: 'R'}}</span>
+            </div>
           </div>
+  
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+    <div class="p-2" *ngIf="dependantProfile">
+      <div class="text-black w-full bg-white p-4 shadow-md rounded">
+        <div class="w-1/2 inline-block">
+          <span class="text-xs block">Date of Birth</span>
+          <span class="text-sm font-bold">{{dependantProfile?.DOB | date: 'mediumDate'}}</span>
         </div>
-
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <div class="p-2" *ngIf="dependantProfile">
-    <div class="text-black w-full bg-white p-4 shadow-md rounded">
-      <div class="w-1/2 inline-block">
-        <span class="text-xs block">Date of Birth</span>
-        <span class="text-sm font-bold">{{dependantProfile?.DOB | date: 'mediumDate'}}</span>
+  
+        <div class="w-1/2 inline-block">
+          <span class="text-xs block">ID Number</span>
+          <span class="text-sm font-bold">{{dependantProfile?.MemberIDNo| date: 'mediumDate'}}</span>
+        </div>
+  
+        <div class="w-1/2 inline-block mt-4">
+          <span class="text-xs block">Email Address</span>
+          <span class="text-sm font-bold">{{dependantProfile?.EmailAddress || 'N/A'}}</span>
+        </div>
+  
+        <div class="w-1/2 inline-block mt-4">
+          <span class="text-xs block">Gender</span>
+          <span class="text-sm font-bold">{{dependantProfile?.Gender}}</span>
+        </div>
+  
+  
       </div>
-
-      <div class="w-1/2 inline-block">
-        <span class="text-xs block">ID Number</span>
-        <span class="text-sm font-bold">{{dependantProfile?.MemberIDNo| date: 'mediumDate'}}</span>
-      </div>
-
-      <div class="w-1/2 inline-block mt-4">
-        <span class="text-xs block">Email Address</span>
-        <span class="text-sm font-bold">{{dependantProfile?.EmailAddress || 'N/A'}}</span>
-      </div>
-
-      <div class="w-1/2 inline-block mt-4">
-        <span class="text-xs block">Gender</span>
-        <span class="text-sm font-bold">{{dependantProfile?.Gender}}</span>
-      </div>
-
-
     </div>
+  
+  
+    <div *ngIf="dependantProfile" class="px-2">
+      <button [routerLink]="['/', 'tabs', 'tabs', 'profile', 'edit', dependantProfile?.BeneficiaryID]"
+      class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+      Update Profile
+    </button>
+    </div>
+  
+    <div *ngIf="dependantProfile" class="px-2">
+      <button (click)="removeDependant()"
+      class="bg-ruby p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
+      Remove Dependant
+    </button>
+    </div>
+  
+    <!-- <div class="text-black w-24 h-24 overflow-hidden rounded-full border-solid border-gray-500 dark:border-gray-400 border-2">
+      <img class="w-full object-cover"
+            [src]="DependantImage" alt="">
+    </div> -->
   </div>
+  
 
-
-  <div class="px-2">
-    <button [routerLink]="['/', 'tabs', 'tabs', 'profile', 'edit', dependantProfile?.BeneficiaryID]"
-    class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50 mt-3">
-    Update Profile
-  </button>
-  </div>
+    <!-- GO TO OTP PAGE -->
+    <div *ngIf="screenMode === 1" class="mx-4">
+      <div *ngIf="member" class="w-full text-center bg-green-200 p-5 rounded mt-6">
+        <span class="block text-sm">We have just sent you an OTP(One Time Pin) to {{member?.CellphoneNumber}}
+          Please enter the 6 digit number in the field below.
+          (Depending on your carrier it may take up to 1 minute).</span>
+      </div>
+      <form [formGroup]="otpForm" (ngSubmit)='submitOTP()' class="mt-2">
+  
+        <ion-item lines="none">
+          <ion-input autocomplete="off" placeholder="Enter OTP XXXXXX" type="text" name="OTPPin" formControlName="OTPPin">
+          </ion-input>
+          <ion-button fill="clear" slot="end">
+            <ion-icon color="primary" name="person-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</div>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits
+          long</div>
+        <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits
+          long</div>
+  
+  
+        <button [disabled]="otpForm.invalid"
+          class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+          Submit OTP
+        </button>
+      </form>
+    </div>
   
 </ion-content>
