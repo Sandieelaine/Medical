@@ -23,24 +23,51 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="changeUsernameForm" (ngSubmit)='changeUsername()'>
-    <ion-item lines="none">
-      <ion-label position="stacked">Username</ion-label>
-      <ion-input type="text"
-        name="UserName" formControlName="UserName"></ion-input>
-    </ion-item>
+  <!-- SCREEM MODE 0-->
+  <div *ngIf="screenMode === 0">
+    <form [formGroup]="checkUsernameExistsForm" (ngSubmit)='checkUsernameExists()'>
+      <ion-item lines="none">
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input type="text" name="UserName" formControlName="UserName"></ion-input>
+      </ion-item>
 
-    <ion-item lines="none">
-      <ion-label position="stacked">Confirm username</ion-label>
-      <ion-input type="text"
-        name="ConfirmUsername" formControlName="ConfirmUsername"></ion-input>
-    </ion-item>
-
-    <button [disabled]="changeUsernameForm.invalid"
+      <button [disabled]="checkUsernameExistsForm.invalid"
         class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
         Update Username
       </button>
-  </form>
-  
+    </form>
+  </div>
+
+
+  <!-- SCREEM MODE 1 -->
+  <div *ngIf="screenMode === 1">
+    <div *ngIf="requestOTPResponse" class="w-full text-center bg-green-200 p-5 rounded mt-6">
+      <span class="block text-sm">We have just sent you an OTP(One Time Pin) to {{requestOTPResponse.Cellnumber}}
+        Please enter the 6 digit number in the field below.
+        (Depending on your carrier it may take up to 1 minute).</span>
+    </div>
+    <form [formGroup]="otpForm" (ngSubmit)='submitOTP()' class="mt-2">
+
+      <ion-item lines="none">
+        <ion-input autocomplete="off" placeholder="Enter OTP XXXXXX" type="text" name="OTPPin" formControlName="OTPPin">
+        </ion-input>
+        <ion-button fill="clear" slot="end">
+          <ion-icon color="primary" name="person-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'required')">OTP is required</div>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'minlength')">OTP Pin should be 6 digits
+        long</div>
+      <div class="text-xs text-red-600 block" *ngIf="otpErrorHandling('OTPPin', 'maxlength')">OTP Pin should be 6 digits
+        long</div>
+
+
+      <button [disabled]="otpForm.invalid"
+        class="bg-gems-primary-blue p-4 text-gray-200 font-bold text-lg w-full rounded-full disabled:opacity-50">
+        Submit OTP
+      </button>
+    </form>
+  </div>
+
 
 </ion-content>

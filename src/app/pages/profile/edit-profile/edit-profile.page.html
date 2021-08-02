@@ -53,18 +53,18 @@
           Emergency Information
         </ion-label>
       </ion-item>
-      <!-- <ion-item [routerLink]="['change-username', profile?.BeneficiaryID]" lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item *ngIf="profile?.isPrincipleMember" [routerLink]="['change-username', profile?.BeneficiaryID]" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Change Username
         </ion-label>
       </ion-item>
-      <ion-item [routerLink]="['change-password', profile?.BeneficiaryID]" lines="none" class="rounded overflow-hidden border-b" detail>
+      <ion-item *ngIf="profile?.isPrincipleMember" [routerLink]="['change-password', profile?.BeneficiaryID]" lines="none" class="rounded overflow-hidden border-b" detail>
         <ion-icon name="key-outline" slot="start"></ion-icon>
         <ion-label class="text-sm font-medium">
           Change Password
         </ion-label>
-      </ion-item> -->
+      </ion-item>
       <ion-item [routerLink]="['communication-preferences', profile?.BeneficiaryID]" lines="none" class="rounded overflow-hidden" detail>
         <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
         <ion-label class="text-sm font-medium">

@@ -433,6 +433,9 @@ stopAndStartAllOver() {
     );
   }
 
+  
+
+
 
   // ************************************  Request New Card *******************************//
 
@@ -532,6 +535,38 @@ stopAndStartAllOver() {
     })
     return from(req);
   }
+
+  updatePassword(payload: any) {
+    let req = this.httpNative.post(`${this.url}/api/v1/account/ChangePassword`,
+    payload,
+    {
+      // "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+ }
+
+ ChangeUsername(payload: any): Observable<any> {
+  let req = this.httpNative.post(`${this.url}/api/v1/account/ChangeUsername`,
+  payload,
+  {
+    // "Content-Type": "application/x-www-form-urlencoded"
+  })
+  return from(req);
+}
+
+  checkUsernameExistsChangeUsername(payload: any) {
+    const body = {
+        MemberIDNumber: payload.MemberIDNumber,
+        UserName: payload.UserName
+    };
+
+    let req = this.httpNative.post(`${this.url}/api/v1/account/CheckUsernameExists`,
+    body,
+    {
+      // "Content-Type": "application/x-www-form-urlencoded"
+    })
+    return from(req);
+}
 
   genericRequestOTP(payload: any) {
     let req = this.httpNative.post(`${this.url}/api/otp/send`,

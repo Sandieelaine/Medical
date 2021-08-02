@@ -20,3 +20,8 @@ export enum RemoveDependantStatus {
   VERIFICATION,
   REMOVAL
 }
+
+export enum updatePasswordStatus {
+  UPDATE_PASSWORD,
+  VERIFICATION
+}
