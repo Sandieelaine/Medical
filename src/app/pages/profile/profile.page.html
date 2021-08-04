@@ -144,8 +144,8 @@
 
     </ion-row>
 
-    <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg"
-      style="margin: 10px;">
+    <ion-row class="bg-white dark:bg-black shadow-lg rounded-lg ion-no-padding"
+      style="margin: 10px; margin-bottom: 2px !important;">
       <div *ngIf="profile?.isPrincipleMember && profile?.Dependants && profile?.Dependants.length < 1" class="w-full flex h-auto items-center">
         <div class="w-4/6 text-left p-3">
           <span class="text-gray-900 dark:text-gray-400 text-lg font-semibold block">Dependants</span>
@@ -196,27 +196,29 @@
         </div>
       </ion-col>
     </ion-row> -->
-
-    <ion-row *ngIf="activity" class="ion-padding" style="margin: 0px; 5px 5px 5px">
-      <ion-col>
-        <div class="flex justify-between items-center mb-4">
-          <span class="text-sm uppercase font-semibold text-black dark:text-gray-400">Activity</span>
-          <span routerLink="activity" class="text-xs text-yellow-500">View All</span>
-        </div>
-
-        <div class="mt-1">
-          <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" lines="none">
-            <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
-            <ion-label class="ion-text-wrap">
-              <span class="block font-semibold text-md text">{{item.Header}}</span>
-              <span class="text-xs text-gray-600">{{item.DOA | date: 'mediumDate'}}</span>
-            </ion-label>
-          </ion-item>
-        </div>
-        <div>
-        </div>
-      </ion-col>
-    </ion-row>
+    <div class="p-3">
+      <ion-row class="ion-no-padding" *ngIf="activity">
+        <ion-col class="ion-no-padding">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-sm uppercase font-semibold text-black dark:text-gray-400">Activity</span>
+            <span routerLink="activity" class="text-xs text-yellow-500">View All</span>
+          </div>
+  
+          <div class="mt-1">
+            <ion-item *ngFor="let item of activity | slice:0:3" class="shadow-md mb-2 rounded-lg" lines="none">
+              <ion-icon color="primary" slot="start" name="information-circle"></ion-icon>
+              <ion-label class="ion-text-wrap">
+                <span class="block font-semibold text-md text">{{item.Header}}</span>
+                <span class="text-xs text-gray-600">{{item.DOA | date: 'mediumDate'}}</span>
+              </ion-label>
+            </ion-item>
+          </div>
+          <div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    
 
 
 

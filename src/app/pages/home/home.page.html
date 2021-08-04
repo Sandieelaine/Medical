@@ -182,38 +182,15 @@
       <ion-row>
         <ion-col col-12 class="ion-no-padding">
           <ion-label>
-            <h2 class="activity-title dark:text-dark-modegraylight text-gray-900">Explore</h2>
+            <div style="height: 3px; display: block;"></div>
+            <span class="activity-title dark:text-dark-modegraylight text-gray-900 mt-3 mb-4 font-semibold py-3">Explore</span>
+            <div style="height: 5px; display: block;"></div>
           </ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12 class="ion-no-padding">
           <ion-slides [options]="exploreOpt">
-            <ion-slide *ngFor="let post of posts" (click)="navigateToPost(post)">
-              <div class="shadow-md bg-white dark:bg-black rounded-lg">
-                <div style="position: relative">
-                  <div class="rainbow" style="width: 70%; bottom: 0px;">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                  <div class="w-full bg-red-300">
-                    <img style="height: 100px; width: 100%" class="object-cover w-full" [src]="'assets/img/_' + post?.id +'.jpg'" alt="">
-                  </div>
-
-                </div>
-                <div class="text-gray-800 dark:text-dark-modegraylight flex justify-center p-2">
-                  <span class="font-semibold text-sm" [innerHTML]="post.title"></span>
-                </div>
-              </div>
-            </ion-slide>
             <ion-slide *ngFor="let post of posts" (click)="navigateToPost(post)">
               <div class="shadow-md bg-white dark:bg-black rounded-lg">
                 <div style="position: relative">

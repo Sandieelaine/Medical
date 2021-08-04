@@ -6,6 +6,7 @@ import { FullMember } from 'src/app/models/fullmember.model';
 import { Member } from 'src/app/models/member.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-dependant',
@@ -22,7 +23,7 @@ export class DependantPage implements OnInit {
   screenMode = RemoveDependantStatus.DEPENDANT_PROFILE;
   otpForm!: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private alertCtrl: AlertController, private fb: FormBuilder) {
+  constructor(private activatedRoute: ActivatedRoute, private api: AuthenticationService, private alertCtrl: AlertController, private fb: FormBuilder, private helper: HelpersService) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       console.log(paramMap);
       const dependant = paramMap.get('Dependant');
@@ -115,7 +116,8 @@ export class DependantPage implements OnInit {
   };
 
   submitOTP() {
-
+    this.screenMode = RemoveDependantStatus.DEPENDANT_PROFILE;
+    this.helper.presentToast('Dependant successfully removed.');
   }
 
 }

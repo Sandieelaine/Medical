@@ -83,32 +83,117 @@
     </div>
   </div>
 
-  <div class="px-2 py-1" *ngFor="let benefit of benefits; let i = index;" (click)="toggleSection(i)">
+  <!-- MAJOR MEDICAL COVER -->
+  <div *ngIf="majorBenefit" class="px-2 py-1" (click)="toggleMajorBenefitSection()">
+    <ion-item mode="md" lines="full">
+      <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+      <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!majorBenefit.open"></ion-icon>
+      <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="majorBenefit.open"></ion-icon>
+      <ion-label class="font-semibold">
+        <span class="text-black dark:text-dark-modegraylight block">{{majorBenefit?.Description | titlecase}}</span>
+        <!-- <span class="text-black text-xs font-light">{{benefit?.Code}}</span> -->
+      </ion-label>
+    </ion-item>
+    <div *ngIf="majorBenefit.open" class="bg-white dark:bg-black p-4 pt-1 pb-1" [ngClass]="{'block': majorBenefit.open, 'hidden': !majorBenefit.open}">
+      <span class="text-xs font-bold">{{majorBenefit?.PercentageCovered}}% of Scheme Rate</span>
+
+      <!-- If Major Benefit is limited -->
+      <div *ngIf="majorBenefit.IsUnlimited == false">
+        <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">R{{majorBenefit.FreeAmount.Amount}}</span> of <span class="font-semibold dark:text-dark-modegraylight">R{{majorBenefit.MaxAmount.Amount}}</span> available</span>
+      </div>
+
+      <!-- If Major Benefit is not limited -->
+      <div *ngIf="majorBenefit.IsUnlimited == true">
+        <ion-progress-bar [value]="+majorBenefit.FreeAmount.Amount/+majorBenefit.MaxAmount.Amount"></ion-progress-bar>
+        <span class="text-xs">Unlimited</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAJOR MEDICAL COVER -->
+
+  <!-- GENERAL BENEFIT -->
+  <div *ngIf="generalBenefits">
+    <div class="px-2 py-1" *ngFor="let benefit of generalBenefits; let i = index;" (click)="toggleGeneralBenefitsSection(i)">
+      <ion-item mode="md" lines="full">
+        <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!benefit.open"></ion-icon>
+        <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="benefit.open"></ion-icon>
+        <ion-label class="font-semibold">
+          <span class="text-black dark:text-dark-modegraylight block">{{benefit?.Description | titlecase}}</span>
+        </ion-label>
+      </ion-item>
+      <div *ngIf="benefit.open" class="bg-white dark:bg-black p-4 py-1" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
+        <!-- MAIN -->
+        <div *ngIf="benefit.DisplayType == 0">
+          <span class="text-xs font-bold block">{{benefit?.PercentageCovered}}% of Scheme Rate</span>
+          <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">{{availableUnitsForBenefit(benefit) }}</span> of <span class="font-semibold dark:text-dark-modegraylight">{{benefit.MaxAmount.Amount}}</span> available</span>
+        </div>
+
+
+        <div *ngIf="benefit.DisplayType == 1">
+          <span class="text-xs font-bold block">{{benefit?.PercentageCovered}}% of Scheme Rate</span>
+          <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">{{availableUnitsForBenefit(benefit) }}</span> of <span class="font-semibold dark:text-dark-modegraylight">{{benefit.MaxUnits}}</span> available</span>
+        </div>
+        <!-- MAIN -->
+        
+        <ion-progress-bar *ngIf="benefit.DisplayType == 0" [value]="+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount"></ion-progress-bar>
+
+        <!-- DEPENDANTS -->
+        <div *ngIf="benefit.ShowBeneficiaryLevel">
+          <div class="mt-2" *ngFor="let depBenefit of benefit?.BenefitUsageBeneficiaries">
+            <div class="flex items-center" *ngIf="depBenefit?.DisplayType == 0">
+              <div class="w-1/12">
+                <span class="bg-gems-primary-blue text-white dark:text-gray-400 p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
+              </div>
+              <div class="w-11/12">
+                <span> <span class="font-semibold">R{{depBenefit?.MaxAmount?.Amount - depBenefit?.UsedAmount?.Amount}}</span> of <span class="font-semibold">R{{depBenefit?.MaxAmount.Amount}}</span> available</span>
+              <ion-progress-bar [value]="+depBenefit?.MaxAmount.Amount/+depBenefit?.MaxAmount.Amount"></ion-progress-bar>
+              </div>
+                      
+            </div>
+
+            <div class="flex items-center" *ngIf="depBenefit.DisplayType == 1 && (depBenefit.MaxAmount.Amount > 0 || depBenefit.UsedAmount.Amount > 0 || depBenefit.FreeAmount.Amount > 0 )">
+              <div class="w-1/12">
+                <span class="bg-gems-primary-blue text-white dark:text-gray-400 p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
+              </div>
+              <div class="w-11/12">
+                <span> <span class="font-semibold">R{{availableAmountForBenefit(benefit)}}</span> of <span class="font-semibold">R{{depBenefit?.MaxAmount.Amount}}</span> available</span>
+              <ion-progress-bar [value]="(+depBenefit?.MaxAmount.Amount - +depBenefit?.UsedAmount.Amount)/depBenefit.MaxAmount.Amount"></ion-progress-bar>
+              </div>
+            </div>
+
+            <div class="flex items-center" *ngIf="depBenefit.DisplayType == 1 && (depBenefit.MaxAmount.Amount <= 0 && depBenefit.UsedAmount.Amount <= 0 && depBenefit.FreeAmount.Amount <= 0 )">
+              <div class="w-1/12">
+                <span class="bg-gems-primary-blue text-white dark:text-gray-400 p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
+              </div>
+              <div class="w-11/12">
+                <span> <span class="font-semibold">{{availableUnitsForBenefit(depBenefit)}}</span> of <span class="font-semibold">{{depBenefit?.MaxUnits}}</span> available</span>
+              <ion-progress-bar [value]="(+depBenefit?.MaxAmount.Amount - +depBenefit?.UsedAmount.Amount)/depBenefit.MaxAmount.Amount"></ion-progress-bar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DEPENDANTS -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- GENERAL BENEFIT -->
+
+  <!-- UNLIMITED BENEFIT -->
+  <div class="px-2 py-1" *ngFor="let benefit of unlimitedBenefits; let i = index;" (click)="toggleUnlimitedBenefitsSection(i)">
     <ion-item mode="md" lines="full">
       <ion-icon class="bg-gems-primary-blue p-2 rounded" src="assets/img/home/benefits_fill.svg" slot="start"></ion-icon>
       <ion-icon slot="end" name="chevron-forward" mode="ios" *ngIf="!benefit.open"></ion-icon>
       <ion-icon slot="end" name="chevron-down" mode="ios" *ngIf="benefit.open"></ion-icon>
       <ion-label class="font-semibold">
         <span class="text-black dark:text-dark-modegraylight block">{{benefit?.Description | titlecase}}</span>
-        <!-- <span class="text-black text-xs font-light">{{benefit?.Code}}</span> -->
       </ion-label>
     </ion-item>
     <div *ngIf="benefit.open" class="bg-white dark:bg-black p-4" [ngClass]="{'block': benefit.open, 'hidden': !benefit.open}">
-      <span class="text-black dark:text-dark-modegraylight"> <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.FreeAmount.Amount}}</span> of <span class="font-semibold dark:text-dark-modegraylight">R{{benefit.MaxAmount.Amount}}</span> available</span>
-      <ion-progress-bar [value]="+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount"></ion-progress-bar>
-      <!-- <p>{{+benefit.MaxAmount.Amount/+benefit.FreeAmount.Amount}}</p>
-      <p>{{+benefit.FreeAmount.Amount/+benefit.MaxAmount.Amount}}</p> -->
-      <div class="mt-2 flex items-center" *ngFor="let depBenefit of benefit?.BenefitUsageBeneficiaries">
-        <div class="w-1/12" *ngIf="depBenefit.BeneficiaryNumber !== '00'">
-          <span class="bg-gems-primary-blue text-white dark:text-gray-400 p-1 rounded text-sm font-semibold">{{depBenefit?.BeneficiaryNumber}}</span>
-        </div>
-        <div *ngIf="depBenefit.BeneficiaryNumber !== '00'" class="text-black dark:text-dark-modegraylight w-11/12">
-          <span> <span class="font-semibold">R{{depBenefit?.FreeAmount.Amount}}</span> of <span class="font-semibold">R{{depBenefit?.MaxAmount.Amount}}</span> available</span>
-          <ion-progress-bar [value]="+depBenefit?.FreeAmount.Amount/+depBenefit?.MaxAmount.Amount"></ion-progress-bar>
-        </div>
-        
-      </div>
+      <span class="text-black dark:text-dark-modegraylight">Unlimited cover</span>
     </div>
   </div>
-
+  <!-- UNLIMITED BENEFIT -->
 </ion-content>

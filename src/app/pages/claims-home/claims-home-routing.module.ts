@@ -9,8 +9,16 @@ const routes: Routes = [
     component: ClaimsHomePage
   },
   {
-    path: ':claimID',
+    path: 'claim/:claimID',
     loadChildren: () => import('./claim/claim.module').then( m => m.ClaimPageModule)
+  },
+  {
+    path: 'statements',
+    loadChildren: () => import('../claims/claims.module').then( m => m.ClaimsPageModule)
+  },
+  {
+    path: 'submit',
+    loadChildren: () => import('../submit-claim/submit-claim.module').then( m => m.SubmitClaimPageModule)
   }
 ];
 

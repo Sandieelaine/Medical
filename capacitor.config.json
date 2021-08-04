@@ -1,4 +1,8 @@
 {
   "appId": "za.gov.GEMS.Member",
-  "appName": "GEMS: Member"
+  "appName": "GEMS: Member",
+  "server": {
+    "url": "http://192.168.3.2:8100",
+    "cleartext": true
+  }
 }

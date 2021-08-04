@@ -89,7 +89,7 @@
     <ion-row class="ion-no-padding mt-1 bg-gems-primary-blue">
       <ion-col>
         <div class="flex" style="padding: 15px;">
-          <div routerLink="/tabs/tabs/claims-home/claim-statements" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+          <div routerLink="statements" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
             <img class="svg-icon mb-2" src="assets/img/home/claims_fill.svg" alt="">
             <div style="height: 10px;"></div>
             <span class="dark:text-white text-xs uppercase tracking-widest">Claims</span>
@@ -97,7 +97,7 @@
               class="font-extrabold text-2xl tracking-tighter dark:text-white">Statements</span>
           </div>
           <div style="width: 20px;"></div>
-          <div routerLink="/tabs/tabs/claims-home/submit-claim" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
+          <div routerLink="submit" class="w-1/2 shadow-md flex flex-col bg-white dark:bg-black p-1 rounded-lg items-center py-8 px-5">
             <img class="svg-icon" src="assets/img/home/claims_fill.svg" alt="">
             <div style="height: 10px;"></div>
             <span class="dark:text-white text-xs uppercase tracking-widest">Submit</span>
@@ -174,7 +174,7 @@
                 <span class="text-sm font-semibold">{{claim.memberPortion.Amount | currency: 'R'}}</span>
 
                 <div style="height: 10px;"></div>
-                <button [routerLink]="[claim.referenceNumber]"  class="bg-gems-primary-blue py-1 px-3 text-gray-200 font-normal text-sm w-auto rounded-md disabled:opacity-50">
+                <button [routerLink]="['claim', claim.referenceNumber]"  class="bg-gems-primary-blue py-1 px-3 text-gray-200 font-normal text-sm w-auto rounded-md disabled:opacity-50">
         View Claim
       </button>
               

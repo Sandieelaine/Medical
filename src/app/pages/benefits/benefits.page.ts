@@ -21,6 +21,19 @@ export class BenefitsPage implements OnInit {
   member:Member = null;
   profile:FullMember = null
 
+  /*Modified*/
+  generalBenefits:any[]=[];
+  unlimitedBenefits:any[]=[];
+  majorBenefit!:any;
+  acuteMedBenefit!:any;
+  chronicMedBenefit!:any;
+  selfMedBenefit!:any;
+  medicationGauges!:any;
+
+
+  unlimitedBenefitsStaticArr:any[]=[];
+  generalBenefitsStaticArr:any[]=[];
+
   constructor(private api: AuthenticationService, private router: Router) {
     
   }
@@ -44,7 +57,9 @@ export class BenefitsPage implements OnInit {
     this.api.getBenefits(this.member.MemberGuid, this.member.access_token).subscribe(benefits => {
       this.benefitsBackup = JSON.parse(benefits.data);
       this.benefits = [...this.benefitsBackup];
-      this.benefits[0].open = true;
+      // this.benefits[0].open = true;
+      this.buildBenefitSets();
+      console.log(this.majorBenefit, 'majorb');
       console.log(this.benefits);
       setTimeout(() => {
         this.isLoading = false;
@@ -88,6 +103,92 @@ export class BenefitsPage implements OnInit {
       this.api.presentToast(err.error, 5000);
     });
   }
+
+  buildBenefitSets() {
+
+    for (var i = 0; i < this.benefits.length; i++) {
+        var benefit = this.benefits[i];
+        if (benefit.IsMajor) {
+            this.majorBenefit = benefit;
+            if (this.majorBenefit) {
+              this.majorBenefit.open = false;
+            }
+        } else if (benefit.IsAcuteMedication) {
+            this.acuteMedBenefit = benefit;
+        } else if (benefit.IsChronicMedication) {
+            this.chronicMedBenefit = benefit;
+        } else if (benefit.IsSelfMedication) {
+            this.selfMedBenefit = benefit;
+        } else if (benefit.DisplayType === 2 && !benefit.ShowBeneficiaryLevel) {
+            this.unlimitedBenefits.push(benefit);
+            // if(this.unlimitedBenefits.length > 0) {
+
+            // }
+        }
+        else {
+            this.generalBenefits.push(benefit);
+        }
+    }
+
+    this.unlimitedBenefits.forEach((item: any) => {
+        this.unlimitedBenefitsStaticArr.push(item);
+    });
+
+    this.generalBenefits.forEach((item: any) => {
+        this.generalBenefitsStaticArr.push(item);
+    });
+}
+
+availableAmountForBenefit = function(benefit: any)
+{
+    var amount = benefit.MaxAmount.Amount - benefit.UsedAmount.Amount;
+    if (amount < 0) {
+        amount = 0;
+    }
+    return amount;
+}
+
+availableUnitsForBenefit = function (benefit: any) {
+    var amount = benefit.MaxUnits - benefit.UsedUnits;
+    if (amount < 0)
+    {
+        amount = 0;
+    }
+    return amount;
+}
+
+//search reset function
+resetInput = (e: any) => {
+  this.unlimitedBenefits = [...this.unlimitedBenefitsStaticArr];
+  this.generalBenefits = [...this.generalBenefitsStaticArr];
+};
+
+toggleMajorBenefitSection() {
+  this.majorBenefit.open = !this.majorBenefit.open;
+
+  // if (this.automaticClose && this.benefits[index].open) {
+  //   this.benefits.filter((theItem, itemIndex) => itemIndex != index)
+  //   .map(item => item.open = false);
+  // }
+}
+
+toggleUnlimitedBenefitsSection(index) {
+  this.unlimitedBenefits[index].open = !this.unlimitedBenefits[index].open;
+
+  if (this.automaticClose && this.unlimitedBenefits[index].open) {
+    this.unlimitedBenefits.filter((theItem, itemIndex) => itemIndex != index)
+    .map(item => item.open = false);
+  }
+}
+
+toggleGeneralBenefitsSection(index) {
+  this.generalBenefits[index].open = !this.generalBenefits[index].open;
+
+  if (this.automaticClose && this.generalBenefits[index].open) {
+    this.generalBenefits.filter((theItem, itemIndex) => itemIndex != index)
+    .map(item => item.open = false);
+  }
+}
 
 
 }

@@ -111,7 +111,7 @@ setIdleTimeout() {
   // sets an idle timeout of 5 seconds, for testing purposes.
   this.idle.setIdle(600);
   // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-  this.idle.setTimeout(25);
+  this.idle.setTimeout(30);
   // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
   this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
